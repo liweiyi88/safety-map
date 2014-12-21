@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Safety Map</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="js/amcharts.js" type="text/javascript"></script>
+    <script src="js/serial.js" type="text/javascript"></script>
+    <script src="js/population.js" type="text/javascript"></script>
+
+    <style>
+        body{font-family: Calibri; width:100vw; }
+        h2{margin-left: 15px; font-weight: 900; margin-bottom: 40px;}
+        h3{margin-top: 15px;}
+        h4{font-weight: 900; font-size:20px; margin-top:25px; padding-bottom:5px; }
+        .content{border-top: 2px solid black; padding-bottom: 10px;}
+        .title{cursor:pointer;}
+        #total-p, #density-p, #vehicle-p, #crash-p, #crash-4-p, #crash-60-p, #bike-p,#pedestrian-p,#motor-p,#truck-p,
+        #fatal-p,#severe-p,#night-p,#weekday-p,#weekend-p
+        {cursor: pointer;}
+
+        #total,#vehicle,#total-crashes,#crashes-60,#pedestrian,#truck,#severe,#weekday{background-color: #eee;}
+        .containers{width:90%; margin-right: auto; margin-left: auto; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+<div class="containers">
+<div class="row">
+   <div class="col-sm-6"> <h2>Melbourne Road Crash Map</h2></div>
+   <div class="col-sm-6"> <h4 id="big-t">Population</h4><span id="location"></span> <span id="pop"></span></h4></div>
+
+   </div>
+  <div class="col-sm-4" id="panel">
+        <div id="population" class="content">
+            <h3 id="population-title" class="title"><i class="fa fa-users" style="color: darkblue;"></i>&nbsp;&nbsp;&nbsp;Population</h3>
+            <div id="population-con">
+                   <div id="total"class="text">
+                       <span id="total-p"> Total population</span>
+                       </div>
+                   <div id="density" class="text">
+                        <span id="density-p">Total population density</span>
+                       </div>
+                </div>
+        </div>
+
+      <div id="transport" class="content">
+          <h3 id="transport-title" class="title"><i class="fa fa-bus" style="color: green;"></i>&nbsp;&nbsp;&nbsp;&nbsp;Transport</h3>
+          <div id="transport-con" >
+              <div id="vehicle" class="text">
+                 <span id="vehicle-p"> Vehicle Kilometers Travelled (million)</span>
+              </div>
+
+          </div>
+      </div>
+
+      <div id="crashes" class="content">
+          <h3 id="crashes-title" class="title"><i class="fa fa-exclamation-triangle" style="color: darkred;"></i>&nbsp;&nbsp;&nbsp;Crashes</h3>
+          <div id="crashes-con">
+              <div id="total-crashes" class="text">
+                  <span id="crash-p"> Total Crashes</span>
+              </div>
+
+              <div id="crashes-4" class="text">
+                 <span id="crash-4-p"> Crashes in which a 4-16 year old involved</span>
+              </div>
+
+              <div id="crashes-60" class="text">
+                 <span id="crash-60-p"> Crashes in which a 60+ year old involved</span>
+              </div>
+
+              <div id="bike" class="text">
+                  <span id="bike-p"> Bicycle Crashes</span>
+              </div>
+
+              <div id="pedestrian" class="text">
+                 <span id="pedestrian-p"> Pedestrian Crashes</span>
+              </div>
+
+              <div id="moto" class="text">
+                  <span id="motor-p"> Motorbike Crashes</span>
+              </div>
+
+              <div id="truck" class="text">
+                  <span id="truck-p">Truck Crashes</span>
+              </div>
+
+              <div id="fatal" class="text">
+                 <span id="fatal-p"> Fatal Crashes</span>
+              </div>
+
+              <div id="severe" class="text">
+                 <span id="severe-p"> Severe Injury Crashes</span>
+              </div>
+
+              <div id="night" class="text">
+                 <span id="night-p"> Nighttime Crashes</span>
+              </div>
+
+              <div id="weekday" class="text">
+                  <span id="weekday-p"> Weekday Crashes</span>
+              </div>
+
+              <div id="weekend" class="text">
+                 <span id="weekend-p"> Weekend Crashes</span>
+              </div>
+
+          </div>
+      </div>
+
+  </div>
+
+    <div class="col-sm-8" id="map">
+        </div>
+ <div class="containers">
+     <div class="row"><br><br>
+   <div class="col-sm-6 col-sm-push-6" id="chartdiv"style=" height: 100px; margin-right:30px;"></div>
+         </div>
+</div>
+<script type="text/javascript">
+
+    AmCharts.ready(function () {
+        // SERIAL CHART
+        chart = new AmCharts.AmSerialChart();
+        chart.dataProvider = generateData(popData);
+        chart.categoryField = "country";
+        chart.startDuration = 1;
+        chart.valueAxes.gridColor = "#FFFFFF";
+
+
+        // AXES
+        // category
+        var categoryAxis = chart.categoryAxis;
+
+        categoryAxis.gridPosition = "start";
+        categoryAxis.gridAlpha = 0;
+        categoryAxis.labelsEnabled = false;
+
+        // value
+        // in case you don't want to change default settings of value axis,
+        // you don't need to create it, as one value axis is created automatically.
+
+        // GRAPH
+        var graph = new AmCharts.AmGraph();
+        graph.valueField = "visits";
+        graph.balloonText = "[[category]]: <b>[[value]]</b>";
+        graph.type = "column";
+        graph.lineAlpha = 0;
+        graph.fillAlphas = 0.8;
+        chart.addGraph(graph);
+
+        // CURSOR
+        var chartCursor = new AmCharts.ChartCursor();
+        chartCursor.cursorAlpha = 0;
+        chartCursor.zoomable = false;
+        chartCursor.categoryBalloonEnabled = false;
+        chart.addChartCursor(chartCursor);
+
+
+        chart.write("chartdiv");
+    });
+
+    function generateData(popData)
+    {
+        var chartData = popData;
+
+        return chartData;
+    }
+</script>
+
+
+    <script>
+
+
+    var w = 960;
+    var h = 500;
+    var proj = d3.geo.mercator().center([145.2, -38.00]).scale(19000);
+    var path = d3.geo.path().projection(proj);
+    var t = proj.translate(); // the projection's default translation
+    var s = proj.scale() // the projection's default scale
+
+    var map = d3.select("#map").append("svg:svg")
+            .attr("viewBox", "0 0 " + w + " " + h)
+            .call(d3.behavior.zoom().on("zoom", redraw))
+            .append("svg:g");
+
+    var axes = map.append("svg:g").attr("id", "axes");
+
+    var xAxis = axes.append("svg:line")
+            .attr("x1", t[0])
+            .attr("y1", 0)
+            .attr("x2", t[0])
+            .attr("y2", h);
+
+    var yAxis = axes.append("svg:line")
+            .attr("x1", 0)
+            .attr("y1", t[1])
+            .attr("x2", w)
+            .attr("y2", t[1]);
+
+    var uk = map.append("svg:g").attr("id", "uk");
+
+
+    d3.json("pop.json", function (error, pop) {
+
+        uk.selectAll("path")
+                .data(topojson.feature(pop, pop.objects.population).features)
+                .enter().append("svg:path")
+                .attr("d", path)
+                .attr("fill", function (d) {
+//                    console.log(d.features[0].properties.Total_Pop);
+
+                    var pop = d.properties.Total_Pop;
+                    if (pop < 7161) {
+                        return "#E4E500";
+                    }
+                    else if (pop >= 7162 && pop < 12373) {
+                        return "#E5A200";
+                    }
+                    else if (pop >= 12373 && pop < 17710) {
+                        return "#E56C00";
+                    }
+                    else if (pop > 17710 && pop < 23770) {
+                        return "#E54000";
+                    }
+                    else
+                        return "#E50005";
+                })
+//                .style("stroke","black")
+                .on("mouseover", function (d) {
+                    d3.select(this).style("stroke", "black");
+                    d3.select(this).style("stroke-width", "3");
+                    d3.select("#location").html("Population of " + d.properties.SA2_NAME);
+                    d3.select("#pop").html(" is " + d.properties.Total_Pop);
+                })
+                .on("mouseout", function (d) {
+                    d3.select(this).style("stroke", "none")
+
+                });
+
+        d3.select("#total-p").on("mouseover", function()
+        {
+            d3.select("#big-t").html("Population");
+            d3.select("#location").html("Total Population");
+            d3.select("#pop").html("");
+            d3.select("#uk").selectAll("path")
+                    .on("mouseover", function (d) {
+                        d3.select(this).style("stroke", "black");
+                        d3.select(this).style("stroke-width", "3");
+                        d3.select("#location").html("Total Population of " + d.properties.SA2_NAME);
+                        d3.select("#pop").html(" is " + d.properties.Total_Pop);
+                    })
+                    .transition()
+                    .attr("fill", function (d) {
+                        var pop = d.properties.Total_Pop;
+                        if (pop < 7161) {
+                            return "#E4E500";
+                        }
+                        else if (pop >= 7162 && pop < 12373) {
+                            return "#E5A200";
+                        }
+                        else if (pop >= 12373 && pop < 17710) {
+                            return "#E56C00";
+                        }
+                        else if (pop > 17710 && pop < 23770) {
+                            return "#E54000";
+                        }
+                        else
+                            return "#E50005";
+                    })
+                    .duration(800);
+
+            chart.dataProvider = generateData(popData);
+            chart.validateData();
+
+        });
+
+        d3.select("#density-p").on("mouseover", function()
+        {
+            d3.select("#big-t").html("Population");
+            d3.select("#location").html("Density");
+            d3.select("#pop").html("");
+            d3.select("#uk").selectAll("path")
+                    .on("mouseover", function (d) {
+                        d3.select(this).style("stroke", "black");
+                        d3.select(this).style("stroke-width", "3");
+                        d3.select("#location").html("Density of " + d.properties.SA2_NAME);
+                        d3.select("#pop").html(" is " + d.properties.PoP_Densit);
+                    })
+                    .transition()
+                    .attr("fill", function (d) {
+                        var density = d.properties.PoP_Densit;
+                        if (density < 2180.697101) {
+                            return "#E4E500";
+                        }
+                        else if (density >= 2180.697101 && density < 5803.364401) {
+                            return "#E5A200";
+                        }
+                        else if (density >= 5803.364401 && density < 11594.000101) {
+                            return "#E56C00";
+                        }
+                        else if (density >= 11594.000101 && density < 24599.885701) {
+                            return "#E54000";
+                        }
+                        else
+                            return "#E50005";
+                    })
+                    .duration(800);
+
+            chart.dataProvider = generateData(denData);
+            chart.validateData();
+
+        });
+
+        d3.select("#vehicle-p").on("mouseover", function()
+        {
+            d3.select("#big-t").html("Transport");
+            d3.select("#location").html("Vehicle Kilometers Travelled");
+            d3.select("#pop").html("");
+            d3.select("#uk").selectAll("path")
+                    .on("mouseover", function (d) {
+                        d3.select(this).style("stroke", "black");
+                        d3.select(this).style("stroke-width", "3");
+                        d3.select("#location").html("Vehicle Kilometers Travelled of " + d.properties.SA2_NAME);
+                        d3.select("#pop").html(" is " + d.properties.VKT_avg);
+                    })
+                    .transition()
+                    .attr("fill", function (d) {
+                        var vkm = d.properties.VKT_avg;
+                        if (vkm < 127217739) {
+                            return "#E4E500";
+                        }
+                        else if (vkm >= 127217739 && vkm < 299481629) {
+                            return "#E5A200";
+                        }
+                        else if (vkm >= 299481629 && vkm < 5363343343) {
+                            return "#E56C00";
+                        }
+                        else if (vkm >= 5363343343 && vkm < 916409590) {
+                            return "#E54000";
+                        }
+                        else if(vkm >= 916409590) {
+                            return "#E50005";
+                        }
+                    })
+                    .duration(800);
+
+        });
+
+        d3.select("#crash-p").on("mouseover", function()
+        {
+            d3.select("#big-t").html("Crashes");
+            d3.select("#location").html("Crash Number");
+            d3.select("#pop").html("");
+            d3.select("#uk").selectAll("path")
+                    .on("mouseover", function (d) {
+                        d3.select(this).style("stroke", "black");
+                        d3.select(this).style("stroke-width", "3");
+                        d3.select("#location").html("Crash Number of " + d.properties.SA2_NAME);
+                        d3.select("#pop").html(" is " + d.properties.All_Crashe);
+                    })
+                    .transition()
+                    .attr("fill", function (d) {
+                        var number = d.properties.All_Crashe;
+                        if (number < 55) {
+                            return "#E4E500";
+                        }
+                        else if (number >= 55 && number < 111) {
+                            return "#E5A200";
+                        }
+                        else if (number >= 111 && number < 189) {
+                            return "#E56C00";
+                        }
+                        else if (number >= 189 && number < 356) {
+                            return "#E54000";
+                        }
+                        else if(number >= 356) {
+                            return "#E50005";
+                        }
+                    })
+                    .duration(800);
+
+        });
+
+        d3.select("#crash-4-p").on("mouseover", function()
+        {
+            d3.select("#big-t").html("Crashes");
+            d3.select("#location").html("Crash Number (Age between 4 and 16)");
+            d3.select("#pop").html("");
+            d3.select("#uk").selectAll("path")
+                    .on("mouseover", function (d) {
+                        d3.select(this).style("stroke", "black");
+                        d3.select(this).style("stroke-width", "3");
+                        d3.select("#location").html("Crash Number (Age between 4 and 16) of " + d.properties.SA2_NAME);
+                        d3.select("#pop").html(" is " + d.properties.Age_4_16_A);
+                    })
+                    .transition()
+                    .attr("fill", function (d) {
+                        var number = d.properties.Age_4_16_A;
+                        if (number < 2) {
+                            return "#E4E500";
+                        }
+                        else if (number >= 2 && number < 4) {
+                            return "#E5A200";
+                        }
+                        else if (number >= 4 && number < 7) {
+                            return "#E56C00";
+                        }
+                        else if (number >= 7 && number < 14) {
+                            return "#E54000";
+                        }
+                        else if(number >= 14) {
+                            return "#E50005";
+                        }
+                    })
+                    .duration(800);
+
+        });
+
+        d3.select("#crash-60-p").on("mouseover", function()
+        {
+            d3.select("#big-t").html("Crashes");
+            d3.select("#location").html("Crash Number (Age greater than 60)");
+            d3.select("#pop").html("");
+            d3.select("#uk").selectAll("path")
+                    .on("mouseover", function (d) {
+                        d3.select(this).style("stroke", "black");
+                        d3.select(this).style("stroke-width", "3");
+                        d3.select("#location").html("Crash Number (Age greater than 60) of " + d.properties.SA2_NAME);
+                        d3.select("#pop").html(" is " + d.properties.Age_60__Ac);
+                    })
+                    .transition()
+                    .attr("fill", function (d) {
+                        var number = d.properties.Age_60__Ac;
+                        if (number < 3) {
+                            return "#E4E500";
+                        }
+                        else if (number >= 3 && number < 6) {
+                            return "#E5A200";
+                        }
+                        else if (number >= 6 && number < 9) {
+                            return "#E56C00";
+                        }
+                        else if (number >= 9 && number < 13) {
+                            return "#E54000";
+                        }
+                        else if(number >= 13) {
+                            return "#E50005";
+                        }
+                    })
+                    .duration(800);
+
+        });
+
+        d3.select("#bike-p").on("mouseover", function()
+        {
+            d3.select("#big-t").html("Crashes");
+            d3.select("#location").html("Bicycle Crash Number");
+            d3.select("#pop").html("");
+            d3.select("#uk").selectAll("path")
+                    .on("mouseover", function (d) {
+                        d3.select(this).style("stroke", "black");
+                        d3.select(this).style("stroke-width", "3");
+                        d3.select("#location").html("Bicycle Crash Number of " + d.properties.SA2_NAME);
+                        d3.select("#pop").html(" is " + d.properties.All_Bicycl);
+                    })
+                    .transition()
+                    .attr("fill", function (d) {
+                        var number = d.properties.All_Bicycl;
+                        if (number < 8) {
+                            return "#E4E500";
+                        }
+                        else if (number >= 8 && number < 21) {
+                            return "#E5A200";
+                        }
+                        else if (number >= 21 && number < 46) {
+                            return "#E56C00";
+                        }
+                        else if (number >= 46 && number < 135) {
+                            return "#E54000";
+                        }
+                        else if(number >= 135) {
+                            return "#E50005";
+                        }
+                    })
+                    .duration(800);
+
+        });
+
+        d3.select("#pedestrian-p").on("mouseover", function()
+        {
+            d3.select("#big-t").html("Crashes");
+            d3.select("#location").html("Pedestrian Crash Number");
+            d3.select("#pop").html("");
+            d3.select("#uk").selectAll("path")
+                    .on("mouseover", function (d) {
+                        d3.select(this).style("stroke", "black");
+                        d3.select(this).style("stroke-width", "3");
+                        d3.select("#location").html("Pedestrian Crash Number of " + d.properties.SA2_NAME);
+                        d3.select("#pop").html(" is " + d.properties.Pedestrian);
+                    })
+                    .transition()
+                    .attr("fill", function (d) {
+                        var number = d.properties.Pedestrian;
+                        if (number < 9) {
+                            return "#E4E500";
+                        }
+                        else if (number >= 9 && number < 20) {
+                            return "#E5A200";
+                        }
+                        else if (number >= 20 && number < 39) {
+                            return "#E56C00";
+                        }
+                        else if (number >= 39 && number < 71) {
+                            return "#E54000";
+                        }
+                        else if(number >= 71) {
+                            return "#E50005";
+                        }
+                    })
+                    .duration(800);
+
+        });
+
+        d3.select("#motor-p").on("mouseover", function()
+        {
+            d3.select("#big-t").html("Crashes");
+            d3.select("#location").html("Motorbike Crash Number");
+            d3.select("#pop").html("");
+            d3.select("#uk").selectAll("path")
+                    .on("mouseover", function (d) {
+                        d3.select(this).style("stroke", "black");
+                        d3.select(this).style("stroke-width", "3");
+                        d3.select("#location").html("Motorbike Crash Number of " + d.properties.SA2_NAME);
+                        d3.select("#pop").html(" is " + d.properties.Motorbike_);
+                    })
+                    .transition()
+                    .attr("fill", function (d) {
+                        var number = d.properties.Motorbike_;
+                        if (number < 7) {
+                            return "#E4E500";
+                        }
+                        else if (number >= 7 && number < 16) {
+                            return "#E5A200";
+                        }
+                        else if (number >= 16 && number < 30) {
+                            return "#E56C00";
+                        }
+                        else if (number >= 30 && number < 52) {
+                            return "#E54000";
+                        }
+                        else if(number >= 52) {
+                            return "#E50005";
+                        }
+                    })
+                    .duration(800);
+
+        });
+
+        d3.select("#truck-p").on("mouseover", function()
+        {
+            d3.select("#big-t").html("Crashes");
+            d3.select("#location").html("Truck Crash Number");
+            d3.select("#pop").html("");
+            d3.select("#uk").selectAll("path")
+                    .on("mouseover", function (d) {
+                        d3.select(this).style("stroke", "black");
+                        d3.select(this).style("stroke-width", "3");
+                        d3.select("#location").html("Truck Crash Number of " + d.properties.SA2_NAME);
+                        d3.select("#pop").html(" is " + d.properties.Truck_Cras);
+                    })
+                    .transition()
+                    .attr("fill", function (d) {
+                        var number = d.properties.Truck_Cras;
+                        if (number < 2) {
+                            return "#E4E500";
+                        }
+                        else if (number >= 2 && number < 6) {
+                            return "#E5A200";
+                        }
+                        else if (number >= 6 && number < 11) {
+                            return "#E56C00";
+                        }
+                        else if (number >= 11 && number < 17) {
+                            return "#E54000";
+                        }
+                        else if(number >= 17) {
+                            return "#E50005";
+                        }
+                    })
+                    .duration(800);
+
+        });
+
+        d3.select("#fatal-p").on("mouseover", function()
+        {
+            d3.select("#big-t").html("Crashes");
+            d3.select("#location").html("Fatal Crash Number");
+            d3.select("#pop").html("");
+            d3.select("#uk").selectAll("path")
+                    .on("mouseover", function (d) {
+                        d3.select(this).style("stroke", "black");
+                        d3.select(this).style("stroke-width", "3");
+                        d3.select("#location").html("Fatal Crash Number of " + d.properties.SA2_NAME);
+                        d3.select("#pop").html(" is " + d.properties.Fatal_Cras);
+                    })
+                    .transition()
+                    .attr("fill", function (d) {
+                        var number = d.properties.Fatal_Cras;
+                        if (number == 0) {
+                            return "#E4E500";
+                        }
+                        else if (number == 1) {
+                            return "#E5A200";
+                        }
+                        else if (number == 2) {
+                            return "#E56C00";
+                        }
+                        else if (number >= 3 && number < 5) {
+                            return "#E54000";
+                        }
+                        else if(number >= 5) {
+                            return "#E50005";
+                        }
+                    })
+                    .duration(800);
+
+        });
+
+        d3.select("#severe-p").on("mouseover", function()
+        {
+            d3.select("#big-t").html("Crashes");
+            d3.select("#location").html("Severe Crash Number");
+            d3.select("#pop").html("");
+            d3.select("#uk").selectAll("path")
+                    .on("mouseover", function (d) {
+                        d3.select(this).style("stroke", "black");
+                        d3.select(this).style("stroke-width", "3");
+                        d3.select("#location").html("Severe Crash Number of " + d.properties.SA2_NAME);
+                        d3.select("#pop").html(" is " + d.properties.High_Sever);
+                    })
+                    .transition()
+                    .attr("fill", function (d) {
+                        var number = d.properties.High_Sever;
+                        if (number < 18) {
+                            return "#E4E500";
+                        }
+                        else if (number >= 18 && number < 34) {
+                            return "#E5A200";
+                        }
+                        else if (number >= 34 && number < 54) {
+                            return "#E56C00";
+                        }
+                        else if (number >= 54 && number < 106) {
+                            return "#E54000";
+                        }
+                        else if(number >= 106) {
+                            return "#E50005";
+                        }
+                    })
+                    .duration(800);
+
+        });
+
+        d3.select("#night-p").on("mouseover", function()
+        {
+            d3.select("#big-t").html("Crashes");
+            d3.select("#location").html("Night Time Crash Number");
+            d3.select("#pop").html("");
+            d3.select("#uk").selectAll("path")
+                    .on("mouseover", function (d) {
+                        d3.select(this).style("stroke", "black");
+                        d3.select(this).style("stroke-width", "3");
+                        d3.select("#location").html("Night Time Crash Number of " + d.properties.SA2_NAME);
+                        d3.select("#pop").html(" is " + d.properties.Night_Time);
+                    })
+                    .transition()
+                    .attr("fill", function (d) {
+                        var number = d.properties.Night_Time;
+                        if (number < 13) {
+                            return "#E4E500";
+                        }
+                        else if (number >= 13 && number < 28) {
+                            return "#E5A200";
+                        }
+                        else if (number >= 28 && number < 47) {
+                            return "#E56C00";
+                        }
+                        else if (number >= 47 && number < 93) {
+                            return "#E54000";
+                        }
+                        else if(number >= 93) {
+                            return "#E50005";
+                        }
+                    })
+                    .duration(800);
+
+        });
+
+        d3.select("#weekday-p").on("mouseover", function()
+        {
+            d3.select("#big-t").html("Crashes");
+            d3.select("#location").html("Week Days Crash Number");
+            d3.select("#pop").html("");
+            d3.select("#uk").selectAll("path")
+                    .on("mouseover", function (d) {
+                        d3.select(this).style("stroke", "black");
+                        d3.select(this).style("stroke-width", "3");
+                        d3.select("#location").html("Week Days Crash Number of " + d.properties.SA2_NAME);
+                        d3.select("#pop").html(" is " + d.properties.Weekdays_C);
+                    })
+                    .transition()
+                    .attr("fill", function (d) {
+                        var number = d.properties.Weekdays_C;
+                        if (number < 44) {
+                            return "#E4E500";
+                        }
+                        else if (number >= 44 && number < 89) {
+                            return "#E5A200";
+                        }
+                        else if (number >= 89 && number < 156) {
+                            return "#E56C00";
+                        }
+                        else if (number >= 156 && number < 281) {
+                            return "#E54000";
+                        }
+                        else if(number >= 281) {
+                            return "#E50005";
+                        }
+                    })
+                    .duration(800);
+
+        });
+
+        d3.select("#weekend-p").on("mouseover", function()
+        {
+            d3.select("#big-t").html("Crashes");
+            d3.select("#location").html("Weekends Crash Number");
+            d3.select("#pop").html("");
+            d3.select("#uk").selectAll("path")
+                    .on("mouseover", function (d) {
+                        d3.select(this).style("stroke", "black");
+                        d3.select(this).style("stroke-width", "3");
+                        d3.select("#location").html("Weekends Crash Number of " + d.properties.SA2_NAME);
+                        d3.select("#pop").html(" is " + d.properties.Weekends_C);
+                    })
+                    .transition()
+                    .attr("fill", function (d) {
+                        var number = d.properties.Weekends_C;
+                        if (number < 12) {
+                            return "#E4E500";
+                        }
+                        else if (number >= 12 && number < 24) {
+                            return "#E5A200";
+                        }
+                        else if (number >= 24 && number < 40) {
+                            return "#E56C00";
+                        }
+                        else if (number >= 40 && number < 76) {
+                            return "#E54000";
+                        }
+                        else if(number >= 76) {
+                            return "#E50005";
+                        }
+                    })
+                    .duration(800);
+
+        });
+    });
+
+
+
+
+
+
+
+        function redraw() {
+            // d3.event.translate (an array) stores the current translation from the parent SVG element
+            // t (an array) stores the projection's default translation
+            // we add the x and y vales in each array to determine the projection's new translation
+            var tx = t[0] * d3.event.scale + d3.event.translate[0];
+            var ty = t[1] * d3.event.scale + d3.event.translate[1];
+            proj.translate([tx, ty]);
+
+            // now we determine the projection's new scale, but there's a problem:
+            // the map doesn't 'zoom onto the mouse point'
+            proj.scale(s * d3.event.scale);
+
+            // redraw the map
+            uk.selectAll("path").attr("d", path);
+
+            // redraw the x axis
+            xAxis.attr("x1", tx).attr("x2", tx);
+
+            // redraw the y axis
+            yAxis.attr("y1", ty).attr("y2", ty);
+        }
+
+
+
+
+    </script>
+
+  <script>
+      $( document ).ready(function() {
+          $("#population-con").hide();
+          $("#transport-con").hide();
+          $("#crashes-con").hide();
+      });
+
+      $( "#population-title" ).click(function() {
+          $( "#population-con" ).slideToggle( "fast" );
+      });
+
+      $( "#transport-title" ).click(function() {
+          $( "#transport-con" ).slideToggle( "fast" );
+      });
+
+      $( "#crashes-title" ).click(function() {
+          $( "#crashes-con" ).slideToggle( "fast" );
+      });
+
+
+
+//      $("#density").mouseover(function(){
+//         $("#map").html("");
+//          densityMapInit("den.json");
+//      });
+//
+//      $("#total").mouseover(function(){
+//          $("#map").html("");
+//          mapInit("_old_pop.json");
+//      });
+
+
+
+
+
+  </script>
+</body>
+</html>

@@ -77,9 +77,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#total-p").on("mouseover", function()
     {
-        d3.select("#big-t").html("Population");
-        d3.select("#location").html("Total Population");
-        d3.select("#pop").html("");
+        barTransition("dataset/total_population.csv");
         d3.select("#uk").selectAll("path")
             .on("mouseover", function (d) {
                 d3.select(this).style("stroke", strokeColor);
@@ -114,6 +112,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#density-p").on("mouseover", function()
     {
+        barTransition("dataset/density.csv");
         d3.select("#big-t").html("Population");
         d3.select("#location").html("Density");
         d3.select("#pop").html("");
@@ -150,6 +149,8 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#vehicle-p").on("mouseover", function()
     {
+        barTransition("dataset/vkt.csv");
+
         d3.select("#big-t").html("Transport");
         d3.select("#location").html("Vehicle Kilometers Travelled");
         d3.select("#pop").html("");
@@ -187,6 +188,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#crash-p").on("mouseover", function()
     {
+        barTransition("dataset/allcrashes.csv");
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Crash Number");
         d3.select("#pop").html("");
@@ -224,6 +226,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#crash-4-p").on("mouseover", function()
     {
+        barTransition("dataset/crash4_16.csv");
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Crash Number (Age between 4 and 16)");
         d3.select("#pop").html("");
@@ -261,6 +264,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#crash-60-p").on("mouseover", function()
     {
+        barTransition("dataset/crash60.csv");
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Crash Number (Age greater than 60)");
         d3.select("#pop").html("");
@@ -297,6 +301,9 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#bike-p").on("mouseover", function()
     {
+        //mouse over change the bar data
+        barTransition("dataset/bike.csv");
+
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Bicycle Crash Number");
         d3.select("#pop").html("");
@@ -334,6 +341,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#pedestrian-p").on("mouseover", function()
     {
+        barTransition("dataset/pedestrian.csv");
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Pedestrian Crash Number");
         d3.select("#pop").html("");
@@ -370,6 +378,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#motor-p").on("mouseover", function()
     {
+        barTransition("dataset/motor.csv");
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Motorbike Crash Number");
         d3.select("#pop").html("");
@@ -407,6 +416,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#truck-p").on("mouseover", function()
     {
+        barTransition("dataset/truck.csv");
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Truck Crash Number");
         d3.select("#pop").html("");
@@ -443,6 +453,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#fatal-p").on("mouseover", function()
     {
+        barTransition("dataset/fatal.csv");
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Fatal Crash Number");
         d3.select("#pop").html("");
@@ -479,6 +490,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#severe-p").on("mouseover", function()
     {
+        barTransition("dataset/severe.csv");
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Severe Crash Number");
         d3.select("#pop").html("");
@@ -515,6 +527,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#night-p").on("mouseover", function()
     {
+        barTransition("dataset/night.csv");
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Night Time Crash Number");
         d3.select("#pop").html("");
@@ -551,6 +564,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#weekday-p").on("mouseover", function()
     {
+        barTransition("dataset/weekday.csv");
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Week Days Crash Number");
         d3.select("#pop").html("");
@@ -587,15 +601,13 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#weekend-p").on("mouseover", function()
     {
-        d3.select("#big-t").html("Crashes");
-        d3.select("#location").html("Weekends Crash Number");
-        d3.select("#pop").html("");
+        barTransition("dataset/weekend.csv");
+
+
         d3.select("#uk").selectAll("path")
             .on("mouseover", function (d) {
                 d3.select(this).style("stroke", strokeColor);
                 d3.select(this).style("stroke-width", strokeWidth);
-                d3.select("#location").html("Weekends Crash Number of " + d.properties.SA2_NAME);
-                d3.select("#pop").html(" is " + d.properties.Weekends_C);
                 showTooltip(d.properties.SA2_NAME,d.properties.Weekends_C);
             })
             .transition()
@@ -661,4 +673,46 @@ function redraw() {
     yAxis.attr("y1", ty).attr("y2", ty);
 }
 
+
+function barTransition(filename)
+{
+    d3.csv(filename, function(error, data) {
+
+        var width = 220,
+            barHeight = 11;
+
+        var x = d3.scale.linear()
+            .range([0, width]);
+        x.domain([0, d3.max(data, function(d) { return d.value; })]);
+
+        d3.selectAll(".chart").selectAll("rect")
+            .data(data)
+            .transition()
+            .attr("width", function(d) { return x(d.value); })
+            .attr("x",function(d){return width-x(d.value);} )
+            .attr("height", barHeight - 2)
+            .style("fill", "#FF8533");
+
+        d3.selectAll(".chart").selectAll("rect")
+            .on("mouseover", function (d) {
+                d3.select("#uk").selectAll("path")
+                    .style("stroke-width", function(d2){
+                        if(d.name == d2.properties.SA2_NAME) {
+                            return strokeWidth;
+                        }
+                    })
+                    .style("stroke", function(d1){
+                        if(d.name == d1.properties.SA2_NAME) {
+                           return strokeColor;
+                        }
+                    });
+
+                showTooltip(d.name,d.value);
+            });
+
+
+
+
+    });
+}
 

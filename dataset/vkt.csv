@@ -1,51 +1,51 @@
-name,population
-Somerville,1800522323
-Rosebud - McCrae,1527938786
-Point Nepean,1513511644
-Mount Martha,1211696448
-Mount Eliza,1184045118
-Mornington,1166343800
-Hastings - Somers,1053419508
-Flinders,1010457153
-Dromana,1002443884
-Skye - Sandhurst,990399003.4
-Seaford (Vic.),916409590.4
-Langwarrin,898516388.4
-Frankston South,856898552
-Frankston North,852313639.4
-Frankston,816887590
-Carrum Downs,815094481.4
-Wyndham Vale,791415222.9
-Werribee - South,787377074.2
+name,value
+Dandenong,1800522323
+Somerville,1527938786
+Keilor,1513511644
+Malvern - Glen Iris,1211696448
+Altona North,1184045118
+Carrum Downs,1166343800
+Epping,1053419508
+Dandenong North,1010457153
+Deer Park - Derrimut,1002443884
+Port Melbourne Industrial,990399003.4
+Knoxfield - Scoresby,916409590.4
+Laverton,898516388.4
+Balwyn North,856898552
+Doncaster,852313639.4
+East Melbourne,816887590
+Sunbury - South,815094481.4
+Thomastown,791415222.9
+Frankston,787377074.2
 Werribee,785927362.6
-Truganina,769967563.4
-Tarneit,765771252.1
-Point Cook,760207256.2
-Laverton,731699477.3
-Hoppers Crossing - South,728582548.1
-Hoppers Crossing - North,722445278.1
-Taylors Hill,718262483.1
-Rockbank - Mount Cottrell,716359859.3
-Melton West,688998667.4
-Melton South,665658392.8
-Melton,661355190.4
-Hillside,659135032
-Caroline Springs,651992880.7
-Bacchus Marsh,644542105.1
-Yarraville,640415577.7
-West Footscray - Tottenham,634669281.5
-Seddon - Kingsville,629913769.1
-Maribyrnong,623629992.3
-Footscray,623168054.4
-Braybrook,623101879.1
-Williamstown,621886538.6
-Seabrook,605951423.4
-Newport,605859173.2
-Altona North,605757785.5
-Altona Meadows,604960174.9
-Altona,603723575.8
-Taylors Lakes,599607510.7
-Sydenham,598742556.4
-Sunshine West,590141635.5
-Sunshine North,589547307.7
-Sunshine,585572828.3
+Brunswick West,769967563.4
+Rockbank - Mount Cottrell,765771252.1
+Flinders,760207256.2
+Hoppers Crossing - North,731699477.3
+Bunyip - Garfield,728582548.1
+Clayton,722445278.1
+Wantirna,718262483.1
+Craigieburn - Mickleham,716359859.3
+Glenroy - Hadfield,688998667.4
+Kew,665658392.8
+Doveton,661355190.4
+Southbank,659135032
+Keysborough,651992880.7
+Beaconsfield - Officer,644542105.1
+Croydon,640415577.7
+Sunshine West,634669281.5
+Altona,629913769.1
+Belgrave - Selby,623629992.3
+Cheltenham - Highett (East),623168054.4
+Broadmeadows,623101879.1
+Narre Warren,621886538.6
+Ringwood,605951423.4
+Mornington,605859173.2
+Donvale - Park Orchards,605757785.5
+Lilydale - Coldstream,604960174.9
+Cranbourne,603723575.8
+Hallam,599607510.7
+Mount Waverley - South,598742556.4
+Preston,590141635.5
+Mulgrave,589547307.7
+Doncaster East,585572828.3

@@ -1,31 +1,26 @@
 
 
 
-var w = 970;
-var h = 600;
-var center = [w / 2, h / 2];
-var proj = d3.geo.mercator().center([145.1, -37.80]).scale(40000);
+var w = 960;
+var h = 700;
+var proj = d3.geo.mercator().center([145.1, -37.80]).scale(49000);
 var path = d3.geo.path().projection(proj);
 var t = proj.translate(); // the projection's default translation
 var s = proj.scale() // the projection's default scale
-var zoom = d3.behavior.zoom()
-    .scaleExtent([0, 10])
-    .on("zoom", zoomed);
 
-var firstColor = "#ffffcc";
-var secondColor = "#c2e699";
-var thirdColor = "#78c679";
-var fourthColor = "#31a354";
-var fifthColor = "#006837";
-var strokeColor = "#333";
+var firstColor = "#FF8533";
+var secondColor = "#FF6600";
+var thirdColor = "#E65C00";
+var fourthColor = "#CC5200";
+var fifthColor = "#B24700";
+var strokeColor = "#f2ad78";
 
-var strokeWidth = "1";
+var strokeWidth = "6";
 
 var map = d3.select("#map").append("svg:svg")
     .attr("viewBox", "0 0 " + w + " " + h)
-    .call(zoom)
+    .call(d3.behavior.zoom().on("zoom", redraw))
     .append("svg:g");
-
 
 var axes = map.append("svg:g").attr("id", "axes");
 
@@ -80,7 +75,7 @@ d3.json("pop.json", function (error, pop) {
             $("#tooltip").hide();
         });
 
-    d3.select("#total-p").on("click", function()
+    d3.select("#total-p").on("mouseover", function()
     {
         barTransition("dataset/total_population.csv");
         d3.select("#uk").selectAll("path")
@@ -115,7 +110,7 @@ d3.json("pop.json", function (error, pop) {
 
     });
 
-    d3.select("#density-p").on("click", function()
+    d3.select("#density-p").on("mouseover", function()
     {
         barTransition("dataset/density.csv");
         d3.select("#big-t").html("Population");
@@ -152,7 +147,7 @@ d3.json("pop.json", function (error, pop) {
 
     });
 
-    d3.select("#vehicle-p").on("click", function()
+    d3.select("#vehicle-p").on("mouseover", function()
     {
         barTransition("dataset/vkt.csv");
 
@@ -191,7 +186,7 @@ d3.json("pop.json", function (error, pop) {
 
     });
 
-    d3.select("#crash-p").on("click", function()
+    d3.select("#crash-p").on("mouseover", function()
     {
         barTransition("dataset/allcrashes.csv");
         d3.select("#big-t").html("Crashes");
@@ -229,7 +224,7 @@ d3.json("pop.json", function (error, pop) {
 
     });
 
-    d3.select("#crash-4-p").on("click", function()
+    d3.select("#crash-4-p").on("mouseover", function()
     {
         barTransition("dataset/crash4_16.csv");
         d3.select("#big-t").html("Crashes");
@@ -267,7 +262,7 @@ d3.json("pop.json", function (error, pop) {
 
     });
 
-    d3.select("#crash-60-p").on("click", function()
+    d3.select("#crash-60-p").on("mouseover", function()
     {
         barTransition("dataset/crash60.csv");
         d3.select("#big-t").html("Crashes");
@@ -304,7 +299,7 @@ d3.json("pop.json", function (error, pop) {
 
     });
 
-    d3.select("#bike-p").on("click", function()
+    d3.select("#bike-p").on("mouseover", function()
     {
         //mouse over change the bar data
         barTransition("dataset/bike.csv");
@@ -344,7 +339,7 @@ d3.json("pop.json", function (error, pop) {
 
     });
 
-    d3.select("#pedestrian-p").on("click", function()
+    d3.select("#pedestrian-p").on("mouseover", function()
     {
         barTransition("dataset/pedestrian.csv");
         d3.select("#big-t").html("Crashes");
@@ -381,7 +376,7 @@ d3.json("pop.json", function (error, pop) {
 
     });
 
-    d3.select("#motor-p").on("click", function()
+    d3.select("#motor-p").on("mouseover", function()
     {
         barTransition("dataset/motor.csv");
         d3.select("#big-t").html("Crashes");
@@ -419,7 +414,7 @@ d3.json("pop.json", function (error, pop) {
 
     });
 
-    d3.select("#truck-p").on("click", function()
+    d3.select("#truck-p").on("mouseover", function()
     {
         barTransition("dataset/truck.csv");
         d3.select("#big-t").html("Crashes");
@@ -456,7 +451,7 @@ d3.json("pop.json", function (error, pop) {
 
     });
 
-    d3.select("#fatal-p").on("click", function()
+    d3.select("#fatal-p").on("mouseover", function()
     {
         barTransition("dataset/fatal.csv");
         d3.select("#big-t").html("Crashes");
@@ -493,7 +488,7 @@ d3.json("pop.json", function (error, pop) {
 
     });
 
-    d3.select("#severe-p").on("click", function()
+    d3.select("#severe-p").on("mouseover", function()
     {
         barTransition("dataset/severe.csv");
         d3.select("#big-t").html("Crashes");
@@ -530,7 +525,7 @@ d3.json("pop.json", function (error, pop) {
 
     });
 
-    d3.select("#night-p").on("click", function()
+    d3.select("#night-p").on("mouseover", function()
     {
         barTransition("dataset/night.csv");
         d3.select("#big-t").html("Crashes");
@@ -567,7 +562,7 @@ d3.json("pop.json", function (error, pop) {
 
     });
 
-    d3.select("#weekday-p").on("click", function()
+    d3.select("#weekday-p").on("mouseover", function()
     {
         barTransition("dataset/weekday.csv");
         d3.select("#big-t").html("Crashes");
@@ -604,7 +599,7 @@ d3.json("pop.json", function (error, pop) {
 
     });
 
-    d3.select("#weekend-p").on("click", function()
+    d3.select("#weekend-p").on("mouseover", function()
     {
         barTransition("dataset/weekend.csv");
 
@@ -708,7 +703,7 @@ function barTransition(filename)
                     })
                     .style("stroke", function(d1){
                         if(d.name == d1.properties.SA2_NAME) {
-                            return strokeColor;
+                           return strokeColor;
                         }
                     });
 
@@ -720,59 +715,4 @@ function barTransition(filename)
 
     });
 }
-
-
-function zoomed() {
-    map.attr("transform",
-        "translate(" + zoom.translate() + ")" +
-        "scale(" + zoom.scale() + ")"
-    );
-}
-
-function interpolateZoom (translate, scale) {
-    var self = this;
-    return d3.transition().duration(350).tween("zoom", function () {
-        var iTranslate = d3.interpolate(zoom.translate(), translate),
-            iScale = d3.interpolate(zoom.scale(), scale);
-        return function (t) {
-            zoom
-                .scale(iScale(t))
-                .translate(iTranslate(t));
-            zoomed();
-        };
-    });
-}
-
-function zoomClick() {
-    console.log("hello");
-    var clicked = d3.event.target,
-        direction = 1,
-        factor = 0.2,
-        target_zoom = 1,
-        center = [w / 2, h / 2],
-        extent = zoom.scaleExtent(),
-        translate = zoom.translate(),
-        translate0 = [],
-        l = [],
-        view = {x: translate[0], y: translate[1], k: zoom.scale()};
-
-    d3.event.preventDefault();
-    direction = (this.id === 'zoom-in') ? 1 : -1;
-    target_zoom = zoom.scale() * (1 + factor * direction);
-
-    if (target_zoom < extent[0] || target_zoom > extent[1]) { return false; }
-
-    translate0 = [(center[0] - view.x) / view.k, (center[1] - view.y) / view.k];
-    view.k = target_zoom;
-    l = [translate0[0] * view.k + view.x, translate0[1] * view.k + view.y];
-
-    view.x += center[0] - l[0];
-    view.y += center[1] - l[1];
-
-    interpolateZoom([view.x, view.y], view.k);
-}
-
-d3.selectAll('.zoom-btn').on('click', zoomClick);
-
-
 

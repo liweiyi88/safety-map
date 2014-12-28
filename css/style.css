@@ -1,0 +1,96 @@
+body {font-family: Calibri;}
+button:focus { outline: none; }
+
+.container {
+    width:1000px; height: 100%; margin-left: auto; margin-right: auto;border-left: 1px solid #eeeeee;border-right: 1px solid #eeeeee;
+    border-radius: 3px;
+}
+.container h1 {
+    font-size: 35px; text-align: center; font-weight: 700;
+}
+
+.container #summary{
+    text-align: center; font-size: 15px; line-height: 1.5; color:#333;
+}
+
+.container .label-group{width: 940px; margin-left: auto;margin-right: auto; margin-top: 15px; margin-bottom: 20px;}
+
+.container .labels{
+    width: 940px; margin-left: auto;margin-right: auto; margin-bottom: 10px;
+}
+
+.container #map{
+    width: 970px; height: 600px; margin-left: auto; margin-right: auto;
+}
+
+
+.container .btn{
+    margin-left: 5px;
+    width: 126px;
+    height: 40px;
+    border:1px solid #ccc; border-radius: 4px;
+    text-align: center;
+    color:#777; background-color:#fff;display: inline-block;
+    font-size: 11px;cursor: pointer; vertical-align: middle;
+    padding: 4px 4px 5px 5px;
+
+    line-height: 1.4;
+}
+
+.btn-active,.btn-clicked
+{
+    margin-left: 5px;
+    width: 126px;
+    height: 40px;
+    border:1px solid #ccc; border-radius: 4px;
+    text-align: center;
+    color:#777; background-color:#fff;display: inline-block;
+    font-size: 11px;cursor: pointer; vertical-align: middle;
+    padding: 4px 4px 5px 5px;
+
+    line-height: 1.4;
+    background-color: #eee;
+    color:#333;
+}
+
+#tooltip {
+    position: absolute;
+    padding: 10px;
+    background-color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    border:1px solid #999;
+    z-index: 9999;
+    color:black;
+    opacity: 0.8;
+}
+
+#zoom-in
+{
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    z-index: 999;
+    position: absolute;top:305px;
+    margin-left: 15px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#zoom-out
+{
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    z-index: 999;
+    position: absolute;top: 335px;
+    margin-left: 15px;
+    cursor: pointer;
+    text-align: center;
+}
+

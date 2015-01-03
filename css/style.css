@@ -10,7 +10,7 @@ button:focus { outline: none; }
 }
 
 .container #summary{
-    text-align: center; font-size: 15px; line-height: 1.5; color:#333;
+    text-align: left; font-size: 15px; line-height: 1.5; color:#333; padding-left: 35px; padding-right: 35px;
 }
 
 .container .label-group{width: 940px; margin-left: auto;margin-right: auto; margin-top: 15px; margin-bottom: 20px;}
@@ -22,6 +22,10 @@ button:focus { outline: none; }
 .container #map{
     width: 970px; height: 600px; margin-left: auto; margin-right: auto;
 }
+
+.container .chart-title{font-size: 24px; font-weight: 700; padding-left: 35px;
+                        padding-right: 35px; line-height: 1.8; margin-top: 35px;}
+#chart-des{padding-left: 35px; padding-right: 35px; line-height: 1.4;}
 
 
 .container .btn{
@@ -57,9 +61,9 @@ button:focus { outline: none; }
     position: absolute;
     padding: 10px;
     background-color: white;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
     -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
     -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
@@ -67,30 +71,40 @@ button:focus { outline: none; }
     border:1px solid #999;
     z-index: 9999;
     color:black;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 #zoom-in
 {
+
+
     width: 30px;
     height: 30px;
     background-color: #fff;
     z-index: 999;
-    position: absolute;top:305px;
-    margin-left: 15px;
+    position: absolute;top:420px;
+    margin-left: 20px;
     cursor: pointer;
     text-align: center;
+
 }
 
 #zoom-out
 {
+    border-top-style: solid;
+    border-width: 1px;
+    border-color: #eee;
+    padding-top: 5px;
     width: 30px;
-    height: 30px;
+    height: 25px;
     background-color: #fff;
     z-index: 999;
-    position: absolute;top: 335px;
-    margin-left: 15px;
+    position: absolute;top: 445px;
+    margin-left: 20px;
     cursor: pointer;
     text-align: center;
 }
+
+#title{color:black;font-weight: 700;}
+#content{font-size: 15px; color:grey;}
 

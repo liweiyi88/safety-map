@@ -12,11 +12,18 @@ var zoom = d3.behavior.zoom()
     .scaleExtent([0, 10])
     .on("zoom", zoomed);
 
-var firstColor = "#ffffcc";
-var secondColor = "#c2e699";
-var thirdColor = "#78c679";
-var fourthColor = "#31a354";
-var fifthColor = "#006837";
+//var firstColor = "#ffffcc";
+//var secondColor = "#c2e699";
+//var thirdColor = "#78c679";
+//var fourthColor = "#31a354";
+//var fifthColor = "#006837";
+//var strokeColor = "#333";
+
+var firstColor = "#276C91";
+var secondColor = "#B9CEA1";
+var thirdColor = "#B9CEA1";
+var fourthColor = "#F6E593";
+var fifthColor = "#B63132";
 var strokeColor = "#333";
 
 var strokeWidth = "1";
@@ -51,25 +58,23 @@ d3.json("pop.json", function (error, pop) {
         .enter().append("svg:path")
         .attr("d", path)
         .attr("fill", function (d) {
-//                    console.log(d.features[0].properties.Total_Pop);
-
-            var pop = d.properties.Total_Pop;
-            if (pop < 7161) {
+            var density = d.properties.PoP_Densit;
+            if (density < 2180.697101) {
                 return firstColor;
             }
-            else if (pop >= 7162 && pop < 12373) {
+            else if (density >= 2180.697101 && density < 5803.364401) {
                 return secondColor;
             }
-            else if (pop >= 12373 && pop < 17710) {
+            else if (density >= 5803.364401 && density < 11594.000101) {
                 return thirdColor;
             }
-            else if (pop > 17710 && pop < 23770) {
+            else if (density >= 11594.000101 && density < 24599.885701) {
                 return fourthColor;
             }
             else
                 return fifthColor;
         })
-//                .style("stroke","black")
+        //.style("stroke", "white")
         .on("mouseover", function (d) {
             d3.select(this).style("stroke", strokeColor);
             d3.select(this).style("stroke-width", strokeWidth);
@@ -80,44 +85,9 @@ d3.json("pop.json", function (error, pop) {
             $("#tooltip").hide();
         });
 
-    d3.select("#total-p").on("click", function()
-    {
-        barTransition("dataset/total_population.csv");
-        d3.select("#uk").selectAll("path")
-            .on("mouseover", function (d) {
-                d3.select(this).style("stroke", strokeColor);
-                d3.select(this).style("stroke-width", strokeWidth);
-                showTooltip(d.properties.SA2_NAME,d.properties.Total_Pop);
-            })
-            .transition()
-            .attr("fill", function (d) {
-                var pop = d.properties.Total_Pop;
-                if (pop < 7161) {
-                    return firstColor;
-                }
-                else if (pop >= 7162 && pop < 12373) {
-                    return secondColor;
-                }
-                else if (pop >= 12373 && pop < 17710) {
-                    return thirdColor;
-                }
-                else if (pop > 17710 && pop < 23770) {
-                    return fourthColor;
-                }
-                else
-                    return fifthColor;
-            })
-            .duration(800);
-
-        //
-        //dataProvider = generateData(popData);
-        //chart.validateData();
-
-    });
-
     d3.select("#density-p").on("click", function()
     {
-        barTransition("dataset/density.csv");
+
         d3.select("#big-t").html("Population");
         d3.select("#location").html("Density");
         d3.select("#pop").html("");
@@ -154,7 +124,6 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#vehicle-p").on("click", function()
     {
-        barTransition("dataset/vkt.csv");
 
         d3.select("#big-t").html("Transport");
         d3.select("#location").html("Vehicle Kilometers Travelled");
@@ -193,7 +162,6 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#crash-p").on("click", function()
     {
-        barTransition("dataset/allcrashes.csv");
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Crash Number");
         d3.select("#pop").html("");
@@ -231,7 +199,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#crash-4-p").on("click", function()
     {
-        barTransition("dataset/crash4_16.csv");
+
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Crash Number (Age between 4 and 16)");
         d3.select("#pop").html("");
@@ -269,7 +237,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#crash-60-p").on("click", function()
     {
-        barTransition("dataset/crash60.csv");
+
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Crash Number (Age greater than 60)");
         d3.select("#pop").html("");
@@ -306,12 +274,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#bike-p").on("click", function()
     {
-        //mouse over change the bar data
-        barTransition("dataset/bike.csv");
 
-        d3.select("#big-t").html("Crashes");
-        d3.select("#location").html("Bicycle Crash Number");
-        d3.select("#pop").html("");
         d3.select("#uk").selectAll("path")
             .on("mouseover", function (d) {
                 d3.select(this).style("stroke", strokeColor);
@@ -346,7 +309,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#pedestrian-p").on("click", function()
     {
-        barTransition("dataset/pedestrian.csv");
+
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Pedestrian Crash Number");
         d3.select("#pop").html("");
@@ -383,7 +346,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#motor-p").on("click", function()
     {
-        barTransition("dataset/motor.csv");
+
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Motorbike Crash Number");
         d3.select("#pop").html("");
@@ -391,7 +354,7 @@ d3.json("pop.json", function (error, pop) {
             .on("mouseover", function (d) {
                 d3.select(this).style("stroke", strokeColor);
                 d3.select(this).style("stroke-width", strokeWidth);
-                showTooltip(d.properties.SA2_NAME,d.properties.Motorbike);
+                showTooltip(d.properties.SA2_NAME,d.properties.Motorbike_);
             })
             .transition()
             .attr("fill", function (d) {
@@ -421,7 +384,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#truck-p").on("click", function()
     {
-        barTransition("dataset/truck.csv");
+
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Truck Crash Number");
         d3.select("#pop").html("");
@@ -458,7 +421,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#fatal-p").on("click", function()
     {
-        barTransition("dataset/fatal.csv");
+
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Fatal Crash Number");
         d3.select("#pop").html("");
@@ -495,7 +458,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#severe-p").on("click", function()
     {
-        barTransition("dataset/severe.csv");
+
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Severe Crash Number");
         d3.select("#pop").html("");
@@ -532,7 +495,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#night-p").on("click", function()
     {
-        barTransition("dataset/night.csv");
+
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Night Time Crash Number");
         d3.select("#pop").html("");
@@ -569,7 +532,7 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#weekday-p").on("click", function()
     {
-        barTransition("dataset/weekday.csv");
+
         d3.select("#big-t").html("Crashes");
         d3.select("#location").html("Week Days Crash Number");
         d3.select("#pop").html("");
@@ -606,9 +569,6 @@ d3.json("pop.json", function (error, pop) {
 
     d3.select("#weekend-p").on("click", function()
     {
-        barTransition("dataset/weekend.csv");
-
-
         d3.select("#uk").selectAll("path")
             .on("mouseover", function (d) {
                 d3.select(this).style("stroke", strokeColor);
@@ -644,7 +604,9 @@ d3.json("pop.json", function (error, pop) {
 
 function showTooltip(name, data)
 {
-    d3.select("#tooltip").text(name +": "+data)
+    d3.select("#title").text(name);
+    d3.select("#content").text("Number: " +data);
+    d3.select("#tooltip")
         .style("left", (d3.event.pageX) + "px")
         .style("top", (d3.event.pageY - 28) + "px");
     $("#tooltip").show();
@@ -679,47 +641,47 @@ function redraw() {
 }
 
 
-function barTransition(filename)
-{
-    d3.csv(filename, function(error, data) {
-
-        var width = 220,
-            barHeight = 11;
-
-        var x = d3.scale.linear()
-            .range([0, width]);
-        x.domain([0, d3.max(data, function(d) { return d.value; })]);
-
-        d3.selectAll(".chart").selectAll("rect")
-            .data(data)
-            .transition()
-            .attr("width", function(d) { return x(d.value); })
-            .attr("x",function(d){return width-x(d.value);} )
-            .attr("height", barHeight - 2)
-            .style("fill", "#FF8533");
-
-        d3.selectAll(".chart").selectAll("rect")
-            .on("mouseover", function (d) {
-                d3.select("#uk").selectAll("path")
-                    .style("stroke-width", function(d2){
-                        if(d.name == d2.properties.SA2_NAME) {
-                            return strokeWidth;
-                        }
-                    })
-                    .style("stroke", function(d1){
-                        if(d.name == d1.properties.SA2_NAME) {
-                            return strokeColor;
-                        }
-                    });
-
-                showTooltip(d.name,d.value);
-            });
-
-
-
-
-    });
-}
+//function barTransition(filename)
+//{
+//    d3.csv(filename, function(error, data) {
+//
+//        var width = 220,
+//            barHeight = 11;
+//
+//        var x = d3.scale.linear()
+//            .range([0, width]);
+//        x.domain([0, d3.max(data, function(d) { return d.value; })]);
+//
+//        d3.selectAll(".chart").selectAll("rect")
+//            .data(data)
+//            .transition()
+//            .attr("width", function(d) { return x(d.value); })
+//            .attr("x",function(d){return width-x(d.value);} )
+//            .attr("height", barHeight - 2)
+//            .style("fill", "#FF8533");
+//
+//        d3.selectAll(".chart").selectAll("rect")
+//            .on("mouseover", function (d) {
+//                d3.select("#uk").selectAll("path")
+//                    .style("stroke-width", function(d2){
+//                        if(d.name == d2.properties.SA2_NAME) {
+//                            return strokeWidth;
+//                        }
+//                    })
+//                    .style("stroke", function(d1){
+//                        if(d.name == d1.properties.SA2_NAME) {
+//                            return strokeColor;
+//                        }
+//                    });
+//
+//                showTooltip(d.name,d.value);
+//            });
+//
+//
+//
+//
+//    });
+//}
 
 
 function zoomed() {

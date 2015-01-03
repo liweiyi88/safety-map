@@ -3,49 +3,58 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Safety Map</title>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+
 </head>
 <body>
  <div class="container">
-      <h1>Melbourne Safety Map</h1>
-     <div id="summary">The 26 Republican-dominated states not participating in an expansion of Medicaid are home
-         to a disproportionate share of the nation’s poorest uninsured residents.
-         Eight million will be stranded without insurance.</div>
+      <h1>Melbourne Road Safety Portal</h1>
+     <div id="summary">
+         Australia has achieved substantial reductions in road crash fatalities over the last 30 years, despite a 50 per cent growth in population and a two-fold increase in registered motor vehicles. Between 1980 and 2010, the nation’s annual road fatality rate declined from 22.3 to 6.1 deaths per 100,000 people. However, it is still estimated that on average, around 1,400 people die and 33,000 are seriously injured each year on Australian roads. The Australian Bureau of Infrastructure, Transport and Regional Economics (BITRE) estimated that the annual cost of road trauma to the Australian society is 17.85 billion AUD.
+         <br><br>In this project, we visualize crash data in Melbourne at the Statistical Area Level 2 (SA2), defined by the Australian Bureau of Statistics. We obtained the crash data from VicRoads between the years for 2010 to 2012. During this period, a total of 12,206 crashes were reported.  Total number of crashes were decreasing from 2010 to 2012.
+     </div>
 
      <div class="label-group">
          <div class="labels">
-             <button  class="btn-clicked" id="total-p">Total Population</button>
-             <button  class="btn" id="density-p">Total Population Density</button>
+             <button  class="btn-clicked" id="density-p">Total Population Density</button>
              <button  class="btn" id="vehicle-p">Vehicle Kilometers Travelled (million)</button>
              <button  class="btn" id="crash-p">Total Crashes</button>
              <button  class="btn" id="crash-4-p">Crashes in which a 4-16 year old involved</button>
              <button  class="btn" id="crash-60-p">Crashes in which a 60+ year old involved</button>
              <button  class="btn" id="bike-p">Bicycle Crashes</button>
+             <button class="btn" id="pedestrian-p">Pedestrian Crashes</button>
          </div>
 
          <div class="labels">
-             <button class="btn" id="pedestrian-p">Pedestrian Crashes</button>
              <button class="btn" id="motor-p">Motorbike Crashes</button>
              <button class="btn" id="truck-p">Truck Crashes</button>
              <button class="btn" id="fatal-p">Fatal Crashes</button>
              <button class="btn" id="severe-p">Severe Injury Crashes</button>
              <button class="btn" id="night-p">Nighttime Crashes</button>
              <button class="btn" id="weekday-p">Weekday Crashes</button>
-         </div>
-
-         <div class="labels">
              <button data-clicked="false" class="btn" id="weekend-p">Weekend Crashes</button>
          </div>
+
      </div>
      <div id="map"></div>
-     <div id="zoom-in" class="zoom-btn">+</div>
-     <div id="zoom-out" class="zoom-btn">-</div>
+     <div id="zoom-in" class="zoom-btn"><i class="icon-zoom-in" style="margin-top:15px;"></i></div>
+     <div id="zoom-out" class="zoom-btn"><i class="icon-zoom-out"></i></div>
+     <div class="chart-title">Title of the chart</div>
+     <div id="chart-des">description of the chart here...</div>
+     <div id="chartdiv" style="width: 80%; height: 400px; margin-left:auto; margin-right: auto;"></div>
  </div>
 
 
- <div id="tooltip"></div>
+ <div id="tooltip">
+     <div id="title"></div>
+     <div id="content"></div>
+ </div>
 
 
+
+ <script src="js/amcharts.js" type="text/javascript"></script>
+ <script src="js/serial.js" type="text/javascript"></script>
  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
  <script src="js/d3.min.js"></script>
@@ -84,6 +93,122 @@
      $("#tooltip").hide();
 
 
+ </script>
+
+
+ <script type="text/javascript">
+     var chart;
+
+     var chartData = [
+         {
+             "year": 2010,
+             "Fatal": 53,
+             "Serious Injury": 1591,
+             "Other Injury": 2985
+         },
+         {
+             "year": 2011,
+             "Fatal": 62,
+             "Serious Injury": 1332,
+             "Other Injury": 2501
+         },
+         {
+             "year": 2012,
+             "Fatal": 50,
+             "Serious Injury": 1290,
+             "Other Injury": 2345
+         }
+     ];
+
+     AmCharts.ready(function () {
+         // SERIALL CHART
+         chart = new AmCharts.AmSerialChart();
+         chart.dataProvider = chartData;
+         chart.categoryField = "year";
+         chart.plotAreaBorderAlpha = 0.2;
+//         chart.rotate = true;
+
+         // AXES
+         // Category
+         var categoryAxis = chart.categoryAxis;
+         categoryAxis.gridAlpha = 0.1;
+         categoryAxis.axisAlpha = 0;
+         categoryAxis.gridPosition = "start";
+
+         // value
+         var valueAxis = new AmCharts.ValueAxis();
+         valueAxis.stackType = "regular";
+         valueAxis.gridAlpha = 0.1;
+         valueAxis.axisAlpha = 0;
+         chart.addValueAxis(valueAxis);
+
+         // GRAPHS
+         // firstgraph
+         var graph = new AmCharts.AmGraph();
+         graph.title = "Fatal Injury";
+         graph.labelText = "[[value]]";
+         graph.valueField = "Fatal";
+         graph.type = "column";
+         graph.lineAlpha = 0;
+         graph.fillAlphas = 1;
+         graph.lineColor = "#27477a";
+         graph.balloonText = "<b><span style='color:#27477a'>[[title]]</b></span><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>";
+         graph.labelPosition = "middle";
+         chart.addGraph(graph);
+
+         // second graph
+         graph = new AmCharts.AmGraph();
+         graph.title = "Serious Injury";
+         graph.labelText = "[[value]]";
+         graph.valueField = "Serious Injury";
+         graph.type = "column";
+         graph.lineAlpha = 0;
+         graph.fillAlphas = 1;
+         graph.lineColor = "#b60c36";
+         graph.balloonText = "<b><span style='color:#b60c36'>[[title]]</b></span><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>";
+         graph.labelPosition = "middle";
+         chart.addGraph(graph);
+
+         // third graph
+         graph = new AmCharts.AmGraph();
+         graph.title = "Other Injury";
+         graph.labelText = "[[value]]";
+         graph.valueField = "Other Injury";
+         graph.type = "column";
+         graph.lineAlpha = 0;
+         graph.fillAlphas = 1;
+         graph.lineColor = "#07a36b";
+         graph.balloonText = "<b><span style='color:#07a36b'>[[title]]</b></span><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>";
+         graph.labelPosition = "middle";
+         chart.addGraph(graph);
+
+
+
+         // LEGEND
+         var legend = new AmCharts.AmLegend();
+         legend.position = "right";
+         legend.borderAlpha = 0.3;
+         legend.horizontalGap = 10;
+         legend.switchType = "v";
+         chart.addLegend(legend);
+
+         chart.creditsPosition = "top-right";
+
+         // WRITE
+         chart.write("chartdiv");
+     });
+
+     // Make chart 2D/3D
+     function setDepth() {
+         if (document.getElementById("rb1").checked) {
+             chart.depth3D = 0;
+             chart.angle = 0;
+         } else {
+             chart.depth3D = 20;
+             chart.angle = 30;
+         }
+         chart.validateNow();
+     }
  </script>
 </body>
 </html>

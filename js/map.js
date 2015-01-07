@@ -1,6 +1,3 @@
-
-
-
 var w = 970;
 var h = 600;
 var center = [w / 2, h / 2];
@@ -52,7 +49,6 @@ var uk = map.append("svg:g").attr("id", "uk");
 
 
 d3.json("pop.json", function (error, pop) {
-
     uk.selectAll("path")
         .data(topojson.feature(pop, pop.objects.population).features)
         .enter().append("svg:path")
@@ -74,14 +70,14 @@ d3.json("pop.json", function (error, pop) {
             else
                 return fifthColor;
         })
-        //.style("stroke", "white")
+        .style("stroke", "white")
         .on("mouseover", function (d) {
             d3.select(this).style("stroke", strokeColor);
             d3.select(this).style("stroke-width", strokeWidth);
             showTooltip(d.properties.SA2_NAME,d.properties.Total_Pop);
         })
         .on("mouseout", function (d) {
-            d3.select(this).style("stroke", "none");
+            d3.select(this).style("stroke", "white");
             $("#tooltip").hide();
         });
 
@@ -735,6 +731,7 @@ function zoomClick() {
 }
 
 d3.selectAll('.zoom-btn').on('click', zoomClick);
+
 
 
 

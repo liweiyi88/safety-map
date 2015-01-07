@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/d3.min.js"></script>
+    <script src="js/topojson.min.js"></script>
+</head>
+<body>
+
+ <div id="map"></div>
+  <script>
+      var w = 970;
+      var h = 600;
+      var center = [w / 2, h / 2];
+      var proj = d3.geo.mercator().center([145.1, -37.80]).scale(40000);
+      var path = d3.geo.path().projection(proj);
+      var t = proj.translate(); // the projection's default translation
+      var s = proj.scale() // the projection's default scale
+      var map = d3.select("#map").append("svg:svg")
+              .attr("viewBox", "0 0 " + w + " " + h)
+              .append("svg:g");
+      var uk = map.append("svg:g").attr("id", "uk");
+      d3.json("boundry.json", function (error, pop) {
+          uk.selectAll("path")
+                  .data(topojson.feature(pop, pop.objects.lga).features)
+                  .enter().append("svg:path")
+                  .attr("d", path)
+
+      });
+  </script>
+</body>
+</html>

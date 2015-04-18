@@ -3,9 +3,14 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Safety Map</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/custom-select.css" />
     <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <script src="js/leaflet.js"></script>
+    <script type="text/javascript" src="js/modernizr.custom.79639.js"></script>
 </head>
 <body>
  <div class="container">
@@ -15,31 +20,40 @@
          <br><br>In this project, we visualize crash data in Melbourne at the Statistical Area Level 2 (SA2), defined by the Australian Bureau of Statistics. We obtained the crash data from VicRoads between the years for 2010 to 2012. During this period, a total of 12,206 crashes were reported.  Total number of crashes were decreasing from 2010 to 2012.
      </div>
 
-     <div class="label-group">
-         <div class="labels">
-             <button  class="btn-clicked" id="density-p">Total Population Density</button>
-             <button  class="btn" id="vehicle-p">Vehicle Kilometers Travelled (million)</button>
-             <button  class="btn" id="crash-p">Total Crashes</button>
-             <button  class="btn" id="crash-4-p">Crashes in which a 4-16 year old involved</button>
-             <button  class="btn" id="crash-60-p">Crashes in which a 60+ year old involved</button>
-             <button  class="btn" id="bike-p">Bicycle Crashes</button>
-             <button class="btn" id="pedestrian-p">Pedestrian Crashes</button>
+     <div class="wrapper-demo">
+         <div id="dd" class="wrapper-dropdown-3" tabindex="1">
+             <span>Total Population Density</span>
+             <ul class="dropdown">
+                 <li id="density-p"><a href="#"><i class="icon-envelope icon-large"></i>Total Population Density</a></li>
+                 <li id="vehicle-p"><a href="#"><i class="icon-truck icon-large"></i>Vehicle Kilometers Travelled (million)</a></li>
+                 <li id="crash-p"><a href="#"><i class="icon-plane icon-large"></i>Total Crashes</a></li>
+                 <li id="crash-4-p"><a href="#"><i class="icon-plane icon-large"></i>Crashes in which a 4-16 year old involved</a></li>
+                 <li id="crash-60-p"><a href="#"><i class="icon-plane icon-large"></i>Crashes in which a 60+ year old involved</a></li>
+                 <li id="bike-p"><a href="#"><i class="icon-plane icon-large"></i>Bicycle Crashes</a></li>
+                 <li id="pedestrian-p"><a href="#"><i class="icon-plane icon-large"></i>Pedestrian Crashes</a></li>
+                 <li id="motor-p"><a href="#"><i class="icon-plane icon-large"></i>Motorbike Crashes</a></li>
+                 <li id="truck-p"><a href="#"><i class="icon-plane icon-large"></i>Truck Crashes</a></li>
+                 <li id="fatal-p"><a href="#"><i class="icon-plane icon-large"></i>Fatal Crashes</a></li>
+                 <li id="severe-p"><a href="#"><i class="icon-plane icon-large"></i>Severe Injury Crashes</a></li>
+                 <li id="night-p"><a href="#"><i class="icon-plane icon-large"></i>Nighttime Crashes</a></li>
+                 <li id="weekday-p"><a href="#"><i class="icon-plane icon-large"></i>Weekday Crashes</a></li>
+                 <li id="weekend-p"> <a href="#"><i class="icon-plane icon-large"></i>Weekend Crashes</a></li>
+             </ul>
          </div>
+         ​</div>
 
-         <div class="labels">
-             <button class="btn" id="motor-p">Motorbike Crashes</button>
-             <button class="btn" id="truck-p">Truck Crashes</button>
-             <button class="btn" id="fatal-p">Fatal Crashes</button>
-             <button class="btn" id="severe-p">Severe Injury Crashes</button>
-             <button class="btn" id="night-p">Nighttime Crashes</button>
-             <button class="btn" id="weekday-p">Weekday Crashes</button>
-             <button data-clicked="false" class="btn" id="weekend-p">Weekend Crashes</button>
-         </div>
+
+     <div id="map">
 
      </div>
-     <div id="map"></div>
-     <div id="zoom-in" class="zoom-btn"><i class="icon-zoom-in" style="margin-top:15px;"></i></div>
-     <div id="zoom-out" class="zoom-btn"><i class="icon-zoom-out"></i></div>
+     <div class="leaflet-control-container">
+<div class="leaflet-top leaflet-left">
+     <div class="leaflet-control-zoom leaflet-bar leaflet-control">
+     <div id="zoom-in" class="zoom-btn leaflet-control-zoom-in">+</div>
+     <div id="zoom-out" class="zoom-btn leaflet-control-zoom-out">-</div>
+     </div>
+    </div>
+     </div>
      <div class="chart-title">Title of the chart</div>
      <div id="chart-des">description of the chart here...</div>
      <div id="chartdiv" style="width: 80%; height: 400px; margin-left:auto; margin-right: auto;"></div>
@@ -212,9 +226,51 @@
      }
  </script>
 
-<script>
+ <script type="text/javascript">
 
+     function DropDown(el) {
+         this.dd = el;
+         this.placeholder = this.dd.children('span');
+         this.opts = this.dd.find('ul.dropdown > li');
+         this.val = '';
+         this.index = -1;
+         this.initEvents();
+     }
+     DropDown.prototype = {
+         initEvents : function() {
+             var obj = this;
 
-</script>
+             obj.dd.on('click', function(event){
+                 $(this).toggleClass('active');
+                 return false;
+             });
+
+             obj.opts.on('click',function(){
+                 var opt = $(this);
+                 obj.val = opt.text();
+                 obj.index = opt.index();
+                 obj.placeholder.text(obj.val);
+             });
+         },
+         getValue : function() {
+             return this.val;
+         },
+         getIndex : function() {
+             return this.index;
+         }
+     }
+
+     $(function() {
+
+         var dd = new DropDown( $('#dd') );
+
+         $(document).click(function() {
+             // all dropdowns
+             $('.wrapper-dropdown-3').removeClass('active');
+         });
+
+     });
+
+ </script>
 </body>
 </html>

@@ -20,6 +20,7 @@
          <br><br>In this project, we visualize crash data in Melbourne at the Statistical Area Level 2 (SA2), defined by the Australian Bureau of Statistics. We obtained the crash data from VicRoads between the years for 2010 to 2012. During this period, a total of 12,206 crashes were reported.  Total number of crashes were decreasing from 2010 to 2012.
      </div>
 
+     <!--Dropdown-->
      <div class="wrapper-demo">
          <div id="dd" class="wrapper-dropdown-3" tabindex="1">
              <span>Total Population Density</span>
@@ -40,23 +41,20 @@
                  <li id="weekend-p"> <a href="#"><i class="icon-plane icon-large"></i>Weekend Crashes</a></li>
              </ul>
          </div>
-         ​</div>
+     ​</div>
+     <!--End of dropdown-->
 
-
-     <div id="map">
-
-     </div>
+     <!-- Map-->
+     <div id="map"></div>
      <div class="leaflet-control-container">
-<div class="leaflet-top leaflet-left">
-     <div class="leaflet-control-zoom leaflet-bar leaflet-control">
-     <div id="zoom-in" class="zoom-btn leaflet-control-zoom-in">+</div>
-     <div id="zoom-out" class="zoom-btn leaflet-control-zoom-out">-</div>
+        <div class="leaflet-top leaflet-left">
+          <div class="leaflet-control-zoom leaflet-bar leaflet-control">
+             <div id="zoom-in" class="zoom-btn leaflet-control-zoom-in">+</div>
+             <div id="zoom-out" class="zoom-btn leaflet-control-zoom-out">-</div>
+          </div>
+        </div>
      </div>
-    </div>
-     </div>
-     <div class="chart-title">Title of the chart</div>
-     <div id="chart-des">description of the chart here...</div>
-     <div id="chartdiv" style="width: 80%; height: 400px; margin-left:auto; margin-right: auto;"></div>
+     <!--End of Map-->
  </div>
 
 
@@ -106,124 +104,6 @@
 
 
      $("#tooltip").hide();
-
-
- </script>
-
-
- <script type="text/javascript">
-     var chart;
-
-     var chartData = [
-         {
-             "year": 2010,
-             "Fatal": 53,
-             "Serious Injury": 1591,
-             "Other Injury": 2985
-         },
-         {
-             "year": 2011,
-             "Fatal": 62,
-             "Serious Injury": 1332,
-             "Other Injury": 2501
-         },
-         {
-             "year": 2012,
-             "Fatal": 50,
-             "Serious Injury": 1290,
-             "Other Injury": 2345
-         }
-     ];
-
-     AmCharts.ready(function () {
-         // SERIALL CHART
-         chart = new AmCharts.AmSerialChart();
-         chart.dataProvider = chartData;
-         chart.categoryField = "year";
-         chart.plotAreaBorderAlpha = 0.2;
-//         chart.rotate = true;
-
-         // AXES
-         // Category
-         var categoryAxis = chart.categoryAxis;
-         categoryAxis.gridAlpha = 0.1;
-         categoryAxis.axisAlpha = 0;
-         categoryAxis.gridPosition = "start";
-
-         // value
-         var valueAxis = new AmCharts.ValueAxis();
-         valueAxis.stackType = "regular";
-         valueAxis.gridAlpha = 0.1;
-         valueAxis.axisAlpha = 0;
-         chart.addValueAxis(valueAxis);
-
-         // GRAPHS
-         // firstgraph
-         var graph = new AmCharts.AmGraph();
-         graph.title = "Fatal Injury";
-         graph.labelText = "[[value]]";
-         graph.valueField = "Fatal";
-         graph.type = "column";
-         graph.lineAlpha = 0;
-         graph.fillAlphas = 1;
-         graph.lineColor = "#27477a";
-         graph.balloonText = "<b><span style='color:#27477a'>[[title]]</b></span><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>";
-         graph.labelPosition = "middle";
-         chart.addGraph(graph);
-
-         // second graph
-         graph = new AmCharts.AmGraph();
-         graph.title = "Serious Injury";
-         graph.labelText = "[[value]]";
-         graph.valueField = "Serious Injury";
-         graph.type = "column";
-         graph.lineAlpha = 0;
-         graph.fillAlphas = 1;
-         graph.lineColor = "#b60c36";
-         graph.balloonText = "<b><span style='color:#b60c36'>[[title]]</b></span><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>";
-         graph.labelPosition = "middle";
-         chart.addGraph(graph);
-
-         // third graph
-         graph = new AmCharts.AmGraph();
-         graph.title = "Other Injury";
-         graph.labelText = "[[value]]";
-         graph.valueField = "Other Injury";
-         graph.type = "column";
-         graph.lineAlpha = 0;
-         graph.fillAlphas = 1;
-         graph.lineColor = "#07a36b";
-         graph.balloonText = "<b><span style='color:#07a36b'>[[title]]</b></span><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>";
-         graph.labelPosition = "middle";
-         chart.addGraph(graph);
-
-
-
-         // LEGEND
-         var legend = new AmCharts.AmLegend();
-         legend.position = "right";
-         legend.borderAlpha = 0.3;
-         legend.horizontalGap = 10;
-         legend.switchType = "v";
-         chart.addLegend(legend);
-
-         chart.creditsPosition = "top-right";
-
-         // WRITE
-         chart.write("chartdiv");
-     });
-
-     // Make chart 2D/3D
-     function setDepth() {
-         if (document.getElementById("rb1").checked) {
-             chart.depth3D = 0;
-             chart.angle = 0;
-         } else {
-             chart.depth3D = 20;
-             chart.angle = 30;
-         }
-         chart.validateNow();
-     }
  </script>
 
  <script type="text/javascript">
@@ -272,5 +152,6 @@
      });
 
  </script>
+
 </body>
 </html>

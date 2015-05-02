@@ -5,12 +5,10 @@
     <title>Safety Map</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/custom-select.css" />
     <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-    <script src="js/leaflet.js"></script>
-    <script type="text/javascript" src="js/modernizr.custom.79639.js"></script>
 </head>
 <body>
  <div class="container">
@@ -22,27 +20,38 @@
 
      <!--Dropdown-->
      <div class="wrapper-demo">
-         <div id="dd" class="wrapper-dropdown-3" tabindex="1">
-             <span>Total Population Density</span>
-             <ul class="dropdown">
-                 <li id="density-p"><a href="#"><i class="icon-envelope icon-large"></i>Total Population Density</a></li>
-                 <li id="vehicle-p"><a href="#"><i class="icon-truck icon-large"></i>Vehicle Kilometers Travelled (million)</a></li>
-                 <li id="crash-p"><a href="#"><i class="icon-plane icon-large"></i>Total Crashes</a></li>
-                 <li id="crash-4-p"><a href="#"><i class="icon-plane icon-large"></i>Crashes in which a 4-16 year old involved</a></li>
-                 <li id="crash-60-p"><a href="#"><i class="icon-plane icon-large"></i>Crashes in which a 60+ year old involved</a></li>
+         <div id="dd" class="wrapper-dropdown-3" tabindex="1000000">
+             <span>Total Population</span>
+             <ul class="dropdown" style="z-index:900099999999;">
+                 <li id="total-p"><a href="#"><i class="fa fa-user icon-large"></i>Total Population</a></li>
+                 <li id="density-p"><a href="#"><i class="fa fa-users icon-large"></i>Total Population Density</a></li>
+                 <li id="vehicle-p"><a href="#"><i class="fa fa-car icon-large"></i>Vehicle Kilometers Travelled (million)</a></li>
+                 <li id="crash-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Total Crashes</a></li>
+                 <li id="crash-4-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Crashes in which a 4-16 year old involved</a></li>
+                 <li id="crash-60-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Crashes in which a 60+ year old involved</a></li>
                  <li id="bike-p"><a href="#"><i class="icon-plane icon-large"></i>Bicycle Crashes</a></li>
-                 <li id="pedestrian-p"><a href="#"><i class="icon-plane icon-large"></i>Pedestrian Crashes</a></li>
-                 <li id="motor-p"><a href="#"><i class="icon-plane icon-large"></i>Motorbike Crashes</a></li>
-                 <li id="truck-p"><a href="#"><i class="icon-plane icon-large"></i>Truck Crashes</a></li>
-                 <li id="fatal-p"><a href="#"><i class="icon-plane icon-large"></i>Fatal Crashes</a></li>
-                 <li id="severe-p"><a href="#"><i class="icon-plane icon-large"></i>Severe Injury Crashes</a></li>
-                 <li id="night-p"><a href="#"><i class="icon-plane icon-large"></i>Nighttime Crashes</a></li>
-                 <li id="weekday-p"><a href="#"><i class="icon-plane icon-large"></i>Weekday Crashes</a></li>
-                 <li id="weekend-p"> <a href="#"><i class="icon-plane icon-large"></i>Weekend Crashes</a></li>
+                 <li id="pedestrian-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Pedestrian Crashes</a></li>
+                 <li id="motor-p"><a href="#"><i class="fa fa-motorcycle icon-large"></i>Motorbike Crashes</a></li>
+                 <li id="truck-p"><a href="#"><i class="fa fa-truck icon-large"></i>Truck Crashes</a></li>
+                 <li id="fatal-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Fatal Crashes</a></li>
+                 <li id="severe-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Severe Injury Crashes</a></li>
+                 <li id="night-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Nighttime Crashes</a></li>
+                 <li id="weekday-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Weekday Crashes</a></li>
+                 <li id="weekend-p"> <a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Weekend Crashes</a></li>
              </ul>
          </div>
      ​</div>
      <!--End of dropdown-->
+
+
+
+     <!-- Chart -->
+     <div class="chart-container">
+         <div class="rank-chart" id="rank-chart"></div>
+         <div class="his-chart" id="his-chart"></div>
+     </div>
+
+     <!--End of chart-->
 
      <!-- Map-->
      <div id="map"></div>
@@ -64,46 +73,56 @@
  </div>
 
 
-
- <script src="js/amcharts.js" type="text/javascript"></script>
- <script src="js/serial.js" type="text/javascript"></script>
+ <!-- third party library -->
  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+ <script src="js/lib/leaflet.js"></script>
+ <script src="js/lib/modernizr.custom.79639.js"></script>
+ <script src="js/lib/amcharts.js"></script>
+ <script src="js/lib/serial.js"></script>
+ <script src="js/lib/d3.min.js"></script>
+ <script src="js/lib/topojson.min.js"></script>
+<!-- end of third party library -->
 
- <script src="js/d3.min.js"></script>
- <script src="js/topojson.min.js"></script>
+
+
  <script src="js/map.js"></script>
-
+ <script src="js/chart.js"></script>
 
  <script>
-     $('button').hover(function(){
-         if($(this).attr('class')!= 'btn-clicked') {
-             $(this).removeClass("btn");
-             $(this).removeClass("btn-clicked").addClass("btn-active");
-         }
-
-     }, function()
+     $(document).ready(function()
      {
-           if($(this).attr('class')!= 'btn-clicked') {
 
-               $(this).removeClass("btn-active").addClass("btn");
-           }
-     });
+         makeHistogramChart('his-chart',populationFre,'Total Population');
+         makeRankChart('rank-chart',populationRank,'Total Population');
 
+         $('button').hover(function(){
+             if($(this).attr('class')!= 'btn-clicked') {
+                 $(this).removeClass("btn");
+                 $(this).removeClass("btn-clicked").addClass("btn-active");
+             }
 
-     $('button').click(function(){
-         $('.btn-clicked').each(function()
+         }, function()
          {
-             $(this).removeClass("btn-clicked").addClass("btn");
+             if($(this).attr('class')!= 'btn-clicked') {
+
+                 $(this).removeClass("btn-active").addClass("btn");
+             }
+         });
+
+
+         $('button').click(function(){
+             $('.btn-clicked').each(function()
+             {
+                 $(this).removeClass("btn-clicked").addClass("btn");
+
+             });
+             $(this).removeClass("btn");
+             $(this).removeClass("btn-active").addClass("btn-clicked");
 
          });
-         $(this).removeClass("btn");
-         $(this).removeClass("btn-active").addClass("btn-clicked");
-
+         $("#tooltip").hide();
      });
-
-
-     $("#tooltip").hide();
  </script>
 
  <script type="text/javascript">

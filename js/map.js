@@ -54,17 +54,17 @@ d3.json("pop.json", function (error, pop) {
         .enter().append("svg:path")
         .attr("d", path)
         .attr("fill", function (d) {
-            var density = d.properties.PoP_Densit;
-            if (density < 2180.697101) {
+            var pop = d.properties.Total_Pop;
+            if (pop < 7161) {
                 return firstColor;
             }
-            else if (density >= 2180.697101 && density < 5803.364401) {
+            else if (pop >= 7162 && pop < 12373) {
                 return secondColor;
             }
-            else if (density >= 5803.364401 && density < 11594.000101) {
+            else if (pop >= 12373 && pop < 17710) {
                 return thirdColor;
             }
-            else if (density >= 11594.000101 && density < 24599.885701) {
+            else if (pop > 17710 && pop < 23770) {
                 return fourthColor;
             }
             else
@@ -80,6 +80,40 @@ d3.json("pop.json", function (error, pop) {
             d3.select(this).style("stroke", "white");
             $("#tooltip").hide();
         });
+
+    d3.select("#total-p").on("click", function()
+    {
+        d3.select("#uk").selectAll("path")
+            .on("mouseover", function (d) {
+                d3.select(this).style("stroke", strokeColor);
+                d3.select(this).style("stroke-width", strokeWidth);
+                showTooltip(d.properties.SA2_NAME,d.properties.Total_Pop);
+            })
+            .transition()
+            .attr("fill", function (d) {
+                var pop = d.properties.Total_Pop;
+                if (pop < 7161) {
+                    return firstColor;
+                }
+                else if (pop >= 7162 && pop < 12373) {
+                    return secondColor;
+                }
+                else if (pop >= 12373 && pop < 17710) {
+                    return thirdColor;
+                }
+                else if (pop > 17710 && pop < 23770) {
+                    return fourthColor;
+                }
+                else
+                    return fifthColor;
+            })
+            .duration(800);
+
+        makeHistogramChart('his-chart',populationFre,'Total Population');
+        makeRankChart('rank-chart',populationRank,'Total Population');
+
+    });
+
 
     d3.select("#density-p").on("click", function()
     {
@@ -113,8 +147,8 @@ d3.json("pop.json", function (error, pop) {
             })
             .duration(800);
 
-        //chart.dataProvider = generateData(denData);
-        //chart.validateData();
+        makeHistogramChart('his-chart',densityFre,'Population Density');
+        makeRankChart('rank-chart',densityRank,'Population Density');
 
     });
 
@@ -151,8 +185,8 @@ d3.json("pop.json", function (error, pop) {
             })
             .duration(800);
 
-        //chart.dataProvider = generateData(vktData);
-        //chart.validateData();
+        makeHistogramChart('his-chart',vktFre,'VKT');
+        makeRankChart('rank-chart',vktRank,'VKT');
 
     });
 
@@ -188,8 +222,8 @@ d3.json("pop.json", function (error, pop) {
             })
             .duration(800);
 
-        //chart.dataProvider = generateData(allCrashesData);
-        //chart.validateData();
+        makeHistogramChart('his-chart',crashFre,'All Crashes');
+        makeRankChart('rank-chart',crashRank,'All Crashes');
 
     });
 
@@ -226,8 +260,8 @@ d3.json("pop.json", function (error, pop) {
             })
             .duration(800);
 
-        //chart.dataProvider = generateData(crash4_16Data);
-        //chart.validateData();
+        makeHistogramChart('his-chart',crash4Fre,'Crashes 4-16 year old');
+        makeRankChart('rank-chart',crash4Rank,'Crashes 4-16 year old');
 
     });
 
@@ -263,8 +297,8 @@ d3.json("pop.json", function (error, pop) {
                 }
             })
             .duration(800);
-        //chart.dataProvider = generateData(crash60Data);
-        //chart.validateData();
+        makeHistogramChart('his-chart',crash60Fre,'Crashes 60+ year old');
+        makeRankChart('rank-chart',crash60Rank,'Crashes 60+ year old');
 
     });
 
@@ -298,8 +332,8 @@ d3.json("pop.json", function (error, pop) {
             })
             .duration(800);
 
-        //chart.dataProvider = generateData(bikeData);
-        //chart.validateData();
+        makeHistogramChart('his-chart',bicycleCrashesFre,'Bicycle Crashes');
+        makeRankChart('rank-chart',bicycleCrashesRank,'Bicycle Crashes');
 
     });
 
@@ -335,8 +369,8 @@ d3.json("pop.json", function (error, pop) {
                 }
             })
             .duration(800);
-        //chart.dataProvider = generateData(pedestrianData);
-        //chart.validateData();
+        makeHistogramChart('his-chart',pedestrianCrashesFre,'Pedestrian Crashes');
+        makeRankChart('rank-chart',pedestrianCrashesRank,'Pestrian Crashes');
 
     });
 
@@ -372,8 +406,8 @@ d3.json("pop.json", function (error, pop) {
                 }
             })
             .duration(800);
-        //chart.dataProvider = generateData(motorData);
-        //chart.validateData();
+        makeHistogramChart('his-chart',motorbikeCrashesFre,'Motorbike Crashes');
+        makeRankChart('rank-chart',motorbikeCrashesRank,'Motorbike Crashes');
 
 
     });
@@ -410,8 +444,8 @@ d3.json("pop.json", function (error, pop) {
                 }
             })
             .duration(800);
-        //chart.dataProvider = generateData(truckData);
-        //chart.validateData();
+        makeHistogramChart('his-chart',truckCrashesFre,'Truck Crashes');
+        makeRankChart('rank-chart',truckCrashesRank,'Truck Crashes');
 
     });
 
@@ -447,8 +481,8 @@ d3.json("pop.json", function (error, pop) {
                 }
             })
             .duration(800);
-        //chart.dataProvider = generateData(fatalData);
-        //chart.validateData();
+        makeHistogramChart('his-chart',fatalCrashesFre,'Fatal Crashes');
+        makeRankChart('rank-chart',fatalCrashesRank,'Fatal Crashes');
 
     });
 
@@ -484,8 +518,8 @@ d3.json("pop.json", function (error, pop) {
                 }
             })
             .duration(800);
-        //chart.dataProvider = generateData(severeData);
-        //chart.validateData();
+        makeHistogramChart('his-chart',severeInjuryCrashesFre,'Severe Injury Crashes');
+        makeRankChart('rank-chart',severeInjuryCrashesRank,'Severe Injury Crashes');
 
     });
 
@@ -521,8 +555,8 @@ d3.json("pop.json", function (error, pop) {
                 }
             })
             .duration(800);
-        //chart.dataProvider = generateData(nightData);
-        //chart.validateData();
+        makeHistogramChart('his-chart',nighttimeCrashesFre,'Night Time Crashes');
+        makeRankChart('rank-chart',nighttimeCrashesRank,'Night Time Crashes');
 
     });
 
@@ -558,8 +592,8 @@ d3.json("pop.json", function (error, pop) {
                 }
             })
             .duration(800);
-        //chart.dataProvider = generateData(weekdayData);
-        //chart.validateData();
+        makeHistogramChart('his-chart',weekdayCrashesFre,'Weekday Crashes');
+        makeRankChart('rank-chart',weekdayCrashesRank,'Weekday Crashes');
 
     });
 
@@ -591,8 +625,8 @@ d3.json("pop.json", function (error, pop) {
                 }
             })
             .duration(800);
-        //chart.dataProvider = generateData(weekendData);
-        //chart.validateData();
+        makeHistogramChart('his-chart',weekendCrashesFre,'Weekend Crashes');
+        makeRankChart('rank-chart',weekendCrashesRank,'Weekend Crashes');
 
     });
 });

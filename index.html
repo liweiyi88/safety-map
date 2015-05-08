@@ -54,7 +54,7 @@
      <!--End of chart-->
 
      <!-- Map-->
-     <div id="map"></div>
+ <div id="map"></div>
      <div class="leaflet-control-container">
         <div class="leaflet-top leaflet-left">
           <div class="leaflet-control-zoom leaflet-bar leaflet-control">
@@ -64,6 +64,46 @@
         </div>
      </div>
      <!--End of Map-->
+
+
+ <div class="prediction">
+     <h3>Predicting Crashes</h3>
+   <div class="col-xs-12 col-md-6">
+     <form class="form-group">
+         <div class="form-group">
+             <label for="vktInput">Average VKT</label><span class="msg" id="vktmsg"></span>
+             <input type="text" class="form-control" id="vktInput" placeholder="e.g. 10988778">
+         </div>
+         <div class="form-group">
+             <label for="weeklyIncome">Percentage of Household with Weekly Income</label><span id="weeklymsg" class="msg"></span>
+             <input type="text" class="form-control" id="weeklyIncome" placeholder="e.g. 2" aria-describedby="weeklyaddon">
+         </div>
+         <div class="form-group">
+             <label for="bikePopulation">Percentage of Population that Bike to Work</label><span id="bikemsg" class="msg"></span>
+             <input type="text" class="form-control" id="bikePopulation" placeholder="e.g. 2">
+         </div>
+         <div class="form-group">
+             <label for="residential">Percentage of Residential Area</label><span id="residentmsg" class="msg"></span>
+             <input type="text" class="form-control" id="residential" placeholder="e.g. 2">
+         </div>
+         <div class="form-group">
+             <label for="commercial">Percentage of Commercial Area</label><span id="commercialmsg" class="msg"></span>
+             <input type="text" class="form-control" id="commercial" placeholder="e.g. 2">
+         </div>
+         <div class="form-group">
+             <label for="mixIndex">Land-use Balance Mix Index </label><span id="mixmsg" class="msg"></span>
+             <input type="text" class="form-control" id="mixIndex" placeholder="e.g. 2">
+         </div>
+         <span id="predict" class="btn btn-default">Predict</span>
+     </form>
+       </div>
+     <div class="col-xs-12 col-md-6" id="result">
+
+     </div>
+ </div>
+
+
+
  </div>
 
 
@@ -96,31 +136,95 @@
          makeHistogramChart('his-chart',populationFre,'Total Population');
          makeRankChart('rank-chart',populationRank,'Total Population');
 
-         $('button').hover(function(){
-             if($(this).attr('class')!= 'btn-clicked') {
-                 $(this).removeClass("btn");
-                 $(this).removeClass("btn-clicked").addClass("btn-active");
-             }
-
-         }, function()
+         $('body').on('click','#predict',function()
          {
-             if($(this).attr('class')!= 'btn-clicked') {
 
-                 $(this).removeClass("btn-active").addClass("btn");
-             }
-         });
+             $('#vktmsg').text('');
+             $('#weeklymsg').text('');
+             $('#bikemsg').text('');
+             $('#residentmsg').text('');
+             $('#commercialmsg').text('');
+             $('#mixmsg').text('');
+             $('#result').text('');
+             var vktInput = parseFloat($('#vktInput').val());
+             var weeklyIncome = parseFloat($('#weeklyIncome').val());
+             var bikeInput = parseFloat($('#bikePopulation').val());
+             var residentialInput = parseFloat($('#residential').val());
+             var commercialInput = parseFloat($('#commercial').val());
+             var mixIndex = parseFloat($('#mixIndex').val());
 
+             var valid = true;
 
-         $('button').click(function(){
-             $('.btn-clicked').each(function()
+             if(!$.isNumeric(vktInput))
              {
-                 $(this).removeClass("btn-clicked").addClass("btn");
+                 valid =false;
+                 $('#vktmsg').text('invalid number');
+             }
+             if(!$.isNumeric(weeklyIncome))
+             {
+                 valid =false;
+                 $('#weeklymsg').text('invalid number');
+             }
+             if(!$.isNumeric(bikeInput))
+             {
+                 valid =false;
+                 $('#bikemsg').text('invalid number');
+             }
+             if(!$.isNumeric(residentialInput))
+             {
+                 valid =false;
+                 $('#residentmsg').text('invalid number');
+             }
+             if(!$.isNumeric(commercialInput))
+             {
+                 valid =false;
+                 $('#commercialmsg').text('invalid number');
+             }
+             if(!$.isNumeric(mixIndex))
+             {
+                 valid =false;
+                 $('#mixmsg').text('invalid number');
+             }
 
-             });
-             $(this).removeClass("btn");
-             $(this).removeClass("btn-active").addClass("btn-clicked");
+             if(valid)
+             {
+                 var result = 1.563 + 0.328 * vktInput +  0.012 * weeklyIncome +
+                         0.036 * bikeInput + 0.013 * residentialInput + 0.009 * commercialInput +
+                         0.732 * mixIndex;
+                 result = result.toFixed(2);
+
+                 $('#result').text('');
+                 $('#result').append('<h3>Result:</h3>'+result+ ' crashes in the zone');
+             }
+
 
          });
+
+//         $('button').hover(function(){
+//             if($(this).attr('class')!= 'btn-clicked') {
+//                 $(this).removeClass("btn");
+//                 $(this).removeClass("btn-clicked").addClass("btn-active");
+//             }
+//
+//         }, function()
+//         {
+//             if($(this).attr('class')!= 'btn-clicked') {
+//
+//                 $(this).removeClass("btn-active").addClass("btn");
+//             }
+//         });
+//
+//
+//         $('button').click(function(){
+//             $('.btn-clicked').each(function()
+//             {
+//                 $(this).removeClass("btn-clicked").addClass("btn");
+//
+//             });
+//             $(this).removeClass("btn");
+//             $(this).removeClass("btn-active").addClass("btn-clicked");
+//
+//         });
          $("#tooltip").hide();
      });
  </script>

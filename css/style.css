@@ -28,34 +28,7 @@ button:focus { outline: none; }
 #chart-des{padding-left: 35px; padding-right: 35px; line-height: 1.4;}
 
 
-.container .btn{
-    margin-left: 5px;
-    width: 126px;
-    height: 40px;
-    border:1px solid #ccc; border-radius: 4px;
-    text-align: center;
-    color:#777; background-color:#fff;display: inline-block;
-    font-size: 11px;cursor: pointer; vertical-align: middle;
-    padding: 4px 4px 5px 5px;
 
-    line-height: 1.4;
-}
-
-.btn-active,.btn-clicked
-{
-    margin-left: 5px;
-    width: 126px;
-    height: 40px;
-    border:1px solid #ccc; border-radius: 4px;
-    text-align: center;
-    color:#777; background-color:#fff;display: inline-block;
-    font-size: 11px;cursor: pointer; vertical-align: middle;
-    padding: 4px 4px 5px 5px;
-
-    line-height: 1.4;
-    background-color: #eee;
-    color:#333;
-}
 
 #tooltip {
     position: absolute;
@@ -148,3 +121,8 @@ button:focus { outline: none; }
     height: 300px;
 }
 
+.msg
+{
+    color: red; padding-left: 20px;
+    font-weight: 700;
+}

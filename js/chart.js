@@ -38,7 +38,7 @@ function makeHistogramChart(classname, dataset,title)
         "titles": [
             {
                 "size": 15,
-                "text": title
+                "text": ''
             }
         ],
 
@@ -86,7 +86,7 @@ function makeRankChart(classname, dataset,title)
         "titles": [
             {
                 "size": 15,
-                "text": title
+                "text": ''
             }
         ],
 

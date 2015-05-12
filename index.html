@@ -196,8 +196,8 @@
                          0.036 * bikeInput + 0.013 * residentialInput + 0.009 * commercialInput +
                          0.732 * mixIndex;
 
-                 result = Math.round(Math.exp(result));
-
+                 var result = 1.563 + 0.328 * Math.log(vktInput) + 0.012 * weeklyIncome + 0.036 * bikeInput + 0.013 * residentialInput + 0.009 * commercialInput + 0.732 * mixIndex;
+                 result = Math.round(result);
                  result = numberWithCommas(result);
 
                  $('#result').text('Result');

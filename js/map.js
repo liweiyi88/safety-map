@@ -25,7 +25,7 @@ var fourthColor = "#e6550d";
 var fifthColor = "#a63603";
 
 
-var strokeColor = '';
+var strokeColor = '#000000';
 
 var strokeWidth = "1";
 
@@ -74,7 +74,7 @@ d3.json("pop.json", function (error, pop) {
             else
                 return fifthColor;
         })
-        .style("stroke", "white")
+        .style("stroke", "black")
         .on("mouseover", function (d) {
             d3.select(this).style("stroke", strokeColor);
             d3.select(this).style("stroke-width", strokeWidth);
@@ -87,7 +87,7 @@ d3.json("pop.json", function (error, pop) {
             clickToPreFill(d);
         })
         .on("mouseout", function (d) {
-            d3.select(this).style("stroke", "white");
+          //  d3.select(this).style("stroke", "white");
             $("#tooltip").hide();
         });
 

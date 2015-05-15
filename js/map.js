@@ -25,7 +25,7 @@ var fourthColor = "#e6550d";
 var fifthColor = "#a63603";
 
 
-var strokeColor = '#000000';
+var strokeColor = '#4d4747';
 
 var strokeWidth = "1";
 
@@ -74,7 +74,7 @@ d3.json("pop.json", function (error, pop) {
             else
                 return fifthColor;
         })
-        .style("stroke", "black")
+        .style("stroke", '#4d4747')
         .on("mouseover", function (d) {
             d3.select(this).style("stroke", strokeColor);
             d3.select(this).style("stroke-width", strokeWidth);

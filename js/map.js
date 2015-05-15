@@ -1,5 +1,5 @@
-var w = 970;
-var h = 600;
+var w = 770;
+var h = 500;
 var center = [w / 2, h / 2];
 var proj = d3.geo.mercator().center([145.1, -37.80]).scale(40000);
 var path = d3.geo.path().projection(proj);
@@ -74,7 +74,7 @@ d3.json("pop.json", function (error, pop) {
             else
                 return fifthColor;
         })
-        .style("stroke", '#4d4747')
+        .style("stroke", strokeColor)
         .on("mouseover", function (d) {
             d3.select(this).style("stroke", strokeColor);
             d3.select(this).style("stroke-width", strokeWidth);

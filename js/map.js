@@ -9,19 +9,23 @@ var zoom = d3.behavior.zoom()
     .scaleExtent([0, 10])
     .on("zoom", zoomed);
 
-//var firstColor = "#ffffcc";
-//var secondColor = "#c2e699";
-//var thirdColor = "#78c679";
-//var fourthColor = "#31a354";
-//var fifthColor = "#006837";
-//var strokeColor = "#333";
 
-var firstColor = "#276C91";
-var secondColor = "#B9CEA1";
-var thirdColor = "#B9CEA1";
-var fourthColor = "#F6E593";
-var fifthColor = "#B63132";
-var strokeColor = "#333";
+
+//orange
+//var firstColor = "#FCE9D4";
+//var secondColor = "#F9C78B";
+//var thirdColor = "#F79F47";
+//var fourthColor = "#F57B1B";
+//var fifthColor = "#E45500";
+
+var firstColor = "#feedde";
+var secondColor = "#fdbe85";
+var thirdColor = "#fd8d3c";
+var fourthColor = "#e6550d";
+var fifthColor = "#a63603";
+
+
+var strokeColor = '';
 
 var strokeWidth = "1";
 

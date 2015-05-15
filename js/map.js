@@ -176,17 +176,18 @@ d3.json("pop.json", function (error, pop) {
             })
             .transition()
             .attr("fill", function (d) {
-                var vkm = d.properties.VKT_avg;
+                var vkm = parseFloat(d.properties.VKT_avg);
                 if (vkm < 127217739) {
                     return firstColor;
                 }
-                else if (vkm >= 127217739 && vkm < 299481629) {
+                else if (vkm >= 127217739 && vkm < 299481629)
+                {
                     return secondColor;
                 }
-                else if (vkm >= 299481629 && vkm < 5363343343) {
+                else if (vkm >= 299481629 && vkm < 536334334) {
                     return thirdColor;
                 }
-                else if (vkm >= 5363343343 && vkm < 916409590) {
+                else if (vkm >= 536334334 && vkm < 916409590) {
                     return fourthColor;
                 }
                 else if(vkm >= 916409590) {

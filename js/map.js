@@ -786,6 +786,8 @@ function clickToPreFill(d)
     $('#residential').val(prediction[zoneNumber]['resident']);
     $('#commercial').val(prediction[zoneNumber]['commercial']);
     $('#mixIndex').val(prediction[zoneNumber]['mixIndex']);
+
+    $('#result').text('Result');
 }
 
 

@@ -75,6 +75,12 @@ d3.json("pop.json", function (error, pop) {
             d3.select(this).style("stroke", strokeColor);
             d3.select(this).style("stroke-width", strokeWidth);
             showTooltip(d.properties.SA2_NAME,d.properties.Total_Pop);
+
+
+        })
+        .on('click',function(d)
+        {
+            clickToPreFill(d);
         })
         .on("mouseout", function (d) {
             d3.select(this).style("stroke", "white");
@@ -765,6 +771,18 @@ function zoomClick() {
 }
 
 d3.selectAll('.zoom-btn').on('click', zoomClick);
+
+
+function clickToPreFill(d)
+{
+    var zoneNumber = d.properties.Zones__SA2;
+    $('#vktInput').val(prediction[zoneNumber]['vkt']);
+    $('#weeklyIncome').val(prediction[zoneNumber]['weeklyIncome']);
+    $('#bikePopulation').val(prediction[zoneNumber]['bike']);
+    $('#residential').val(prediction[zoneNumber]['resident']);
+    $('#commercial').val(prediction[zoneNumber]['commercial']);
+    $('#mixIndex').val(prediction[zoneNumber]['mixIndex']);
+}
 
 
 

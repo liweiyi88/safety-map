@@ -1,8 +1,7 @@
 
 body
 {
-    background-color: #2C2C32;
-
+    font-family: 'Open Sans', sans-serif;
 }
 
 .wrapper
@@ -10,7 +9,6 @@ body
     width:1250px;
     margin: auto;
     padding:0;
-    background-image: url("/images/bg.jpg");
 }
 
 
@@ -102,7 +100,7 @@ body
     background-color: #fff;
     z-index: 999;
     position: absolute;
-    top:465px;
+    top:220px;
     left:420px;
     margin-left: 20px;
     cursor: pointer;
@@ -130,7 +128,7 @@ body
     background-color: #fff;
     z-index: 999;
     position: absolute;
-    top: 490px;
+    top: 245px;
     left: 440px;
     cursor: pointer;
     text-align: center;
@@ -141,11 +139,103 @@ body
 
 
 #summary{
-    text-align: left; font-size: 15px; line-height: 1.5; color:#333; padding-left: 25px; padding-right: 25px;
+    text-align: left; font-size: 20px; line-height: 1.8em; color:#333; padding-left: 25px; padding-right: 25px;
 }
 
 .msg
 {
     color: red; padding-left: 20px;
     font-weight: 700;
+}
+
+
+.home
+{
+    height: 100vh;
+    background: url("../images/background.jpg") no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color:#eeeeee;
+}
+
+
+.view
+{
+    cursor: pointer;
+    width: 200px;
+    height: 40px;
+    border: 2px solid white;
+    position: absolute;
+    top:30vh;
+    left:42.5vw;
+    color: #ffffff;
+    font-size: 24px;
+    border-radius: 4px;
+}
+
+
+.description
+{
+    background-color:#eeeeee;
+}
+
+
+.brief-container
+{
+    width: 30vw;
+    height: 30vh;
+    position: absolute;
+    top:60vh;
+    left:5vw;
+    color: white;
+    font-size:14px;
+}
+
+.description-container
+{
+    padding-top:100px;
+    width: 70%;
+    margin-left:auto;
+    margin-right:auto;
+    padding-bottom: 100px;
+
+}
+
+.brief-container a:link
+{
+    color: white;
+}
+.brief-container a:visited
+{
+    color: white;
+}
+.brief-container a:hover
+{
+    color: white;
+}
+.brief-container a:active
+{
+    color: white;
+}
+
+.bootstrap-select:focus
+{
+    outline:none;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+.selectpicker
+{
+    z-index: 10000000000000;
 }

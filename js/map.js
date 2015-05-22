@@ -59,16 +59,16 @@ d3.json("pop.json", function (error, pop) {
         .attr("d", path)
         .attr("fill", function (d) {
             var pop = d.properties.Total_Pop;
-            if (pop < 7161) {
+            if (pop <= 7161) {
                 return firstColor;
             }
-            else if (pop >= 7162 && pop < 12373) {
+            else if (pop > 7161 && pop <= 12373) {
                 return secondColor;
             }
-            else if (pop >= 12373 && pop < 17710) {
+            else if (pop > 12373 && pop <= 17710) {
                 return thirdColor;
             }
-            else if (pop > 17710 && pop < 23770) {
+            else if (pop > 17710 && pop <= 23770) {
                 return fourthColor;
             }
             else
@@ -91,27 +91,167 @@ d3.json("pop.json", function (error, pop) {
             $("#tooltip").hide();
         });
 
-    d3.select("#total-p").on("click", function()
+
+
+    $('.selectpicker').on('change',function()
     {
+        var selectedValue = $(this).val();
+
+        if(selectedValue == 'total-p')
+        {
+            createMap('Total_Pop',populationFre,populationRank,'Total Population',7161,12373,17710,23770)
+        }
+        else if(selectedValue == 'density-p')
+        {
+            createMap('PoP_Densit',densityFre,densityRank,'Population Density',2180.697101,5803.364401,11594.000101,24599.885701);
+        }
+        else if(selectedValue == 'vehicle-p')
+        {
+            createMap('VKT_avg',vktFre,vktRank,'VKT',127217739,299481629,536334334,916409590);
+        }
+        else if(selectedValue == 'crash-p')
+        {
+            createMap('All_Crashe',crashFre,crashRank,'All Crashes',55,111,189,356);
+        }
+        else if(selectedValue == 'crash-4-p')
+        {
+            createMap('Age_4_16_A',crash4Fre,crash4Rank,'',2,4,7,14);
+        }
+        else if(selectedValue == 'crash-60-p')
+        {
+            createMap('Age_60__Ac',crash60Fre,crash60Rank,'',3,6,9,13);
+        }
+        else if(selectedValue == 'bike-p')
+        {
+            createMap('All_Bicycl',bicycleCrashesFre,bicycleCrashesRank,'',8,21,46,135);
+        }
+        else if(selectedValue == 'pedestrian-p')
+        {
+            createMap('Pedestrian',pedestrianCrashesFre,pedestrianCrashesRank,'',9,20,39,71);
+        }
+        else if(selectedValue == 'motor-p')
+        {
+            createMap('Motorbike_',motorbikeCrashesFre,motorbikeCrashesRank,'',7,16,30,52);
+        }
+        else if(selectedValue == 'truck-p')
+        {
+            createMap('Truck_Cras', truckCrashesFre,truckCrashesRank,'',2,6,11,17);
+        }
+        else if(selectedValue == 'fatal-p')
+        {
+            createMap('Fatal_Cras',fatalCrashesFre,fatalCrashesRank,'',0,1,2,5);
+        }
+        else if(selectedValue == 'severe-p')
+        {
+            createMap('High_Sever',severeInjuryCrashesFre,severeInjuryCrashesRank,'',18,34,54,106);
+        }
+        else if(selectedValue == 'night-p')
+        {
+            createMap('Night_Time',nighttimeCrashesFre,nighttimeCrashesRank,'',13,28,47,93);
+        }
+        else if(selectedValue == 'weekday-p')
+        {
+            createMap('Weekdays_C',weekdayCrashesFre,weekdayCrashesRank,'',44,89,156,281);
+        }
+        else if(selectedValue == 'weekend-p')
+        {
+            createMap('Weekends_C',weekendCrashesFre,weekendCrashesRank,'',12,24,40,76);
+        }
+    });
+
+
+
+    function columnMapper(d,columnName)
+    {
+        var column;
+        if(columnName == 'Total_Pop')
+        {
+            column = d.properties.Total_Pop;
+        }
+        else if(columnName == 'PoP_Densit')
+        {
+            column = d.properties.PoP_Densit;
+        }
+        else if(columnName == 'VKT_avg')
+        {
+            column = d.properties.VKT_avg;
+        }
+        else if(columnName == 'All_Crashe')
+        {
+            column = d.properties.All_Crashe;
+        }
+        else if(columnName == 'Age_4_16_A')
+        {
+            column = d.properties.Age_4_16_A;
+        }
+        else if(columnName == 'Age_60__Ac')
+        {
+            column = d.properties.Age_60__Ac;
+        }
+        else if(columnName == 'All_Bicycl')
+        {
+            column = d.properties.All_Bicycl;
+        }
+        else if(columnName == 'Pedestrian')
+        {
+            column = d.properties.Pedestrian;
+        }
+        else if(columnName == 'Motorbike_')
+        {
+            column = d.properties.Motorbike_;
+        }
+        else if(columnName == 'Truck_Cras')
+        {
+            column = d.properties.Truck_Cras;
+        }
+        else if(columnName == 'Fatal_Cras')
+        {
+            column = d.properties.Fatal_Cras;
+        }
+        else if(columnName == 'High_Sever')
+        {
+            column = d.properties.High_Sever;
+        }
+        else if(columnName == 'Night_Time')
+        {
+            column = d.properties.Night_Time;
+        }
+        else if(columnName == 'Weekdays_C')
+        {
+            column = d.properties.Weekdays_C;
+        }
+        else if(columnName == 'Weekends_C')
+        {
+            column = d.properties.Weekends_C;
+        }
+
+        return column;
+    }
+
+    function createMap(columnName,chartFreJs,chartRankJs,chartSuffix,a,b,c,f)
+    {
+        var column = '';
         d3.select("#uk").selectAll("path")
-            .on("mouseover", function (d) {
+            .on("mouseover", function (d)
+            {
+                column = columnMapper(d,columnName);
                 d3.select(this).style("stroke", strokeColor);
                 d3.select(this).style("stroke-width", strokeWidth);
-                showTooltip(d.properties.SA2_NAME,d.properties.Total_Pop);
+                showTooltip(d.properties.SA2_NAME,column);
             })
             .transition()
             .attr("fill", function (d) {
-                var pop = d.properties.Total_Pop;
-                if (pop < 7161) {
+                number = columnMapper(d,columnName);
+                if (number <= a) {
                     return firstColor;
                 }
-                else if (pop >= 7162 && pop < 12373) {
+                else if (number > a && number <= b) {
                     return secondColor;
                 }
-                else if (pop >= 12373 && pop < 17710) {
+                else if (number >b && number <= c) {
                     return thirdColor;
                 }
-                else if (pop > 17710 && pop < 23770) {
+                else if (number >c && number < f) {
                     return fourthColor;
                 }
                 else
@@ -119,527 +259,9 @@ d3.json("pop.json", function (error, pop) {
             })
             .duration(800);
 
-        makeHistogramChart('his-chart',populationFre,'Total Population');
-        makeRankChart('rank-chart',populationRank,'Total Population');
-
-    });
-
-
-    d3.select("#density-p").on("click", function()
-    {
-
-        d3.select("#big-t").html("Population");
-        d3.select("#location").html("Density");
-        d3.select("#pop").html("");
-        d3.select("#uk").selectAll("path")
-            .on("mouseover", function (d) {
-                d3.select(this).style("stroke", strokeColor);
-                d3.select(this).style("stroke-width", strokeWidth);
-                showTooltip(d.properties.SA2_NAME,d.properties.PoP_Densit);
-            })
-            .transition()
-            .attr("fill", function (d) {
-                var density = d.properties.PoP_Densit;
-                if (density < 2180.697101) {
-                    return firstColor;
-                }
-                else if (density >= 2180.697101 && density < 5803.364401) {
-                    return secondColor;
-                }
-                else if (density >= 5803.364401 && density < 11594.000101) {
-                    return thirdColor;
-                }
-                else if (density >= 11594.000101 && density < 24599.885701) {
-                    return fourthColor;
-                }
-                else
-                    return fifthColor;
-            })
-            .duration(800);
-
-        makeHistogramChart('his-chart',densityFre,'Population Density');
-        makeRankChart('rank-chart',densityRank,'Population Density');
-
-    });
-
-    d3.select("#vehicle-p").on("click", function()
-    {
-
-        d3.select("#big-t").html("Transport");
-        d3.select("#location").html("Vehicle Kilometers Travelled");
-        d3.select("#pop").html("");
-        d3.select("#uk").selectAll("path")
-            .on("mouseover", function (d) {
-                d3.select(this).style("stroke", strokeColor);
-                d3.select(this).style("stroke-width", strokeWidth);
-                showTooltip(d.properties.SA2_NAME,d.properties.VKT_avg);
-            })
-            .transition()
-            .attr("fill", function (d) {
-                var vkm = parseFloat(d.properties.VKT_avg);
-                if (vkm < 127217739) {
-                    return firstColor;
-                }
-                else if (vkm >= 127217739 && vkm < 299481629)
-                {
-                    return secondColor;
-                }
-                else if (vkm >= 299481629 && vkm < 536334334) {
-                    return thirdColor;
-                }
-                else if (vkm >= 536334334 && vkm < 916409590) {
-                    return fourthColor;
-                }
-                else if(vkm >= 916409590) {
-                    return fifthColor;
-                }
-            })
-            .duration(800);
-
-        makeHistogramChart('his-chart',vktFre,'VKT');
-        makeRankChart('rank-chart',vktRank,'VKT');
-
-    });
-
-    d3.select("#crash-p").on("click", function()
-    {
-        d3.select("#big-t").html("Crashes");
-        d3.select("#location").html("Crash Number");
-        d3.select("#pop").html("");
-        d3.select("#uk").selectAll("path")
-            .on("mouseover", function (d) {
-                d3.select(this).style("stroke", strokeColor);
-                d3.select(this).style("stroke-width", strokeWidth);
-                showTooltip(d.properties.SA2_NAME,d.properties.All_Crashe);
-            })
-            .transition()
-            .attr("fill", function (d) {
-                var number = d.properties.All_Crashe;
-                if (number < 55) {
-                    return firstColor;
-                }
-                else if (number >= 55 && number < 111) {
-                    return secondColor;
-                }
-                else if (number >= 111 && number < 189) {
-                    return thirdColor;
-                }
-                else if (number >= 189 && number < 356) {
-                    return fourthColor;
-                }
-                else if(number >= 356) {
-                    return fifthColor;
-                }
-            })
-            .duration(800);
-
-        makeHistogramChart('his-chart',crashFre,'All Crashes');
-        makeRankChart('rank-chart',crashRank,'All Crashes');
-
-    });
-
-    d3.select("#crash-4-p").on("click", function()
-    {
-
-        d3.select("#big-t").html("Crashes");
-        d3.select("#location").html("Crash Number (Age between 4 and 16)");
-        d3.select("#pop").html("");
-        d3.select("#uk").selectAll("path")
-            .on("mouseover", function (d) {
-                d3.select(this).style("stroke", strokeColor);
-                d3.select(this).style("stroke-width", strokeWidth);
-                showTooltip(d.properties.SA2_NAME,d.properties.Age_4_16_A);
-            })
-            .transition()
-            .attr("fill", function (d) {
-                var number = d.properties.Age_4_16_A;
-                if (number < 2) {
-                    return firstColor;
-                }
-                else if (number >= 2 && number < 4) {
-                    return secondColor;
-                }
-                else if (number >= 4 && number < 7) {
-                    return thirdColor;
-                }
-                else if (number >= 7 && number < 14) {
-                    return fourthColor;
-                }
-                else if(number >= 14) {
-                    return fifthColor;
-                }
-            })
-            .duration(800);
-
-        makeHistogramChart('his-chart',crash4Fre,'Crashes 4-16 year old');
-        makeRankChart('rank-chart',crash4Rank,'Crashes 4-16 year old');
-
-    });
-
-    d3.select("#crash-60-p").on("click", function()
-    {
-
-        d3.select("#big-t").html("Crashes");
-        d3.select("#location").html("Crash Number (Age greater than 60)");
-        d3.select("#pop").html("");
-        d3.select("#uk").selectAll("path")
-            .on("mouseover", function (d) {
-                d3.select(this).style("stroke", strokeColor);
-                d3.select(this).style("stroke-width", strokeWidth);
-                showTooltip(d.properties.SA2_NAME,d.properties.Age_60__Ac);
-            })
-            .transition()
-            .attr("fill", function (d) {
-                var number = d.properties.Age_60__Ac;
-                if (number < 3) {
-                    return firstColor;
-                }
-                else if (number >= 3 && number < 6) {
-                    return secondColor;
-                }
-                else if (number >= 6 && number < 9) {
-                    return thirdColor;
-                }
-                else if (number >= 9 && number < 13) {
-                    return fourthColor;
-                }
-                else if(number >= 13) {
-                    return fifthColor;
-                }
-            })
-            .duration(800);
-        makeHistogramChart('his-chart',crash60Fre,'Crashes 60+ year old');
-        makeRankChart('rank-chart',crash60Rank,'Crashes 60+ year old');
-
-    });
-
-    d3.select("#bike-p").on("click", function()
-    {
-
-        d3.select("#uk").selectAll("path")
-            .on("mouseover", function (d) {
-                d3.select(this).style("stroke", strokeColor);
-                d3.select(this).style("stroke-width", strokeWidth);
-                showTooltip(d.properties.SA2_NAME,d.properties.All_Bicycl);
-            })
-            .transition()
-            .attr("fill", function (d) {
-                var number = d.properties.All_Bicycl;
-                if (number < 8) {
-                    return firstColor;
-                }
-                else if (number >= 8 && number < 21) {
-                    return secondColor;
-                }
-                else if (number >= 21 && number < 46) {
-                    return thirdColor;
-                }
-                else if (number >= 46 && number < 135) {
-                    return fourthColor;
-                }
-                else if(number >= 135) {
-                    return fifthColor;
-                }
-            })
-            .duration(800);
-
-        makeHistogramChart('his-chart',bicycleCrashesFre,'Bicycle Crashes');
-        makeRankChart('rank-chart',bicycleCrashesRank,'Bicycle Crashes');
-
-    });
-
-    d3.select("#pedestrian-p").on("click", function()
-    {
-
-        d3.select("#big-t").html("Crashes");
-        d3.select("#location").html("Pedestrian Crash Number");
-        d3.select("#pop").html("");
-        d3.select("#uk").selectAll("path")
-            .on("mouseover", function (d) {
-                d3.select(this).style("stroke", strokeColor);
-                d3.select(this).style("stroke-width", strokeWidth);
-                showTooltip(d.properties.SA2_NAME,d.properties.Pedestrian);
-            })
-            .transition()
-            .attr("fill", function (d) {
-                var number = d.properties.Pedestrian;
-                if (number < 9) {
-                    return firstColor;
-                }
-                else if (number >= 9 && number < 20) {
-                    return secondColor;
-                }
-                else if (number >= 20 && number < 39) {
-                    return thirdColor;
-                }
-                else if (number >= 39 && number < 71) {
-                    return fourthColor;
-                }
-                else if(number >= 71) {
-                    return fifthColor;
-                }
-            })
-            .duration(800);
-        makeHistogramChart('his-chart',pedestrianCrashesFre,'Pedestrian Crashes');
-        makeRankChart('rank-chart',pedestrianCrashesRank,'Pestrian Crashes');
-
-    });
-
-    d3.select("#motor-p").on("click", function()
-    {
-
-        d3.select("#big-t").html("Crashes");
-        d3.select("#location").html("Motorbike Crash Number");
-        d3.select("#pop").html("");
-        d3.select("#uk").selectAll("path")
-            .on("mouseover", function (d) {
-                d3.select(this).style("stroke", strokeColor);
-                d3.select(this).style("stroke-width", strokeWidth);
-                showTooltip(d.properties.SA2_NAME,d.properties.Motorbike_);
-            })
-            .transition()
-            .attr("fill", function (d) {
-                var number = d.properties.Motorbike_;
-                if (number < 7) {
-                    return firstColor;
-                }
-                else if (number >= 7 && number < 16) {
-                    return secondColor;
-                }
-                else if (number >= 16 && number < 30) {
-                    return thirdColor;
-                }
-                else if (number >= 30 && number < 52) {
-                    return fourthColor;
-                }
-                else if(number >= 52) {
-                    return fifthColor;
-                }
-            })
-            .duration(800);
-        makeHistogramChart('his-chart',motorbikeCrashesFre,'Motorbike Crashes');
-        makeRankChart('rank-chart',motorbikeCrashesRank,'Motorbike Crashes');
-
-
-    });
-
-    d3.select("#truck-p").on("click", function()
-    {
-
-        d3.select("#big-t").html("Crashes");
-        d3.select("#location").html("Truck Crash Number");
-        d3.select("#pop").html("");
-        d3.select("#uk").selectAll("path")
-            .on("mouseover", function (d) {
-                d3.select(this).style("stroke", strokeColor);
-                d3.select(this).style("stroke-width", strokeWidth);
-                showTooltip(d.properties.SA2_NAME,d.properties.Truck_Cras);
-            })
-            .transition()
-            .attr("fill", function (d) {
-                var number = d.properties.Truck_Cras;
-                if (number < 2) {
-                    return firstColor;
-                }
-                else if (number >= 2 && number < 6) {
-                    return secondColor;
-                }
-                else if (number >= 6 && number < 11) {
-                    return thirdColor;
-                }
-                else if (number >= 11 && number < 17) {
-                    return fourthColor;
-                }
-                else if(number >= 17) {
-                    return fifthColor;
-                }
-            })
-            .duration(800);
-        makeHistogramChart('his-chart',truckCrashesFre,'Truck Crashes');
-        makeRankChart('rank-chart',truckCrashesRank,'Truck Crashes');
-
-    });
-
-    d3.select("#fatal-p").on("click", function()
-    {
-
-        d3.select("#big-t").html("Crashes");
-        d3.select("#location").html("Fatal Crash Number");
-        d3.select("#pop").html("");
-        d3.select("#uk").selectAll("path")
-            .on("mouseover", function (d) {
-                d3.select(this).style("stroke", strokeColor);
-                d3.select(this).style("stroke-width", strokeWidth);
-                showTooltip(d.properties.SA2_NAME,d.properties.Fatal_Cras);
-            })
-            .transition()
-            .attr("fill", function (d) {
-                var number = d.properties.Fatal_Cras;
-                if (number == 0) {
-                    return firstColor;
-                }
-                else if (number == 1) {
-                    return secondColor;
-                }
-                else if (number == 2) {
-                    return thirdColor;
-                }
-                else if (number >= 3 && number < 5) {
-                    return fourthColor;
-                }
-                else if(number >= 5) {
-                    return fifthColor;
-                }
-            })
-            .duration(800);
-        makeHistogramChart('his-chart',fatalCrashesFre,'Fatal Crashes');
-        makeRankChart('rank-chart',fatalCrashesRank,'Fatal Crashes');
-
-    });
-
-    d3.select("#severe-p").on("click", function()
-    {
-
-        d3.select("#big-t").html("Crashes");
-        d3.select("#location").html("Severe Crash Number");
-        d3.select("#pop").html("");
-        d3.select("#uk").selectAll("path")
-            .on("mouseover", function (d) {
-                d3.select(this).style("stroke", strokeColor);
-                d3.select(this).style("stroke-width", strokeWidth);
-                showTooltip(d.properties.SA2_NAME,d.properties.High_Sever);
-            })
-            .transition()
-            .attr("fill", function (d) {
-                var number = d.properties.High_Sever;
-                if (number < 18) {
-                    return firstColor;
-                }
-                else if (number >= 18 && number < 34) {
-                    return secondColor;
-                }
-                else if (number >= 34 && number < 54) {
-                    return thirdColor;
-                }
-                else if (number >= 54 && number < 106) {
-                    return fourthColor;
-                }
-                else if(number >= 106) {
-                    return fifthColor;
-                }
-            })
-            .duration(800);
-        makeHistogramChart('his-chart',severeInjuryCrashesFre,'Severe Injury Crashes');
-        makeRankChart('rank-chart',severeInjuryCrashesRank,'Severe Injury Crashes');
-
-    });
-
-    d3.select("#night-p").on("click", function()
-    {
-
-        d3.select("#big-t").html("Crashes");
-        d3.select("#location").html("Night Time Crash Number");
-        d3.select("#pop").html("");
-        d3.select("#uk").selectAll("path")
-            .on("mouseover", function (d) {
-                d3.select(this).style("stroke", strokeColor);
-                d3.select(this).style("stroke-width", strokeWidth);
-                showTooltip(d.properties.SA2_NAME,d.properties.Night_Time);
-            })
-            .transition()
-            .attr("fill", function (d) {
-                var number = d.properties.Night_Time;
-                if (number < 13) {
-                    return firstColor;
-                }
-                else if (number >= 13 && number < 28) {
-                    return secondColor;
-                }
-                else if (number >= 28 && number < 47) {
-                    return thirdColor;
-                }
-                else if (number >= 47 && number < 93) {
-                    return fourthColor;
-                }
-                else if(number >= 93) {
-                    return fifthColor;
-                }
-            })
-            .duration(800);
-        makeHistogramChart('his-chart',nighttimeCrashesFre,'Night Time Crashes');
-        makeRankChart('rank-chart',nighttimeCrashesRank,'Night Time Crashes');
-
-    });
-
-    d3.select("#weekday-p").on("click", function()
-    {
-
-        d3.select("#big-t").html("Crashes");
-        d3.select("#location").html("Week Days Crash Number");
-        d3.select("#pop").html("");
-        d3.select("#uk").selectAll("path")
-            .on("mouseover", function (d) {
-                d3.select(this).style("stroke", strokeColor);
-                d3.select(this).style("stroke-width", strokeWidth);
-                showTooltip(d.properties.SA2_NAME,d.properties.Weekdays_C);
-            })
-            .transition()
-            .attr("fill", function (d) {
-                var number = d.properties.Weekdays_C;
-                if (number < 44) {
-                    return firstColor;
-                }
-                else if (number >= 44 && number < 89) {
-                    return secondColor;
-                }
-                else if (number >= 89 && number < 156) {
-                    return thirdColor;
-                }
-                else if (number >= 156 && number < 281) {
-                    return fourthColor;
-                }
-                else if(number >= 281) {
-                    return fifthColor;
-                }
-            })
-            .duration(800);
-        makeHistogramChart('his-chart',weekdayCrashesFre,'Weekday Crashes');
-        makeRankChart('rank-chart',weekdayCrashesRank,'Weekday Crashes');
-
-    });
-
-    d3.select("#weekend-p").on("click", function()
-    {
-        d3.select("#uk").selectAll("path")
-            .on("mouseover", function (d) {
-                d3.select(this).style("stroke", strokeColor);
-                d3.select(this).style("stroke-width", strokeWidth);
-                showTooltip(d.properties.SA2_NAME,d.properties.Weekends_C);
-            })
-            .transition()
-            .attr("fill", function (d) {
-                var number = d.properties.Weekends_C;
-                if (number < 12) {
-                    return firstColor;
-                }
-                else if (number >= 12 && number < 24) {
-                    return secondColor;
-                }
-                else if (number >= 24 && number < 40) {
-                    return thirdColor;
-                }
-                else if (number >= 40 && number < 76) {
-                    return fourthColor;
-                }
-                else if(number >= 76) {
-                    return fifthColor;
-                }
-            })
-            .duration(800);
-        makeHistogramChart('his-chart',weekendCrashesFre,'Weekend Crashes');
-        makeRankChart('rank-chart',weekendCrashesRank,'Weekend Crashes');
-
-    });
+        makeHistogramChart('his-chart',chartFreJs,chartSuffix);
+        makeRankChart('rank-chart',chartRankJs,chartSuffix);
+    }
 });
 
 
@@ -652,9 +274,6 @@ function showTooltip(name, data)
         .style("top", (d3.event.pageY - 28) + "px");
     $("#tooltip").show();
 }
-
-
-
 
 
 

@@ -5,49 +5,92 @@
     <title>Safety Map</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/custom-select.css" />
-    <link href="css/style.css" rel="stylesheet">
     <link href="css/bootstrap-select.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/scrollyou.css" rel="stylesheet">
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
     <style>
 
     </style>
 </head>
 <body>
-<div class="wrapper">
-    <div class="container">
-        <h1 class="text-center">Melbourne Road Safety Portal</h1>
+<section class="home">
+    <div class="view" id="view">
+        <div class="view-inner text-center">
+            Getting Started
+        </div>
+    </div>
+    <div class="brief-container">
+        <div class="inner">
+
+            <h3>Safety Map</h3>
+            <p>
+                Developed by Julian Li and Meead Saberi <br>
+                City Science at Monash University<br>
+                <a href="http://monash.edu/research/city-science/">http://monash.edu/research/city-science/</a>
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="description" id="description">
+    <div class="description-container">
+       <b> <h1 class="text-center">Melbourne Road Safety Portal</h1></b><br>
         <div id="summary">
             Australia has achieved substantial reductions in road crash fatalities over the last 30 years, despite a 50 per cent growth in population and a two-fold increase in registered motor vehicles. Between 1980 and 2010, the nation’s annual road fatality rate declined from 22.3 to 6.1 deaths per 100,000 people. However, it is still estimated that on average, around 1,400 people die and 33,000 are seriously injured each year on Australian roads. The Australian Bureau of Infrastructure, Transport and Regional Economics (BITRE) estimated that the annual cost of road trauma to the Australian society is 17.85 billion AUD.
             <br><br>In this project, we visualize crash data in Melbourne at the Statistical Area Level 2 (SA2), defined by the Australian Bureau of Statistics. We obtained the crash data from VicRoads between the years for 2010 to 2012. During this period, a total of 12,206 crashes were reported.  Total number of crashes were decreasing from 2010 to 2012.
         </div>
+    </div>
+</section>
 
+
+
+<div class="wrapper">
+    <div class="container">
 
         <div class="left-sider">
-            <div class="wrapper-demo">
-                <div id="dd" class="wrapper-dropdown-3" tabindex="1000000">
-                    <span>Total Population</span>
-                    <ul class="dropdown" style="z-index:900099999999;">
-                        <li id="total-p"><a href="#"><i class="fa fa-user icon-large"></i>Total Population</a></li>
-                        <li id="density-p"><a href="#"><i class="fa fa-users icon-large"></i>Total Population Density</a></li>
-                        <li id="vehicle-p"><a href="#"><i class="fa fa-car icon-large"></i>Vehicle Kilometers Travelled (million)</a></li>
-                        <li id="crash-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Total Crashes</a></li>
-                        <li id="crash-4-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Crashes in which a 4-16 year old involved</a></li>
-                        <li id="crash-60-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Crashes in which a 60+ year old involved</a></li>
-                        <li id="bike-p"><a href="#"><i class="icon-plane icon-large"></i>Bicycle Crashes</a></li>
-                        <li id="pedestrian-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Pedestrian Crashes</a></li>
-                        <li id="motor-p"><a href="#"><i class="fa fa-motorcycle icon-large"></i>Motorbike Crashes</a></li>
-                        <li id="truck-p"><a href="#"><i class="fa fa-truck icon-large"></i>Truck Crashes</a></li>
-                        <li id="fatal-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Fatal Crashes</a></li>
-                        <li id="severe-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Severe Injury Crashes</a></li>
-                        <li id="night-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Nighttime Crashes</a></li>
-                        <li id="weekday-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Weekday Crashes</a></li>
-                        <li id="weekend-p"> <a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Weekend Crashes</a></li>
-                    </ul>
-                </div>
-                ​</div>
+            <select class="selectpicker" data-width="auto" data-live-search="true" data-size="7">
+                <option value="total-p" >Total Population</option>
+                <option value="density-p">Total Population Density</option>
+                <option value="vehicle-p">Vehicle Kilometers Travelled (million)</option>
+                <option value="crash-p">Total Crashes</option>
+                <option value="crash-4-p">Crashes in which a 4-16 year old involved</option>
+                <option value="crash-60-p">Crashes in which a 60+ year old involved</option>
+                <option value="bike-p" data-subtext="scroll down to see more">Bicycle Crashes</option>
+                <option value="pedestrian-p">Pedestrian Crashes</option>
+                <option value="motor-p">Motorbike Crashes</option>
+                <option value="truck-p">Truck Crashes</option>
+                <option value="fatal-p">Fatal Crashes</option>
+                <option value="severe-p">Severe Injury Crashes</option>
+                <option value="night-p">Nighttime Crashes</option>
+                <option value="weekday-p">Weekday Crashes</option>
+                <option value="weekend-p">Weekend Crashes</option>
+            </select>
+            <!--<div class="wrapper-demo">-->
+                <!--<div id="dd" class="wrapper-dropdown-3" tabindex="1000000">-->
+                    <!--<span>Total Population</span>-->
+                    <!--<ul class="dropdown" style="z-index:900099999999;">-->
+                        <!--<li id="total-p"><a href="#"><i class="fa fa-user icon-large"></i>Total Population</a></li>-->
+                        <!--<li id="density-p"><a href="#"><i class="fa fa-users icon-large"></i>Total Population Density</a></li>-->
+                        <!--<li id="vehicle-p"><a href="#"><i class="fa fa-car icon-large"></i>Vehicle Kilometers Travelled (million)</a></li>-->
+                        <!--<li id="crash-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Total Crashes</a></li>-->
+                        <!--<li id="crash-4-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Crashes in which a 4-16 year old involved</a></li>-->
+                        <!--<li id="crash-60-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Crashes in which a 60+ year old involved</a></li>-->
+                        <!--<li id="bike-p"><a href="#"><i class="icon-plane icon-large"></i>Bicycle Crashes</a></li>-->
+                        <!--<li id="pedestrian-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Pedestrian Crashes</a></li>-->
+                        <!--<li id="motor-p"><a href="#"><i class="fa fa-motorcycle icon-large"></i>Motorbike Crashes</a></li>-->
+                        <!--<li id="truck-p"><a href="#"><i class="fa fa-truck icon-large"></i>Truck Crashes</a></li>-->
+                        <!--<li id="fatal-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Fatal Crashes</a></li>-->
+                        <!--<li id="severe-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Severe Injury Crashes</a></li>-->
+                        <!--<li id="night-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Nighttime Crashes</a></li>-->
+                        <!--<li id="weekday-p"><a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Weekday Crashes</a></li>-->
+                        <!--<li id="weekend-p"> <a href="#"><i class="fa fa-exclamation-triangle icon-large"></i>Weekend Crashes</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--​</div>-->
 
 
             <div class="prediction" style="margin-left: 30px;">
@@ -114,6 +157,7 @@
 
 <!-- third party library -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="js/lib/jquery.mousewheel.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="js/lib/leaflet.js"></script>
 <script src="js/lib/modernizr.custom.79639.js"></script>
@@ -122,6 +166,8 @@
 <script src="js/lib/d3.min.js"></script>
 <script src="js/lib/topojson.min.js"></script>
 <script src="js/lib/bootstrap-select.min.js"></script>
+<script src="js/lib/scrollYou.js"></script>
+
 <!-- end of third party library -->
 
 
@@ -137,11 +183,18 @@
     $(document).ready(function()
     {
 
+        $("#view").click(function() {
+            $('html, body').animate({
+                scrollTop: $("#description").offset().top
+            }, 1000);
+        });
+
         makeHistogramChart('his-chart',populationFre,'Total Population');
         makeRankChart('rank-chart',populationRank,'Total Population');
 
         $('body').on('click','#predict',function()
         {
+            $('.selectpicker').selectpicker();
 
             $('#vktmsg').text('');
             $('#weeklymsg').text('');

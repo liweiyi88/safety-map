@@ -1,33 +1,71 @@
-body {font-family: Calibri;}
-button:focus { outline: none; }
 
-.container {
-    width:1000px; height: 100%; margin-left: auto; margin-right: auto;border-left: 1px solid #eeeeee;border-right: 1px solid #eeeeee;
-    border-radius: 3px;
-}
-.container h1 {
-    font-size: 35px; text-align: center; font-weight: 700;
+body
+{
+    background-color: #2C2C32;
+
 }
 
-.container #summary{
-    text-align: left; font-size: 15px; line-height: 1.5; color:#333; padding-left: 35px; padding-right: 35px;
+.wrapper
+{
+    width:1250px;
+    margin: auto;
+    padding:0;
+    background-image: url("/images/bg.jpg");
 }
 
-.container .label-group{width: 940px; margin-left: auto;margin-right: auto; margin-top: 15px; margin-bottom: 20px;}
 
-.container .labels{
-    width: 940px; margin-left: auto;margin-right: auto; margin-bottom: 10px;
+.container
+{
+    padding:0;
+    width: 100%;
+    height: 600px;
+    display: inline-block;
 }
 
-.container #map{
-    width: 970px; height: 600px; margin-left: auto; margin-right: auto; margin-top: 20px;
+.left-sider
+{
+    top:0;
+    float: left;
+    width: 250px;
+    height: 600px;
+    display: inline-block;
 }
 
-.container .chart-title{font-size: 24px; font-weight: 700; padding-left: 35px;
-                        padding-right: 35px; line-height: 1.8; margin-top: 35px;}
-#chart-des{padding-left: 35px; padding-right: 35px; line-height: 1.4;}
+.right-sider
+{
+    width: 1000px;
+    height: 600px;
+    display: inline-block;
+}
 
+.chart-container
+{
+    z-index: -5;
+    width: 100%
+    height: 280px;
+}
 
+.his-chart
+{
+    padding:0 0 0 100px;
+    display: inline-block;
+    width: 420px;
+    height: 200px;
+}
+
+.rank-chart
+{
+    margin-left: 140px;
+    display: inline-block;
+    width: 420px;
+    height: 200px;
+}
+
+#map
+{
+    width: 800px;
+    margin-left: 170px;
+}
 
 
 #tooltip {
@@ -63,7 +101,9 @@ button:focus { outline: none; }
     height: 26px;
     background-color: #fff;
     z-index: 999;
-    position: absolute; top:720px;
+    position: absolute;
+    top:465px;
+    left:420px;
     margin-left: 20px;
     cursor: pointer;
     text-align: center;
@@ -89,8 +129,9 @@ button:focus { outline: none; }
     line-height: 26px;
     background-color: #fff;
     z-index: 999;
-    position: absolute;top: 745px;
-    margin-left: 20px;
+    position: absolute;
+    top: 490px;
+    left: 440px;
     cursor: pointer;
     text-align: center;
 }
@@ -99,28 +140,8 @@ button:focus { outline: none; }
 #content{font-size: 15px; color:grey;}
 
 
-.chart-container
-{
-    z-index: -5;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    height: 280px;
-}
-
-.his-chart
-{
-    padding:0 0 0 100px;
-    display: inline-block;
-    width: 380px;
-    height: 280px;
-}
-
-.rank-chart
-{
-    display: inline-block;
-    width: 380px;
-    height: 280px;
+#summary{
+    text-align: left; font-size: 15px; line-height: 1.5; color:#333; padding-left: 25px; padding-right: 25px;
 }
 
 .msg

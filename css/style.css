@@ -20,49 +20,57 @@ body
     display: inline-block;
 }
 
-.left-sider
-{
-    top:0;
-    float: left;
-    width: 250px;
-    height: 600px;
-    display: inline-block;
-}
 
-.right-sider
-{
-    width: 1000px;
-    height: 600px;
-    display: inline-block;
-}
 
 .chart-container
 {
-    z-index: -5;
+    position: absolute;
+    right: 0;
+    margin-top:70px;
+    margin-right: 25px;
+    z-index: 999;
     width: 100%
-    height: 280px;
+    height: 200px;
+    opacity: 0.9;
+    background-color: #ffffff;
+    border-radius: 4px;
 }
 
 .his-chart
 {
-    padding:0 0 0 100px;
-    display: inline-block;
-    width: 420px;
-    height: 200px;
+    padding: 0;
+
+    width: 300px;
+    height: 140px;
 }
 
 .rank-chart
 {
-    margin-left: 140px;
     display: inline-block;
-    width: 420px;
+    width: 300px;
     height: 200px;
+}
+
+
+.map
+{
+    width: 100%;
+    height: 100vh;
+    max-height: 350px;
 }
 
 #map
 {
-    width: 800px;
-    margin-left: 170px;
+
+    z-index: -100000;
+    margin: 0;
+    padding: 0;
+
+}
+
+svg
+{
+    z-index: -2;
 }
 
 
@@ -89,6 +97,8 @@ body
     border-radius: 4px;
 }
 
+
+
 #zoom-in
 {
     box-shadow: 0 1px 5px rgba(0,0,0,0.65);
@@ -98,11 +108,9 @@ body
     width: 26px;
     height: 26px;
     background-color: #fff;
-    z-index: 999;
+    z-index: 9999999999999;
     position: absolute;
-    top:220px;
-    left:420px;
-    margin-left: 20px;
+    margin: 40px 0 0 50px;
     cursor: pointer;
     text-align: center;
     font-size: 20px;
@@ -126,12 +134,18 @@ body
     height: 26px;
     line-height: 26px;
     background-color: #fff;
-    z-index: 999;
+    z-index: 999999999999999;
     position: absolute;
-    top: 245px;
-    left: 440px;
+    margin: 65px 0 0 50px;
     cursor: pointer;
     text-align: center;
+}
+
+#select-menu
+{
+    position: absolute;
+    right:0;
+    margin: 20px 20px 0 0;
 }
 
 #title{color:black;font-weight: 700;}
@@ -152,7 +166,7 @@ body
 .home
 {
     height: 100vh;
-    background: url("../images/background.jpg") no-repeat center center;
+    background: url("../images/bg2.jpg") no-repeat center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -164,15 +178,21 @@ body
 .view
 {
     cursor: pointer;
-    width: 200px;
-    height: 40px;
-    border: 2px solid white;
+    width: 135px;
+    height: 28px;
+    border: 0px solid white;
     position: absolute;
-    top:30vh;
-    left:42.5vw;
+    top:3vh;
+    left:45vw;
     color: #ffffff;
-    font-size: 24px;
-    border-radius: 4px;
+    font-size: 18px;
+    border-radius: 1px;
+
+}
+
+.view:hover
+{
+    text-decoration: underline;
 }
 
 
@@ -184,18 +204,32 @@ body
 
 .brief-container
 {
-    width: 30vw;
-    height: 30vh;
+    width: 45vw;
+    height: 65vh;
     position: absolute;
-    top:60vh;
-    left:5vw;
+    bottom: 0vh;
+    left: 7vw;
     color: white;
     font-size:14px;
+    background-color:black;
+    line-height: 1.8em;
+    border-radius: 5px;
+    opacity: 0.8;
+}
+
+.brief-container .inner
+{
+    padding: 30px 30px 0 30px;
+}
+
+.brief-container h1
+{
+    font-size: 54px;
 }
 
 .description-container
 {
-    padding-top:100px;
+    padding-top:50px;
     width: 70%;
     margin-left:auto;
     margin-right:auto;
@@ -214,6 +248,7 @@ body
 .brief-container a:hover
 {
     color: white;
+    text-decoration: underline;
 }
 .brief-container a:active
 {
@@ -237,5 +272,29 @@ body
 
 .selectpicker
 {
-    z-index: 10000000000000;
+    z-index: 100000000000000000000;
+}
+
+.prediction
+{
+    width: 220px;
+    position: absolute;
+    background-color: #ffffff;
+    font-size: 10px;
+    padding: 0 15px 0 5px;
+    margin-top: 120px;
+    margin-left: 30px;
+    border-radius: 4px;
+    opacity: 0.9;
+}
+
+.input-sm
+{
+    height: 20px;
+    font-size: 10px;
+}
+
+#result
+{
+    color:green;
 }

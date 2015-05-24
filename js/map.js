@@ -1,5 +1,5 @@
-var w = 770;
-var h = 500;
+var w = 1100;
+var h = 600;
 var center = [w / 2, h / 2];
 var proj = d3.geo.mercator().center([145.1, -37.80]).scale(40000);
 var path = d3.geo.path().projection(proj);
@@ -33,6 +33,10 @@ var map = d3.select("#map").append("svg:svg")
     .attr("viewBox", "0 0 " + w + " " + h)
     .call(zoom)
     .append("svg:g");
+
+
+
+
 
 
 var axes = map.append("svg:g").attr("id", "axes");
@@ -90,6 +94,7 @@ d3.json("pop.json", function (error, pop) {
           //  d3.select(this).style("stroke", "white");
             $("#tooltip").hide();
         });
+
 
 
 
@@ -366,7 +371,6 @@ function interpolateZoom (translate, scale) {
 }
 
 function zoomClick() {
-    console.log("hello");
     var clicked = d3.event.target,
         direction = 1,
         factor = 0.2,
@@ -407,7 +411,6 @@ function clickToPreFill(d)
     $('#commercial').val(prediction[zoneNumber]['commercial']);
     $('#mixIndex').val(prediction[zoneNumber]['mixIndex']);
 
-    $('#result').text('Result');
 }
 
 

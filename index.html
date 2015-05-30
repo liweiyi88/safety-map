@@ -18,22 +18,23 @@
 </head>
 <body>
 <section class="home">
-    <div class="view" id="view">
-        <div class="view-inner text-center">
-            Getting Started
-        </div>
-    </div>
+    <!--<div class="view" id="view">-->
+        <!--<div class="view-inner text-center">-->
+            <!--Getting Started-->
+        <!--</div>-->
+    <!--</div>-->
     <div class="brief-container">
         <div class="inner">
 
-            <h1>Melbourne Road Safety Portal</h1>
-            <br>
-            <hr>
+            <h2>MELBOURNE ROAD SAFETY PORTAL</h2>
             <br>
             <p>
-                Developed by Julian Li and Meead Saberi <br>
-                City Science at Monash University<br>
-                <a href="http://monash.edu/research/city-science/">http://monash.edu/research/city-science/</a>
+                Institute of Transport Studies<br>
+                Monash University
+            </p>
+            <p>
+                By Julian Li, Richard Amoh-Gyimah, Meead Saberi and Majid Sarvi<br><br>
+                CONTACT: <a href="mailto:meead.saberi@monash.edu">meead.saberi@monash.edu</a>
             </p>
         </div>
     </div>
@@ -53,7 +54,7 @@
     <div id="zoom-out" class="zoom-btn leaflet-control-zoom-out">-</div>
 
     <div class="prediction">
-        <h4>Predicting Crashes</h4>
+        <h4><b>Crash Prediction</b></h4>
         <div class="col-xs-12">
             <form class="form-horizontal">
                 <div class="form-group">
@@ -61,7 +62,7 @@
                     <input type="text" class="form-control input-sm" id="vktInput" placeholder="e.g. 10988778">
                 </div>
                 <div class="form-group">
-                    <label for="weeklyIncome">Percentage of Household<br> with Weekly Income</label><span id="weeklymsg" class="msg"></span>
+                    <label for="weeklyIncome">Percentage of Households with <br>Weekly Income <$1,000</label><span id="weeklymsg" class="msg"></span>
                     <input type="text" class="form-control input-sm" id="weeklyIncome" placeholder="e.g. 2" aria-describedby="weeklyaddon">
                 </div>
                 <div class="form-group">
@@ -81,7 +82,12 @@
                     <input type="text" class="form-control input-sm" id="mixIndex" placeholder="e.g. 2">
                 </div>
                 <div class="form-group">
-                    <span id="predict" class="btn btn-default">Predict</span><span id="result"></span>
+                    <span id="predict" class="btn btn-default">Predict</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="result">Number of predicted crashes per year</label><br>
+                    <span id="result"></span>
                 </div>
             </form>
         </div>
@@ -90,10 +96,10 @@
 
     <div id="select-menu">
         <select class="selectpicker" data-width="auto" data-live-search="true" data-size="7">
+            <option value="crash-p">Total Crashes</option>
             <option value="total-p" >Total Population</option>
             <option value="density-p">Total Population Density</option>
             <option value="vehicle-p">Vehicle Kilometers Travelled (million)</option>
-            <option value="crash-p">Total Crashes</option>
             <option value="crash-4-p">Crashes in which a 4-16 year old involved</option>
             <option value="crash-60-p">Crashes in which a 60+ year old involved</option>
             <option value="bike-p" data-subtext="scroll down to see more">Bicycle Crashes</option>
@@ -158,8 +164,8 @@
             }, 1000);
         });
 
-        makeHistogramChart('his-chart',populationFre,'Total Population');
-        makeRankChart('rank-chart',populationRank,'Total Population');
+        makeHistogramChart('his-chart',crashFre,'Total Crashes');
+        makeRankChart('rank-chart',crashRank,'Total Crashes');
 
         $('body').on('click','#predict',function()
         {

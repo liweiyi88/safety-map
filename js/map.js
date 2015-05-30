@@ -1,7 +1,7 @@
 var w = 1100;
 var h = 600;
 var center = [w / 2, h / 2];
-var proj = d3.geo.mercator().center([145.1, -37.80]).scale(40000);
+var proj = d3.geo.mercator().center([145.04, -37.80]).scale(51000);
 var path = d3.geo.path().projection(proj);
 var t = proj.translate(); // the projection's default translation
 var s = proj.scale() // the projection's default scale
@@ -30,8 +30,8 @@ var strokeColor = '#4d4747';
 var strokeWidth = "1";
 
 var map = d3.select("#map").append("svg:svg")
-    .attr("viewBox", "0 0 " + w + " " + h)
     .call(zoom)
+    .attr("viewBox", "0 0 " + w + " " + h)
     .append("svg:g");
 
 
@@ -62,17 +62,17 @@ d3.json("pop.json", function (error, pop) {
         .enter().append("svg:path")
         .attr("d", path)
         .attr("fill", function (d) {
-            var pop = d.properties.Total_Pop;
-            if (pop <= 7161) {
+            var pop = d.properties.All_Crashe;
+            if (pop <= 55) {
                 return firstColor;
             }
-            else if (pop > 7161 && pop <= 12373) {
+            else if (pop > 55 && pop <= 111) {
                 return secondColor;
             }
-            else if (pop > 12373 && pop <= 17710) {
+            else if (pop > 111 && pop <= 189) {
                 return thirdColor;
             }
-            else if (pop > 17710 && pop <= 23770) {
+            else if (pop > 189 && pop <= 356) {
                 return fourthColor;
             }
             else
@@ -270,10 +270,27 @@ d3.json("pop.json", function (error, pop) {
 });
 
 
+//d3.select('svg').on("dblclick.zoom", null);
+//d3.select('svg').on("touchstart.zoom", null);
+d3.select('svg').on("wheel.zoom", null);
+d3.select('svg').on("mousewheel.zoom", null);
+d3.select('svg').on("MozMousePixelScroll.zoom", null);
+
+
 function showTooltip(name, data)
 {
     d3.select("#title").text(name);
-    d3.select("#content").text("Number: " +data);
+    var number = null;
+    if(data == parseInt(data, 10))
+    {
+        number = data;
+    }
+    else
+    {
+         number = parseFloat(data).toFixed(2);
+    }
+
+    d3.select("#content").text(numberWithCommas(number));
     d3.select("#tooltip")
         .style("left", (d3.event.pageX) + "px")
         .style("top", (d3.event.pageY - 28) + "px");
@@ -306,54 +323,12 @@ function redraw() {
 }
 
 
-//function barTransition(filename)
-//{
-//    d3.csv(filename, function(error, data) {
-//
-//        var width = 220,
-//            barHeight = 11;
-//
-//        var x = d3.scale.linear()
-//            .range([0, width]);
-//        x.domain([0, d3.max(data, function(d) { return d.value; })]);
-//
-//        d3.selectAll(".chart").selectAll("rect")
-//            .data(data)
-//            .transition()
-//            .attr("width", function(d) { return x(d.value); })
-//            .attr("x",function(d){return width-x(d.value);} )
-//            .attr("height", barHeight - 2)
-//            .style("fill", "#FF8533");
-//
-//        d3.selectAll(".chart").selectAll("rect")
-//            .on("mouseover", function (d) {
-//                d3.select("#uk").selectAll("path")
-//                    .style("stroke-width", function(d2){
-//                        if(d.name == d2.properties.SA2_NAME) {
-//                            return strokeWidth;
-//                        }
-//                    })
-//                    .style("stroke", function(d1){
-//                        if(d.name == d1.properties.SA2_NAME) {
-//                            return strokeColor;
-//                        }
-//                    });
-//
-//                showTooltip(d.name,d.value);
-//            });
-//
-//
-//
-//
-//    });
-//}
-
-
 function zoomed() {
     map.attr("transform",
         "translate(" + zoom.translate() + ")" +
         "scale(" + zoom.scale() + ")"
     );
+
 }
 
 function interpolateZoom (translate, scale) {
@@ -368,6 +343,32 @@ function interpolateZoom (translate, scale) {
             zoomed();
         };
     });
+}
+
+
+function clicked(d) {
+    var x, y, k;
+
+    if (d && centered !== d) {
+        var centroid = path.centroid(d);
+        x = centroid[0];
+        y = centroid[1];
+        k = 4;
+        centered = d;
+    } else {
+        x = w / 2;
+        y = h / 2;
+        k = 1;
+        centered = null;
+    }
+
+    g.selectAll("path")
+        .classed("active", centered && function(d) { return d === centered; });
+
+    g.transition()
+        .duration(750)
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+        .style("stroke-width", 1.5 / k + "px");
 }
 
 function zoomClick() {
@@ -415,4 +416,9 @@ function clickToPreFill(d)
 
 
 
+function numberWithCommas(x) {
 
+    //x = x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
+    x = parseFloat(x).toFixed(2);
+    return x;
+}

@@ -11,12 +11,10 @@
     <link href="css/scrollyou.css" rel="stylesheet">
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-
-    <style>
-
-    </style>
 </head>
 <body>
+
+
 <section class="home">
     <!--<div class="view" id="view">-->
         <!--<div class="view-inner text-center">-->
@@ -132,6 +130,11 @@
 
 <!-- third party library -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="js/lib/loadingoverlay.min.js"></script>
+<script>
+    $.LoadingOverlay("show");
+</script>
+
 <script src="js/lib/jquery.mousewheel.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="js/lib/leaflet.js"></script>
@@ -139,6 +142,7 @@
 <script src="js/lib/amcharts.js"></script>
 <script src="js/lib/serial.js"></script>
 <script src="js/lib/d3.min.js"></script>
+<script src="http://d3js.org/d3.geo.tile.v0.min.js"></script>
 <script src="js/lib/topojson.min.js"></script>
 <script src="js/lib/bootstrap-select.min.js"></script>
 <script src="js/lib/scrollYou.js"></script>
@@ -152,6 +156,12 @@
 <script src="js/prediction.js"></script>
 
 <script>
+
+    $(window).load(function()
+    {
+        $.LoadingOverlay("hide");
+    });
+
     function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
     }

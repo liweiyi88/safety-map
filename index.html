@@ -132,6 +132,14 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="js/lib/loadingoverlay.min.js"></script>
 <script>
+    $.LoadingOverlaySetup({
+        color           : "rgba(255, 255, 255, 1)",
+        image           : "images/loading.gif",
+        maxSize         : "80px",
+        minSize         : "20px",
+        resizeInterval  : 0,
+        size            : "50%"
+    });
     $.LoadingOverlay("show");
 </script>
 

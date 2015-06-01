@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>Safety Map</title>
     <!-- Latest compiled and minified CSS -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/custom-select.css" />
     <link href="css/bootstrap-select.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/scrollyou.css" rel="stylesheet">
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
@@ -30,10 +30,10 @@
                 Institute of Transport Studies<br>
                 Monash University
             </p>
-            <p>
-                By Julian Li, Richard Amoh-Gyimah, Meead Saberi and Majid Sarvi<br><br>
-                CONTACT: <a href="mailto:meead.saberi@monash.edu">meead.saberi@monash.edu</a>
-            </p>
+            <!--<p>-->
+                <!--By Julian Li, Richard Amoh-Gyimah, Meead Saberi and Majid Sarvi<br><br>-->
+                <!--CONTACT: <a href="mailto:meead.saberi@monash.edu">meead.saberi@monash.edu</a>-->
+            <!--</p>-->
         </div>
     </div>
 </section>
@@ -52,7 +52,7 @@
     <div id="zoom-out" class="zoom-btn leaflet-control-zoom-out">-</div>
 
     <div class="prediction">
-        <h4><b>Crash Prediction</b></h4>
+        <h4><b>Prediction Panel</b></h4>
         <div class="col-xs-12">
             <form class="form-horizontal">
                 <div class="form-group">
@@ -239,7 +239,9 @@
             {
                 var result = 2.29632 + 0.31498 * Math.log(vktInput/1000) + 0.01699 * weeklyIncome + 0.04684 * bikeInput + 0.01024 * residentialInput + 0.02062 * commercialInput + 1.32814 * mixIndex;
                 result = Math.round(result);
+                result = Math.exp(result).toFixed(2);
                 result = numberWithCommas(result);
+
 
                 $('#result').text('');
                 $('#result').append(' '+result+ ' crashes in the zone');

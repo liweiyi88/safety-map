@@ -82,7 +82,7 @@ d3.json("pop.json", function (error, pop) {
         .on("mouseover", function (d) {
             d3.select(this).style("stroke", strokeColor);
             d3.select(this).style("stroke-width", strokeWidth);
-            showTooltip(d.properties.SA2_NAME,d.properties.Total_Pop);
+            showTooltip(d.properties.SA2_NAME,d.properties.All_Crashe);
 
 
         })

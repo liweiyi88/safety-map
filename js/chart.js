@@ -92,11 +92,85 @@ function makeRankChart(classname, dataset,title)
 
         "dataProvider": dataset
     });
-
-
-
 }
 
+
+function makeDetailChart(data_2009,data_2010,data_2011,data_2012,data_2013)
+{
+    AmCharts.makeChart("detail-chart",
+        {
+            "type": "serial",
+            "categoryField": "date",
+            "dataDateFormat": "YYYY",
+            "theme": "default",
+            "categoryAxis": {
+                "minPeriod": "YYYY",
+                "parseDates": true,
+                "axisColor": "#FFFFFF",
+                "gridThickness": 0
+            },
+            "chartCursor": {
+                "animationDuration": 0,
+                "categoryBalloonDateFormat": "YYYY"
+            },
+            "trendLines": [],
+            "graphs": [
+                {
+                    "bullet": "round",
+                    "id": "AmGraph-1",
+                    "title": "graph 1",
+                    "valueField": "column-1"
+                }
+            ],
+            "guides": [],
+            "valueAxes": [
+                {
+                    "id": "ValueAxis-1",
+                    "axisColor": "#FFFFFF",
+                    "fillAlpha": 0.58,
+                    "gridAlpha": 0.07,
+                    "labelFrequency": 2,
+                    "gridCount": 2,
+                    "offset": 15,
+                    "tickLength": 0,
+                    "title": "Axis title",
+                    "titleFontSize": 1
+                }
+            ],
+            "allLabels": [],
+            "balloon": {},
+            "titles": [
+                {
+                    "id": "Title-1",
+                    "size": 15,
+                    "text": ""
+                }
+            ],
+            "dataProvider": [
+                {
+                    "date": "2009",
+                    "column-1": data_2009
+                },
+                {
+                    "date": "2010",
+                    "column-1": data_2010
+                },
+                {
+                    "date": "2011",
+                    "column-1": data_2011
+                },
+                {
+                    "date": "2012",
+                    "column-1": data_2012
+                },
+                {
+                    "date": "2013",
+                    "column-1": data_2013
+                }
+            ]
+        }
+    );
+}
 
 
 

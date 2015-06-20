@@ -296,9 +296,14 @@ svg
     font-size: 10px;
 }
 
-#result
+#result, #result-zone
 {
     color:green;
+}
+
+#result-zone
+{
+    display:none;
 }
 
 

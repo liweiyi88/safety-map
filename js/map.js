@@ -58,11 +58,11 @@ var uk = map.append("svg:g").attr("id", "uk");
 
 d3.json("pop.json", function (error, pop) {
     uk.selectAll("path")
-        .data(topojson.feature(pop, pop.objects.population).features)
+        .data(topojson.feature(pop, pop.objects.safety).features)
         .enter().append("svg:path")
         .attr("d", path)
         .attr("fill", function (d) {
-            var pop = d.properties.All_Crashe;
+            var pop = d.properties.TotalC_203;
             if (pop <= 55) {
                 return firstColor;
             }
@@ -82,7 +82,7 @@ d3.json("pop.json", function (error, pop) {
         .on("mouseover", function (d) {
             d3.select(this).style("stroke", strokeColor);
             d3.select(this).style("stroke-width", strokeWidth);
-            showTooltip(d.properties.SA2_NAME,d.properties.All_Crashe);
+            showTooltip(d.properties.SA2_NAME,d.properties.TotalC_204);
 
 
         })
@@ -116,31 +116,31 @@ d3.json("pop.json", function (error, pop) {
         }
         else if(selectedValue == 'crash-p')
         {
-            createMap('All_Crashe',crashFre,crashRank,'All Crashes',55,111,189,356);
+            createMap('TotalC_204',crashFre,crashRank,'All Crashes',55,111,189,356);
         }
         else if(selectedValue == 'crash-4-p')
         {
-            createMap('Age_4_16_A',crash4Fre,crash4Rank,'',2,4,7,14);
+            createMap('4_16_2013',crash4Fre,crash4Rank,'',2,4,7,14);
         }
         else if(selectedValue == 'crash-60-p')
         {
-            createMap('Age_60__Ac',crash60Fre,crash60Rank,'',3,6,9,13);
+            createMap('60__2013',crash60Fre,crash60Rank,'',3,6,9,13);
         }
         else if(selectedValue == 'bike-p')
         {
-            createMap('All_Bicycl',bicycleCrashesFre,bicycleCrashesRank,'',8,21,46,135);
+            createMap('Bike_2013',bicycleCrashesFre,bicycleCrashesRank,'',8,21,46,135);
         }
         else if(selectedValue == 'pedestrian-p')
         {
-            createMap('Pedestrian',pedestrianCrashesFre,pedestrianCrashesRank,'',9,20,39,71);
+            createMap('Pedes_2013',pedestrianCrashesFre,pedestrianCrashesRank,'',9,20,39,71);
         }
         else if(selectedValue == 'motor-p')
         {
-            createMap('Motorbike_',motorbikeCrashesFre,motorbikeCrashesRank,'',7,16,30,52);
+            createMap('Mbike_2013',motorbikeCrashesFre,motorbikeCrashesRank,'',7,16,30,52);
         }
         else if(selectedValue == 'truck-p')
         {
-            createMap('Truck_Cras', truckCrashesFre,truckCrashesRank,'',2,6,11,17);
+            createMap('Truck_2013', truckCrashesFre,truckCrashesRank,'',2,6,11,17);
         }
         else if(selectedValue == 'fatal-p')
         {
@@ -156,11 +156,11 @@ d3.json("pop.json", function (error, pop) {
         }
         else if(selectedValue == 'weekday-p')
         {
-            createMap('Weekdays_C',weekdayCrashesFre,weekdayCrashesRank,'',44,89,156,281);
+            createMap('WeekD_2013',weekdayCrashesFre,weekdayCrashesRank,'',44,89,156,281);
         }
         else if(selectedValue == 'weekend-p')
         {
-            createMap('Weekends_C',weekendCrashesFre,weekendCrashesRank,'',12,24,40,76);
+            createMap('WeekE_2013',weekendCrashesFre,weekendCrashesRank,'',12,24,40,76);
         }
     });
 
@@ -181,9 +181,9 @@ d3.json("pop.json", function (error, pop) {
         {
             column = d.properties.VKT_avg;
         }
-        else if(columnName == 'All_Crashe')
+        else if(columnName == 'TotalC_204')
         {
-            column = d.properties.All_Crashe;
+            column = d.properties.TotalC_204;
         }
         else if(columnName == 'Age_4_16_A')
         {
@@ -404,13 +404,22 @@ d3.selectAll('.zoom-btn').on('click', zoomClick);
 
 function clickToPreFill(d)
 {
-    var zoneNumber = d.properties.Zones__SA2;
+    var zoneNumber = d.properties.SA2_Zones;
+
     $('#vktInput').val(prediction[zoneNumber]['vkt']);
     $('#weeklyIncome').val(prediction[zoneNumber]['weeklyIncome']);
     $('#bikePopulation').val(prediction[zoneNumber]['bike']);
     $('#residential').val(prediction[zoneNumber]['resident']);
     $('#commercial').val(prediction[zoneNumber]['commercial']);
     $('#mixIndex').val(prediction[zoneNumber]['mixIndex']);
+    $('.result-zone').text(d.properties.SA2_NAME);
+    $('#result-zone').hide();
+    $('#result').text('');
+
+
+
+
+    makeDetailChart(d.properties.TotalC_200, d.properties.TotalC_201, d.properties.TotalC_202, d.properties.TotalC_203, d.properties.TotalC_204);
 
 }
 

@@ -87,6 +87,7 @@
                 <div class="form-group">
                     <label for="result">Number of predicted crashes per year</label><br>
                     <span id="result"></span>
+                    <span class="result-zone" id="result-zone"></span>
                 </div>
             </form>
         </div>
@@ -119,6 +120,14 @@
     </div>
    <div id="map"></div>
 </div>
+
+
+<div class="charts">
+    <h2 class="result-zone text-center"></h2>
+
+    <div id="detail-chart" style="height:300px; width:50%; margin-right:auto; margin-left:auto; border:1px solid #eeeeee;"></div>
+</div>
+
 
 
 
@@ -247,7 +256,8 @@
 
 
                 $('#result').text('');
-                $('#result').append(' '+result+ ' crashes in the zone');
+                $('#result').append(' '+result+ ' crashes in ');
+                $('#result-zone').show();
             }
 
 

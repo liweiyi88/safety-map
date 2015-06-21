@@ -97,8 +97,8 @@
     <div id="select-menu">
         <select class="selectpicker" data-width="auto" data-live-search="true" data-size="7">
             <option value="crash-p">Total Crashes</option>
-            <option value="total-p" >Total Population</option>
-            <option value="density-p">Total Population Density</option>
+            <!--<option value="total-p" >Total Population</option>-->
+            <!--<option value="density-p">Total Population Density</option>-->
             <option value="vehicle-p">Vehicle Kilometers Travelled (million)</option>
             <option value="crash-4-p">Crashes in which a 4-16 year old involved</option>
             <option value="crash-60-p">Crashes in which a 60+ year old involved</option>
@@ -123,9 +123,31 @@
 
 
 <div class="charts">
-    <h2 class="result-zone text-center"></h2>
+    <b><h1 class="result-zone text-center">Melbourne</h1></b>
+    <h3 class="text-center">General crash statistics in 2013</h3>
 
-    <div id="detail-chart" style="height:300px; width:50%; margin-right:auto; margin-left:auto; border:1px solid #eeeeee;"></div>
+        <div style="width:60%; margin-left: auto; margin-right: auto;">
+            <table class="table">
+                <tr>
+                    <th>Total Crashes</th>
+                    <th>Fatal Crashes</th>
+                    <th>Pedestrian Crashes</th>
+                    <th>Bicycle Crashes</th>
+                </tr>
+                <tr>
+                    <td class="crash-data">9934</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                </tr>
+            </table>
+        </div>
+
+
+        <h5 class="text-center">The number of <span id="crash-type">total crashes</span> in <span class="result-zone">Melbourne</span> in 2013 was <span class="crash-data">9,934</span> based on data provided by VicRoads, changed from 2009</h5><br>
+        <div id="detail-chart" style="height:300px; width:50%; margin-right:auto; margin-left:auto;"></div>
+
+
 </div>
 
 

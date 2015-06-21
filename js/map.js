@@ -89,6 +89,8 @@ d3.json("pop.json", function (error, pop) {
         .on('click',function(d)
         {
             clickToPreFill(d);
+            makeDetailChart(d.properties.TotalC_200, d.properties.TotalC_201, d.properties.TotalC_202, d.properties.TotalC_203, d.properties.TotalC_204);
+            getCrashData(d);
         })
         .on("mouseout", function (d) {
           //  d3.select(this).style("stroke", "white");
@@ -415,12 +417,6 @@ function clickToPreFill(d)
     $('.result-zone').text(d.properties.SA2_NAME);
     $('#result-zone').hide();
     $('#result').text('');
-
-
-
-
-    makeDetailChart(d.properties.TotalC_200, d.properties.TotalC_201, d.properties.TotalC_202, d.properties.TotalC_203, d.properties.TotalC_204);
-
 }
 
 
@@ -430,4 +426,11 @@ function numberWithCommas(x) {
     //x = x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
     x = parseFloat(x).toFixed(2);
     return x;
+}
+
+
+function getCrashData(d)
+{
+    var number = d.properties.TotalC_204;
+    $('.crash-data').text(number);
 }

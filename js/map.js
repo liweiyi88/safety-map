@@ -1,7 +1,19 @@
-var w = 1100;
-var h = 600;
+var w = parseInt(d3.select('.map').style('width'), 10);
+var h = parseInt(d3.select('.map').style('height'), 10);
+
+
+console.log(w);
+
+var centerX = 144.75;
+var centerY = -37.70;
+
+if(w < 1300)
+{
+    centerX = 144.95;
+}
+
 var center = [w / 2, h / 2];
-var proj = d3.geo.mercator().center([145.04, -37.80]).scale(51000);
+var proj = d3.geo.mercator().center([centerX, centerY]).scale(50000);
 var path = d3.geo.path().projection(proj);
 var t = proj.translate(); // the projection's default translation
 var s = proj.scale() // the projection's default scale
@@ -104,15 +116,7 @@ d3.json("pop.json", function (error, pop) {
     {
         var selectedValue = $(this).val();
 
-        if(selectedValue == 'total-p')
-        {
-            createMap('Total_Pop',populationFre,populationRank,'Total Population',7161,12373,17710,23770)
-        }
-        else if(selectedValue == 'density-p')
-        {
-            createMap('PoP_Densit',densityFre,densityRank,'Population Density',2180.697101,5803.364401,11594.000101,24599.885701);
-        }
-        else if(selectedValue == 'vehicle-p')
+        if(selectedValue == 'vehicle-p')
         {
             createMap('VKT_avg',vktFre,vktRank,'VKT',127217739,299481629,536334334,916409590);
         }
@@ -171,15 +175,8 @@ d3.json("pop.json", function (error, pop) {
     function columnMapper(d,columnName)
     {
         var column;
-        if(columnName == 'Total_Pop')
-        {
-            column = d.properties.Total_Pop;
-        }
-        else if(columnName == 'PoP_Densit')
-        {
-            column = d.properties.PoP_Densit;
-        }
-        else if(columnName == 'VKT_avg')
+
+        if(columnName == 'VKT_avg')
         {
             column = d.properties.VKT_avg;
         }

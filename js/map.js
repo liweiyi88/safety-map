@@ -101,8 +101,125 @@ d3.json("pop.json", function (error, pop) {
         .on('click',function(d)
         {
             clickToPreFill(d);
-            makeDetailChart(d.properties.TotalC_200, d.properties.TotalC_201, d.properties.TotalC_202, d.properties.TotalC_203, d.properties.TotalC_204);
-            getCrashData(d);
+            var selectedCrash = $('.selectpicker').val();
+            var selectedText = $('.selectpicker option:selected').text();
+            if(selectedCrash == 'vehicle-p')
+            {
+                makeVKTChart(d.properties.VKT_2010__,d.properties.VKT_2011__,d.properties.VKT_2012__,d.properties.VKT_2013__);
+                getCrashData(d.properties.VKT_2013__);
+            }
+            else
+            {
+                var data_2009 = '';
+                var data_2010 = '';
+                var data_2011 = '';
+                var data_2012 = '';
+                var data_2013 = '';
+                if(selectedCrash == 'crash-p')
+                {
+                    data_2009 = d.properties.TotalC_200;
+                    data_2010 = d.properties.TotalC_201;
+                    data_2011 = d.properties.TotalC_202;
+                    data_2012 = d.properties.TotalC_203;
+                    data_2013 = d.properties.TotalC_204;
+                }
+                else if(selectedCrash == 'crash-4-p')
+                {
+                    data_2009 = d.properties.age4_2009;
+                    data_2010 = d.properties.age4_2010;
+                    data_2011 = d.properties.age4_2011;
+                    data_2012 = d.properties.age4_2012;
+                    data_2013 = d.properties.age4_2013;
+                }
+                else if(selectedCrash == 'crash-60-p')
+                {
+                    data_2009 = d.properties.age60_2009;
+                    data_2010 = d.properties.age60_2010;
+                    data_2011 = d.properties.age60_2011;
+                    data_2012 = d.properties.age60_2012;
+                    data_2013 = d.properties.age60_2013;
+                }
+                else if(selectedCrash == 'bike-p')
+                {
+                    data_2009 = d.properties.Bike_2009;
+                    data_2010 = d.properties.Bike_2010;
+                    data_2011 = d.properties.Bike_2011;
+                    data_2012 = d.properties.Bike_2012;
+                    data_2013 = d.properties.Bike_2013;
+                }
+                else if(selectedCrash == 'pedestrian-p')
+                {
+                    data_2009 = d.properties.Pedes_2009;
+                    data_2010 = d.properties.Pedes_2010;
+                    data_2011 = d.properties.Pedes_2011;
+                    data_2012 = d.properties.Pedes_2012;
+                    data_2013 = d.properties.Pedes_2013;
+                }
+                else if(selectedCrash == 'motor-p')
+                {
+                    data_2009 = d.properties.Mbike_2009;
+                    data_2010 = d.properties.Mbike_2010;
+                    data_2011 = d.properties.Mbike_2011;
+                    data_2012 = d.properties.Mbike_2012;
+                    data_2013 = d.properties.Mbike_2013;
+                }
+                else if(selectedCrash == 'truck-p')
+                {
+                    data_2009 = d.properties.Truck_2009;
+                    data_2010 = d.properties.Truck_2010;
+                    data_2011 = d.properties.Truck_2011;
+                    data_2012 = d.properties.Truck_2012;
+                    data_2013 = d.properties.Truck_2013;
+                }
+                else if(selectedCrash == 'fatal-p')
+                {
+                    data_2009 = d.properties.Fatal_2009;
+                    data_2010 = d.properties.Fatal_2010;
+                    data_2011 = d.properties.Fatal_2011;
+                    data_2012 = d.properties.Fatal_2012;
+                    data_2013 = d.properties.Fatal_2013;
+                }
+                else if(selectedCrash == 'severe-p')
+                {
+                    data_2009 = d.properties.Serious_20;
+                    data_2010 = d.properties.Serious_21;
+                    data_2011 = d.properties.Serious_22;
+                    data_2012 = d.properties.Serious_23;
+                    data_2013 = d.properties.Serious_24;
+                }
+                else if(selectedCrash == 'night-p')
+                {
+                    data_2009 = d.properties.NightT_200;
+                    data_2010 = d.properties.NightT_201;
+                    data_2011 = d.properties.NightT_202;
+                    data_2012 = d.properties.NightT_203;
+                    data_2013 = d.properties.NightT_204;
+                }
+                else if(selectedCrash == 'weekday-p')
+                {
+                    data_2009 = d.properties.WeekD_2009;
+                    data_2010 = d.properties.WeekD_2010;
+                    data_2011 = d.properties.WeekD_2011;
+                    data_2012 = d.properties.WeekD_2012;
+                    data_2013 = d.properties.WeekD_2013;
+                }
+                else if(selectedCrash == 'weekend-p')
+                {
+                    data_2009 = d.properties.WeekE_2009;
+                    data_2010 = d.properties.WeekE_2010;
+                    data_2011 = d.properties.WeekE_2011;
+                    data_2012 = d.properties.WeekE_2012;
+                    data_2013 = d.properties.WeekE_2013;
+                }
+
+                getCrashData(data_2013);
+                makeDetailChart(data_2009,data_2010,data_2011,data_2012,data_2013);
+
+               // makeDetailChart(d.properties.TotalC_200, d.properties.TotalC_201, d.properties.TotalC_202, d.properties.TotalC_203, d.properties.TotalC_204);
+            }
+            $('#crash-type').text(selectedText);
+
+
         })
         .on("mouseout", function (d) {
           //  d3.select(this).style("stroke", "white");
@@ -115,10 +232,11 @@ d3.json("pop.json", function (error, pop) {
     $('.selectpicker').on('change',function()
     {
         var selectedValue = $(this).val();
+        var selectedText = $('.selectpicker option:selected').text();
 
         if(selectedValue == 'vehicle-p')
         {
-            createMap('VKT_avg',vktFre,vktRank,'VKT',127217739,299481629,536334334,916409590);
+            createMap('VKT_2013__',vktFre,vktRank,'VKT',1.27,2.99,5.36,9.16);
         }
         else if(selectedValue == 'crash-p')
         {
@@ -126,11 +244,11 @@ d3.json("pop.json", function (error, pop) {
         }
         else if(selectedValue == 'crash-4-p')
         {
-            createMap('4_16_2013',crash4Fre,crash4Rank,'',2,4,7,14);
+            createMap('age4_2013',crash4Fre,crash4Rank,'',2,4,7,14);
         }
         else if(selectedValue == 'crash-60-p')
         {
-            createMap('60__2013',crash60Fre,crash60Rank,'',3,6,9,13);
+            createMap('age60_2013',crash60Fre,crash60Rank,'',3,6,9,13);
         }
         else if(selectedValue == 'bike-p')
         {
@@ -150,15 +268,15 @@ d3.json("pop.json", function (error, pop) {
         }
         else if(selectedValue == 'fatal-p')
         {
-            createMap('Fatal_Cras',fatalCrashesFre,fatalCrashesRank,'',0,1,2,5);
+            createMap('Fatal_2013',fatalCrashesFre,fatalCrashesRank,'',0,1,2,5);
         }
         else if(selectedValue == 'severe-p')
         {
-            createMap('High_Sever',severeInjuryCrashesFre,severeInjuryCrashesRank,'',18,34,54,106);
+            createMap('Serious_24',severeInjuryCrashesFre,severeInjuryCrashesRank,'',18,34,54,106);
         }
         else if(selectedValue == 'night-p')
         {
-            createMap('Night_Time',nighttimeCrashesFre,nighttimeCrashesRank,'',13,28,47,93);
+            createMap('NightT_204',nighttimeCrashesFre,nighttimeCrashesRank,'',13,28,47,93);
         }
         else if(selectedValue == 'weekday-p')
         {
@@ -168,6 +286,9 @@ d3.json("pop.json", function (error, pop) {
         {
             createMap('WeekE_2013',weekendCrashesFre,weekendCrashesRank,'',12,24,40,76);
         }
+
+        $('#titleofchart').text(selectedText);
+        //$('#crash-type').text(selectedText);
     });
 
 
@@ -176,57 +297,57 @@ d3.json("pop.json", function (error, pop) {
     {
         var column;
 
-        if(columnName == 'VKT_avg')
+        if(columnName == 'VKT_2013__')
         {
-            column = d.properties.VKT_avg;
+            column = d.properties.VKT_2013__;
         }
         else if(columnName == 'TotalC_204')
         {
             column = d.properties.TotalC_204;
         }
-        else if(columnName == 'Age_4_16_A')
+        else if(columnName == 'age4_2013')
         {
-            column = d.properties.Age_4_16_A;
+            column = d.properties.age4_2013;
         }
-        else if(columnName == 'Age_60__Ac')
+        else if(columnName == 'age60_2013')
         {
-            column = d.properties.Age_60__Ac;
+            column = d.properties.age60_2013;
         }
-        else if(columnName == 'All_Bicycl')
+        else if(columnName == 'Bike_2013')
         {
-            column = d.properties.All_Bicycl;
+            column = d.properties.Bike_2013;
         }
-        else if(columnName == 'Pedestrian')
+        else if(columnName == 'Pedes_2013')
         {
-            column = d.properties.Pedestrian;
+            column = d.properties.Pedes_2013;
         }
-        else if(columnName == 'Motorbike_')
+        else if(columnName == 'Mbike_2013')
         {
-            column = d.properties.Motorbike_;
+            column = d.properties.Mbike_2013;
         }
-        else if(columnName == 'Truck_Cras')
+        else if(columnName == 'Truck_2013')
         {
-            column = d.properties.Truck_Cras;
+            column = d.properties.Truck_2013;
         }
-        else if(columnName == 'Fatal_Cras')
+        else if(columnName == 'Fatal_2013')
         {
-            column = d.properties.Fatal_Cras;
+            column = d.properties.Fatal_2013;
         }
-        else if(columnName == 'High_Sever')
+        else if(columnName == 'Serious_24')
         {
-            column = d.properties.High_Sever;
+            column = d.properties.Serious_24;
         }
-        else if(columnName == 'Night_Time')
+        else if(columnName == 'NightT_204')
         {
-            column = d.properties.Night_Time;
+            column = d.properties.NightT_204;
         }
-        else if(columnName == 'Weekdays_C')
+        else if(columnName == 'WeekD_2013')
         {
-            column = d.properties.Weekdays_C;
+            column = d.properties.WeekD_2013;
         }
-        else if(columnName == 'Weekends_C')
+        else if(columnName == 'WeekE_2013')
         {
-            column = d.properties.Weekends_C;
+            column = d.properties.WeekE_2013;
         }
 
         return column;
@@ -403,9 +524,10 @@ d3.selectAll('.zoom-btn').on('click', zoomClick);
 
 function clickToPreFill(d)
 {
-    var zoneNumber = d.properties.SA2_Zones;
+    var zoneNumber = d.properties.SA2_MAIN;
 
-    $('#vktInput').val(prediction[zoneNumber]['vkt']);
+    var avgVKT = d.properties.Average_VK;
+    $('#vktInput').val(avgVKT);
     $('#weeklyIncome').val(prediction[zoneNumber]['weeklyIncome']);
     $('#bikePopulation').val(prediction[zoneNumber]['bike']);
     $('#residential').val(prediction[zoneNumber]['resident']);
@@ -426,8 +548,8 @@ function numberWithCommas(x) {
 }
 
 
-function getCrashData(d)
+function getCrashData(data_2013)
 {
-    var number = d.properties.TotalC_204;
+    var number = data_2013;
     $('.crash-data').text(number);
 }

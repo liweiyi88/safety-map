@@ -107,6 +107,7 @@ d3.json("pop.json", function (error, pop) {
             {
                 makeVKTChart(d.properties.VKT_2010__,d.properties.VKT_2011__,d.properties.VKT_2012__,d.properties.VKT_2013__);
                 getCrashData(d.properties.VKT_2013__);
+                getTotalCrashData(d);
             }
             else
             {
@@ -213,6 +214,7 @@ d3.json("pop.json", function (error, pop) {
                 }
 
                 getCrashData(data_2013);
+                getTotalCrashData(d);
                 makeDetailChart(data_2009,data_2010,data_2011,data_2012,data_2013);
 
                // makeDetailChart(d.properties.TotalC_200, d.properties.TotalC_201, d.properties.TotalC_202, d.properties.TotalC_203, d.properties.TotalC_204);
@@ -553,3 +555,19 @@ function getCrashData(data_2013)
     var number = data_2013;
     $('.crash-data').text(number);
 }
+
+function getTotalCrashData(d)
+{
+    var totalCrashData = d.properties.TotalC_204;
+    $('.total-crash-data').text(totalCrashData);
+
+    var fatalCrashData = d.properties.Fatal_2013;
+    $('.fatal-crash-data').text(fatalCrashData);
+
+    var pedestrianCrashData = d.properties.Pedes_2013;
+    $('.pedestrian-crash-data').text(pedestrianCrashData);
+
+    var bikeCrashData = d.properties.Bike_2013;
+    $('.bike-crash-data').text(bikeCrashData);
+}
+

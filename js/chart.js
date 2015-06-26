@@ -250,271 +250,210 @@ function makeDetailChart(data_2009,data_2010,data_2011,data_2012,data_2013)
 
 
 var vktFre = [ {
-    "bin": "<106",
-    "frequency": 16
+    "bin": "0-37",
+    "frequency": 24
 }, {
-    "bin": "106-212",
-    "frequency": 59
+    "bin": "38-75",
+    "frequency": 25
 }, {
-    "bin": "212-318",
-    "frequency": 53
+    "bin": "76-112",
+    "frequency": 57
 }, {
-    "bin": "318-424",
-    "frequency": 48
+    "bin": "113-150",
+    "frequency": 63
 }, {
-    "bin": "424-530",
-    "frequency": 36
+    "bin": "151-187",
+    "frequency": 38
 }, {
-    "bin": "530-635",
-    "frequency": 22
+    "bin": "188-225",
+    "frequency": 24
 }, {
-    "bin": "635-741",
-    "frequency": 21
+    "bin": "226-262",
+    "frequency": 19
 }, {
-    "bin": "741-847",
+    "bin": "263-300",
     "frequency": 12
 }, {
-    "bin": "847-953",
-    "frequency": 8
+    "bin": "301-337",
+    "frequency": 5
 }, {
-    "bin": ">953",
-    "frequency": 4
+    "bin": "338+",
+    "frequency": 9
 }];
 
 var crashFre = [ {
-    "bin": ">39",
-    "frequency": 14
+    "bin": "0-15",
+    "frequency": 39
 }, {
-    "bin": "40-78",
-    "frequency": 32
+    "bin": "16-31",
+    "frequency": 106
 }, {
-    "bin": "79-117",
-    "frequency": 85
+    "bin": "32-46",
+    "frequency": 60
 }, {
-    "bin": "118-157",
-    "frequency": 67
+    "bin": "47-61",
+    "frequency": 44
 }, {
-    "bin": "158-196",
-    "frequency": 41
+    "bin": "62-76",
+    "frequency": 12
 }, {
-    "bin": "197-236",
-    "frequency": 24
+    "bin": "77-92",
+    "frequency": 7
 }, {
-    "bin": "237-275",
-    "frequency": 13
+    "bin": "93-107",
+    "frequency": 4
 }, {
-    "bin": "276-315",
-    "frequency": 6
+    "bin": "108-122",
+    "frequency": 1
 }, {
-    "bin": "316-354",
-    "frequency": 3
+    "bin": "123-137",
+    "frequency": 1
 }, {
-    "bin": ">355",
+    "bin": "138+",
     "frequency": 2
 }];
 
 var crash4Fre = [ {
-    "bin": "<1.17",
-    "frequency": 56
+    "bin": "0",
+    "frequency": 132
 }, {
-    "bin": "1.17-2.34",
-    "frequency": 62
+    "bin": "1",
+    "frequency": 79
 }, {
-    "bin": "2.35-3.54",
-    "frequency": 52
+    "bin": "2",
+    "frequency": 75
 }, {
-    "bin": "3.55-4.70",
-    "frequency": 31
+    "bin": "3",
+    "frequency": 16
 }, {
-    "bin": "4.71-5.87",
-    "frequency": 27
-}, {
-    "bin": "5.88-7.05",
-    "frequency": 26
-}, {
-    "bin": "7.06-8.23",
-    "frequency": 18
-}, {
-    "bin": "8.24-9.40",
-    "frequency": 7
-}, {
-    "bin": "9.41-10.58",
-    "frequency": 5
-}, {
-    "bin": ">10.59",
-    "frequency": 3
+    "bin": "3+",
+    "frequency": 4
 }];
 
 var crash60Fre = [ {
-    "bin": ">1.11",
-    "frequency": 84
-}, {
-    "bin": "1.12-2.23",
+    "bin": "0-3",
     "frequency": 42
 }, {
-    "bin": "2.24-3.34",
-    "frequency": 43
+    "bin": "4-6",
+    "frequency": 61
 }, {
-    "bin": "3.35-4.46",
-    "frequency": 27
+    "bin": "7-9",
+    "frequency": 72
 }, {
-    "bin": "4.47-5.58",
-    "frequency": 15
+    "bin": "10-12",
+    "frequency": 35
 }, {
-    "bin": "5.59-6.7",
-    "frequency": 19
+    "bin": "13-15",
+    "frequency": 23
 }, {
-    "bin": "6.71-7.81",
-    "frequency": 5
+    "bin": "16-18",
+    "frequency": 25
 }, {
-    "bin": "7.82-8.93",
-    "frequency": 11
-}, {
-    "bin": "8.94-10.05",
-    "frequency": 7
-}, {
-    "bin": ">10.06",
+    "bin": "19-21",
     "frequency": 12
+}, {
+    "bin": "22-25",
+    "frequency": 1
+}, {
+    "bin": "26-28",
+    "frequency": 1
+}, {
+    "bin": "29+",
+    "frequency": 4
 }];
 
 
 
 
-var populationRank = [
-    {
-    "zone": "South Morang",
-    "number": 38321
-    },
-    {
-        "zone": "Craigieburn - Mickleham",
-        "number": 34318
-    },
-    {
-        "zone": "Point Cook",
-        "number": 32413
-    },
-    {
-        "zone": "Preston",
-        "number": 29925
-    },
-    {
-        "zone": "Werribee",
-        "number": 29741
-    }
-]
-
-var densityRank = [
-    {
-        "zone": "Ormond - Glen Huntly",
-        "number": 45737.6046
-    },
-    {
-        "zone": "Fitzroy",
-        "number": 33522.53
-    },
-    {
-        "zone": "Parkville",
-        "number": 24599.8857
-    },
-    {
-        "zone": "Niddrie - Essendon West",
-        "number": 23830.0407
-    },
-    {
-        "zone": "South Melbourne",
-        "number": 21664.6488
-    }
-]
-
 var vktRank = [
     {
-        "zone": "Dandenong",
-        "number": 1800522323
+        "zone": "Upper Yarra Valley",
+        "number": 599.93
     },
     {
-        "zone": "Somerville",
-        "number": 1527938786
+        "zone": "Brunswick",
+        "number": 470.00
     },
     {
-        "zone": "Keilor",
-        "number": 1513511644
+        "zone": "Brunswick East",
+        "number": 437.78
     },
     {
-        "zone": "Malvern - Glen Iris",
-        "number": 1211696448
+        "zone": "Brunswick West",
+        "number": 402.04
     },
     {
-        "zone": "Altona North",
-        "number": 1184045118
+        "zone": "Coburg",
+        "number": 399.58
     }
 ]
 
 var crashRank = [
     {
         "zone": "Melbourne",
-        "number": 671
+        "number": 244
     },
     {
         "zone": "Dandenong",
-        "number": 575
+        "number": 212
     },
     {
         "zone": "Preston",
-        "number": 355
+        "number": 136
     },
     {
         "zone": "Richmond (VIC)",
-        "number": 350
+        "number": 111
     },
     {
         "zone": "Southbank",
-        "number": 309
+        "number": 99
     }
 ]
 
 var crash4Rank = [
     {
         "zone": "Dandenong",
-        "number": 20
+        "number": 4
     },
     {
-        "zone": "Caulfield - North",
-        "number": 13
+        "zone": "Broadmeadows",
+        "number": 4
     },
     {
-        "zone": "Mornington",
-        "number": 10
+        "zone": "Narre Warren",
+        "number": 4
     },
     {
-        "zone": "Pakenham - South",
-        "number": 10
+        "zone": "South Morang",
+        "number": 4
     },
     {
-        "zone": "Caroline Springs",
-        "number": 10
+        "zone": "Preston",
+        "number": 3
     }
 ]
 
 var crash60Rank = [
     {
-        "zone": "Melbourne",
-        "number": 19
-    },
-    {
-        "zone": "Malvern - Glen Iris",
-        "number": 16
-    },
-    {
         "zone": "Dandenong",
-        "number": 15
+        "number": 49
     },
     {
-        "zone": "Frankston",
-        "number": 15
+        "zone": "Preston",
+        "number": 41
     },
     {
-        "zone": "Bentleigh - McKinnon",
-        "number": 15
+        "zone": "Melbourne",
+        "number": 36
+    },
+    {
+        "zone": "Thomastown",
+        "number": 34
+    },
+    {
+        "zone": "Caulfield - North",
+        "number": 25
     }
 ]
 
@@ -528,59 +467,50 @@ var crash60Rank = [
 
 var truckCrashesRank = [
     {
+        "zone": "Newport",
+        "number": 6
+    },
+    {
+        "zone": "Sunshine West",
+        "number": 6
+    },
+    {
+        "zone": "Southbank",
+        "number": 5
+    },
+    {
+        "zone": "Deer Park - Derrimut",
+        "number": 5
+    },
+    {
         "zone": "Laverton",
-        "number": 22
-    },
-    {
-        "zone": "Dandenong",
-        "number": 19
-    },
-    {
-        "zone": "Altona North",
-        "number": 19
-    },
-    {
-        "zone": "Port Melbourne Industrial",
-        "number": 18
-    },
-    {
-        "zone": "Campbellfield - Coolaroo",
-        "number": 17
+        "number": 5
     }
 ]
 
 
 
 var truckCrashesFre = [ {
-    "bin": "<1",
-    "frequency": 130
+    "bin": "0",
+    "frequency": 180
 }, {
-    "bin": "1-2",
-    "frequency": 63
+    "bin": "1",
+    "frequency": 54
 }, {
-    "bin": "2-3",
-    "frequency": 31
+    "bin": "2",
+    "frequency": 23
 }, {
-    "bin": "3-5",
-    "frequency": 21
-}, {
-    "bin": "5-6",
-    "frequency": 19
-}, {
-    "bin": "6-7",
-    "frequency": 3
-}, {
-    "bin": "7-9",
-    "frequency": 2
-}, {
-    "bin": "9-10",
+    "bin": "3",
     "frequency": 7
 }, {
-    "bin": "10-11",
-    "frequency": 2
+    "bin": "4",
+    "frequency": 6
 }, {
-    "bin": ">11",
-    "frequency": 0
+    "bin": "5",
+    "frequency": 4
+}, {
+    "bin": "5+",
+    "frequency": 2
 }];
 
 
@@ -591,47 +521,44 @@ var truckCrashesFre = [ {
 
 var fatalCrashesRank = [
     {
-        "zone": "Bunyip - Garfield",
-        "number": 6
+        "zone": "Laverton",
+        "number": 4
     },
     {
-        "zone": "Emerald - Cockatoo",
-        "number": 6
+        "zone": "Dandenong",
+        "number": 3
     },
     {
-        "zone": "Hillside",
-        "number": 6
+        "zone": "Rockbank - Mount Cottrell",
+        "number": 3
     },
     {
-        "zone": "Lalor",
-        "number": 5
+        "zone": "Footscray",
+        "number": 3
     },
     {
-        "zone": "Koo Wee Rup",
-        "number": 5
+        "zone": "Craigieburn - Mickleham",
+        "number": 3
     }
 ]
 
 
 
 var fatalCrashesFre = [ {
-    "bin": "<1",
-    "frequency": 103
+    "bin": "0",
+    "frequency": 201
 }, {
-    "bin": "1-2",
-    "frequency": 92
+    "bin": "1",
+    "frequency": 57
 }, {
-    "bin": "2-3",
-    "frequency": 51
+    "bin": "2",
+    "frequency": 13
 }, {
-    "bin": "3-4",
-    "frequency": 25
+    "bin": "3",
+    "frequency": 4
 }, {
-    "bin": "4-5",
-    "frequency": 10
-}, {
-    "bin": ">5",
-    "frequency": 5
+    "bin": "4+",
+    "frequency": 1
 }];
 
 
@@ -644,58 +571,58 @@ var fatalCrashesFre = [ {
 var severeInjuryCrashesRank = [
     {
         "zone": "Dandenong",
-        "number": 188
+        "number": 78
     },
     {
         "zone": "Melbourne",
-        "number": 186
-    },
-    {
-        "zone": "Richmond (Vic.)",
-        "number": 105
-    },
-    {
-        "zone": "Southbank",
-        "number": 96
+        "number": 75
     },
     {
         "zone": "Preston",
-        "number": 96
+        "number": 39
+    },
+    {
+        "zone": "Richmond (Vic.)",
+        "number": 36
+    },
+    {
+        "zone": "Epping",
+        "number": 30
     }
 ]
 
 
 
 var severeInjuryCrashesFre = [ {
-    "bin": "<10",
-    "frequency": 14
+    "bin": "0-5",
+    "frequency": 48
 }, {
-    "bin": "11-21",
-    "frequency": 27
+    "bin": "6-10",
+    "frequency": 93
 }, {
-    "bin": "22-32",
+    "bin": "11-15",
     "frequency": 65
 }, {
-    "bin": "33-43",
-    "frequency": 69
+    "bin": "16-20",
+    "frequency": 38
 }, {
-    "bin": "44-54",
-    "frequency": 50
+    "bin": "21-24",
+    "frequency": 18
 }, {
-    "bin": "55-65",
-    "frequency": 25
+    "bin": "25-29",
+    "frequency": 9
 }, {
-    "bin": "66-76",
-    "frequency": 22
+    "bin": "30-34",
+    "frequency": 1
 }, {
-    "bin": "77-87",
-    "frequency": 8
+    "bin": "35-39",
+    "frequency": 2
 }, {
-    "bin": "88-98",
-    "frequency": 3
+    "bin": "40-44",
+    "frequency": 0
 }, {
-    "bin": ">99",
-    "frequency": 3
+    "bin": "45+",
+    "frequency": 2
 }];
 
 
@@ -708,24 +635,24 @@ var severeInjuryCrashesFre = [ {
 
 var nighttimeCrashesRank = [
     {
-        "zone": "Melbourne",
-        "number": 177
+        "zone": "Dandenong",
+        "number": 53
     },
     {
-        "zone": "Dandenong",
-        "number": 136
+        "zone": "Melbourne",
+        "number": 53
+    },
+    {
+        "zone": "Preston",
+        "number": 36
     },
     {
         "zone": "Southbank",
-        "number": 92
+        "number": 36
     },
     {
         "zone": "Richmond (Vic.)",
-        "number": 91
-    },
-    {
-        "zone": "St Kilda",
-        "number": 82
+        "number": 27
     }
 ]
 
@@ -733,35 +660,35 @@ var nighttimeCrashesRank = [
 
 
 var nighttimeCrashesFre = [ {
-    "bin": "<9",
-    "frequency": 15
+    "bin": "0-3",
+    "frequency": 55
 }, {
-    "bin": "10-19",
-    "frequency": 44
-}, {
-    "bin": "20-30",
-    "frequency": 77
-}, {
-    "bin": "31-40",
+    "bin": "4-7",
     "frequency": 78
 }, {
-    "bin": "41-51",
-    "frequency": 37
+    "bin": "8-10",
+    "frequency": 51
 }, {
-    "bin": "52-61",
-    "frequency": 21
+    "bin": "11-13",
+    "frequency": 49
 }, {
-    "bin": "62-71",
+    "bin": "14-17",
+    "frequency": 16
+}, {
+    "bin": "18-20",
     "frequency": 9
 }, {
-    "bin": "72-82",
-    "frequency": 3
+    "bin": "21-23",
+    "frequency": 11
 }, {
-    "bin": "83-92",
+    "bin": "24-27",
+    "frequency":2
+}, {
+    "bin": "28-30",
     "frequency": 1
 }, {
-    "bin": ">93",
-    "frequency": 2
+    "bin": "31+",
+    "frequency":4
 }];
 
 
@@ -772,23 +699,23 @@ var nighttimeCrashesFre = [ {
 var weekdayCrashesRank = [
     {
         "zone": "Melbourne",
-        "number": 530
+        "number": 192
     },
     {
         "zone": "Dandenong",
-        "number": 447
+        "number": 181
     },
     {
         "zone": "Preston",
-        "number": 280
+        "number": 106
     },
     {
         "zone": "Richmond (Vic.)",
-        "number": 266
+        "number": 87
     },
     {
-        "zone": "Brunswick",
-        "number": 236
+        "zone": "North Melbourne",
+        "number": 81
     }
 ]
 
@@ -796,34 +723,34 @@ var weekdayCrashesRank = [
 
 
 var weekdayCrashesFre = [ {
-    "bin": "<30",
-    "frequency": 14
-}, {
-    "bin": "31-61",
-    "frequency": 37
-}, {
-    "bin": "62-92",
-    "frequency": 96
-}, {
-    "bin": "93-123",
+    "bin": "0-12",
     "frequency": 53
 }, {
-    "bin": "124-154",
-    "frequency": 46
+    "bin": "13-24",
+    "frequency": 99
 }, {
-    "bin": "155-186",
-    "frequency": 23
+    "bin": "25-36",
+    "frequency": 64
 }, {
-    "bin": "187-217",
-    "frequency": 7
+    "bin": "37-48",
+    "frequency": 34
 }, {
-    "bin": "218-248",
-    "frequency": 7
+    "bin": "49-60",
+    "frequency": 10
 }, {
-    "bin": "249-279",
-    "frequency": 2
+    "bin": "61-72",
+    "frequency": 9
 }, {
-    "bin": ">280",
+    "bin": "73-84",
+    "frequency": 3
+}, {
+    "bin": "85-96",
+    "frequency": 1
+}, {
+    "bin": "97-108",
+    "frequency":1
+}, {
+    "bin": "109+",
     "frequency": 2
 }];
 
@@ -836,23 +763,23 @@ var weekdayCrashesFre = [ {
 var weekendCrashesRank = [
     {
         "zone": "Melbourne",
-        "number": 141
+        "number": 52
+    },
+    {
+        "zone": "Emerald - Cockatoo",
+        "number": 33
     },
     {
         "zone": "Dandenong",
-        "number": 128
-    },
-    {
-        "zone": "St Kilda",
-        "number": 87
-    },
-    {
-        "zone": "Richmond (Vic.)",
-        "number": 84
+        "number": 31
     },
     {
         "zone": "Preston",
-        "number": 75
+        "number": 30
+    },
+    {
+        "zone": "Yarra Valley",
+        "number": 29
     }
 ]
 
@@ -860,35 +787,35 @@ var weekendCrashesRank = [
 
 
 var weekendCrashesFre = [ {
-    "bin": "<7",
-    "frequency": 14
+    "bin": "0-3",
+    "frequency": 47
 }, {
-    "bin": "8-15",
-    "frequency": 31
+    "bin": "4-7",
+    "frequency": 67
 }, {
-    "bin": "16-23",
-    "frequency": 56
+    "bin": "8-10",
+    "frequency": 69
 }, {
-    "bin": "24-32",
-    "frequency": 70
-}, {
-    "bin": "33-40",
+    "bin": "11-13",
     "frequency": 52
 }, {
-    "bin": "41-48",
-    "frequency": 24
+    "bin": "14-16",
+    "frequency": 16
 }, {
-    "bin": "49-57",
-    "frequency": 22
+    "bin": "17-20",
+    "frequency": 7
 }, {
-    "bin": "58-65",
-    "frequency": 10
+    "bin": "21-23",
+    "frequency": 7
 }, {
-    "bin": "66-73",
-    "frequency": 3
+    "bin": "24-26",
+    "frequency": 5
 }, {
-    "bin": ">74",
+    "bin": "27-29",
     "frequency": 2
+}, {
+    "bin": "30+",
+    "frequency": 4
 }];
 
 
@@ -896,23 +823,23 @@ var weekendCrashesFre = [ {
 var bicycleCrashesRank = [
     {
         "zone": "Melbourne",
-        "number": 242
-    },
-    {
-        "zone": "Brunswick",
-        "number": 134
+        "number": 77
     },
     {
         "zone": "Richmond (Vic.)",
-        "number": 105
+        "number": 43
     },
     {
         "zone": "Carlton",
-        "number": 89
+        "number": 39
     },
     {
-        "zone": "East Melbourne",
-        "number": 87
+        "zone": "Fitzroy",
+        "number": 37
+    },
+    {
+        "zone": "Brunswick",
+        "number": 34
     }
 ]
 
@@ -920,35 +847,35 @@ var bicycleCrashesRank = [
 
 
 var bicycleCrashesFre = [ {
-    "bin": "<13",
-    "frequency": 32
+    "bin": "0-5",
+    "frequency": 197
 }, {
-    "bin": "14-27",
-    "frequency": 190
+    "bin": "6-10",
+    "frequency": 43
 }, {
-    "bin": "28-42",
-    "frequency": 35
+    "bin": "11-14",
+    "frequency": 15
 }, {
-    "bin": "43-56",
-    "frequency": 13
+    "bin": "15-19",
+    "frequency": 5
 }, {
-    "bin": "57-70",
-    "frequency": 4
+    "bin": "20-24",
+    "frequency": 6
 }, {
-    "bin": "71-84",
-    "frequency": 7
+    "bin": "25-29",
+    "frequency": 5
 }, {
-    "bin": "85-99",
-    "frequency": 3
+    "bin": "30-34",
+    "frequency": 0
 }, {
-    "bin": "100-113",
+    "bin": "35-39",
     "frequency": 2
 }, {
-    "bin": "114-127",
-    "frequency": 1
+    "bin": "40-43",
+    "frequency": 2
 }, {
-    "bin": ">128",
-    "frequency": 0
+    "bin": "44+",
+    "frequency": 1
 }];
 
 
@@ -958,23 +885,23 @@ var bicycleCrashesFre = [ {
 var pedestrianCrashesRank = [
     {
         "zone": "Melbourne",
-        "number": 204
-    },
-    {
-        "zone": "St Kilda",
-        "number": 70
+        "number": 78
     },
     {
         "zone": "Dandenong",
-        "number": 70
+        "number": 30
     },
     {
-        "zone": "Richmond (Vic.)",
-        "number": 65
+        "zone": "Brunswick",
+        "number": 21
+    },
+    {
+        "zone": "East Melbourne",
+        "number": 21
     },
     {
         "zone": "Preston",
-        "number": 65
+        "number": 21
     }
 ]
 
@@ -982,35 +909,35 @@ var pedestrianCrashesRank = [
 
 
 var pedestrianCrashesFre = [ {
-    "bin": "<11",
-    "frequency": 21
+    "bin": "0-5",
+    "frequency": 197
 }, {
-    "bin": "12-23",
-    "frequency": 161
+    "bin": "6-10",
+    "frequency": 51
 }, {
-    "bin": "24-35",
-    "frequency": 69
+    "bin": "11-15",
+    "frequency": 19
 }, {
-    "bin": "36-47",
-    "frequency": 22
+    "bin": "16-20",
+    "frequency": 4
 }, {
-    "bin": "48-59",
-    "frequency": 10
+    "bin": "21-24",
+    "frequency": 3
 }, {
-    "bin": "60-71",
+    "bin": "25-29",
     "frequency": 0
 }, {
-    "bin": "72-83",
-    "frequency": 5
+    "bin": "30-34",
+    "frequency": 1
 }, {
-    "bin": "84-95",
+    "bin": "35-39",
     "frequency": 0
 }, {
-    "bin": "96-108",
+    "bin": "40-44",
     "frequency": 0
 }, {
-    "bin": ">108",
-    "frequency": 0
+    "bin": "45+",
+    "frequency": 1
 }];
 
 
@@ -1019,23 +946,23 @@ var pedestrianCrashesFre = [ {
 var motorbikeCrashesRank = [
     {
         "zone": "Melbourne",
-        "number": 99
-    },
-    {
-        "zone": "Richmond (Vic.)",
-        "number": 62
-    },
-    {
-        "zone": "Emerald - Cockatoo",
-        "number": 57
-    },
-    {
-        "zone": "South Yarra - East",
-        "number": 56
+        "number": 38
     },
     {
         "zone": "Dandenong",
-        "number": 56
+        "number": 30
+    },
+    {
+        "zone": "Emerald - Cockatoo",
+        "number": 30
+    },
+    {
+        "zone": "Yarra Valley",
+        "number": 27
+    },
+    {
+        "zone": "Footscray",
+        "number": 21
     }
 ]
 
@@ -1043,33 +970,33 @@ var motorbikeCrashesRank = [
 
 
 var motorbikeCrashesFre = [ {
-    "bin": "<4",
-    "frequency": 5
+    "bin": "0-2",
+    "frequency": 93
 }, {
-    "bin": "5-10",
-    "frequency": 65
+    "bin": "3-5",
+    "frequency": 86
 }, {
-    "bin": "11-16",
-    "frequency": 107
+    "bin": "6-7",
+    "frequency": 59
 }, {
-    "bin": "17-22",
-    "frequency": 45
+    "bin": "8-10",
+    "frequency": 15
 }, {
-    "bin": "23-28",
-    "frequency": 25
-}, {
-    "bin": "29-33",
-    "frequency": 13
-}, {
-    "bin": "34-39",
+    "bin": "11-12",
     "frequency": 3
 }, {
-    "bin": "40-45",
-    "frequency": 3
-}, {
-    "bin": "46-51",
+    "bin": "13-14",
     "frequency": 6
 }, {
-    "bin": ">52",
-    "frequency": 2
+    "bin": "15-17",
+    "frequency": 5
+}, {
+    "bin": "18-19",
+    "frequency": 4
+}, {
+    "bin": "20-21",
+    "frequency": 1
+}, {
+    "bin": "22+",
+    "frequency": 4
 }];

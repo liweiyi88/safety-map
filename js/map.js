@@ -535,6 +535,7 @@ function clickToPreFill(d)
     $('#residential').val(prediction[zoneNumber]['resident']);
     $('#commercial').val(prediction[zoneNumber]['commercial']);
     $('#mixIndex').val(prediction[zoneNumber]['mixIndex']);
+    $('.factor').val(prediction[zoneNumber]['factor']);
     $('.result-zone').text(d.properties.SA2_NAME);
     $('#result-zone').hide();
     $('#result').text('');

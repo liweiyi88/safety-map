@@ -64,12 +64,13 @@ if($filename != null)
            // echo $data[0];
             $zone = array();
             $zone['zoneNumber'] = $data[0];
-            $zone['vkt'] = $data[2];
-            $zone['weeklyIncome'] = $data[3];
-            $zone['bike'] = $data[4];
-            $zone['resident'] = $data[5];
-            $zone['commercial'] = $data[6];
-            $zone['mixIndex'] = $data[7];
+            $zone['vkt'] = $data[1];
+            $zone['weeklyIncome'] = $data[2];
+            $zone['bike'] = $data[3];
+            $zone['resident'] = $data[4];
+            $zone['commercial'] = $data[5];
+            $zone['mixIndex'] = $data[6];
+            $zone['factor'] = $data[7];
 
             $zones[$zone['zoneNumber']] = $zone;
         }

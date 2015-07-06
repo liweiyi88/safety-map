@@ -238,55 +238,55 @@ d3.json("pop.json", function (error, pop) {
 
         if(selectedValue == 'vehicle-p')
         {
-            createMap('VKT_2013__',vktFre,vktRank,'VKT',1.27,2.99,5.36,9.16);
+            createMap('VKT_2013__',vktFre,vktRank,'VKT',90.134,187,600);
         }
         else if(selectedValue == 'crash-p')
         {
-            createMap('TotalC_204',crashFre,crashRank,'All Crashes',55,111,189,356);
+            createMap('TotalC_204',crashFre,crashRank,'All Crashes',19,30,46,244);
         }
         else if(selectedValue == 'crash-4-p')
         {
-            createMap('age4_2013',crash4Fre,crash4Rank,'',2,4,7,14);
+            createMap('age4_2013',crash4Fre,crash4Rank,'',0,1,2,3);
         }
         else if(selectedValue == 'crash-60-p')
         {
-            createMap('age60_2013',crash60Fre,crash60Rank,'',3,6,9,13);
+            createMap('age60_2013',crash60Fre,crash60Rank,'',5,8,12,49);
         }
         else if(selectedValue == 'bike-p')
         {
-            createMap('Bike_2013',bicycleCrashesFre,bicycleCrashesRank,'',8,21,46,135);
+            createMap('Bike_2013',bicycleCrashesFre,bicycleCrashesRank,'',1,2,5,77);
         }
         else if(selectedValue == 'pedestrian-p')
         {
-            createMap('Pedes_2013',pedestrianCrashesFre,pedestrianCrashesRank,'',9,20,39,71);
+            createMap('Pedes_2013',pedestrianCrashesFre,pedestrianCrashesRank,'',1,2,5,78);
         }
         else if(selectedValue == 'motor-p')
         {
-            createMap('Mbike_2013',motorbikeCrashesFre,motorbikeCrashesRank,'',7,16,30,52);
+            createMap('Mbike_2013',motorbikeCrashesFre,motorbikeCrashesRank,'',2,4,6,38);
         }
         else if(selectedValue == 'truck-p')
         {
-            createMap('Truck_2013', truckCrashesFre,truckCrashesRank,'',2,6,11,17);
+            createMap('Truck_2013', truckCrashesFre,truckCrashesRank,'',0,1,2,3);
         }
         else if(selectedValue == 'fatal-p')
         {
-            createMap('Fatal_2013',fatalCrashesFre,fatalCrashesRank,'',0,1,2,5);
+            createMap('Fatal_2013',fatalCrashesFre,fatalCrashesRank,'',0,1,2,3);
         }
         else if(selectedValue == 'severe-p')
         {
-            createMap('Serious_24',severeInjuryCrashesFre,severeInjuryCrashesRank,'',18,34,54,106);
+            createMap('Serious_24',severeInjuryCrashesFre,severeInjuryCrashesRank,'',6,9,15,78);
         }
         else if(selectedValue == 'night-p')
         {
-            createMap('NightT_204',nighttimeCrashesFre,nighttimeCrashesRank,'',13,28,47,93);
+            createMap('NightT_204',nighttimeCrashesFre,nighttimeCrashesRank,'',4,7,11,53);
         }
         else if(selectedValue == 'weekday-p')
         {
-            createMap('WeekD_2013',weekdayCrashesFre,weekdayCrashesRank,'',44,89,156,281);
+            createMap('WeekD_2013',weekdayCrashesFre,weekdayCrashesRank,'',14,22.5,34,192);
         }
         else if(selectedValue == 'weekend-p')
         {
-            createMap('WeekE_2013',weekendCrashesFre,weekendCrashesRank,'',12,24,40,76);
+            createMap('WeekE_2013',weekendCrashesFre,weekendCrashesRank,'',4,7,11,52);
         }
 
         $('#titleofchart').text(selectedText);

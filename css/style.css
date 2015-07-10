@@ -307,6 +307,7 @@ svg
 
 .prediction
 {
+    display:none;
     width: 220px;
     position: absolute;
     background-color: #ffffff;

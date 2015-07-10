@@ -312,10 +312,11 @@ svg
     background-color: #ffffff;
     font-size: 10px;
     padding: 5px 15px 5px 15px;
-    margin-top: 120px;
+    top:30px;
     margin-left: 30px;
     border-radius: 4px;
     opacity: 0.9;
+    z-index: 999999999999999999999999999 !important;
 }
 
 .input-sm
@@ -340,3 +341,49 @@ h1,h2,h3,h4,h5,h6
     font-family: 'Open Sans', sans-serif;
 }
 
+
+.ui-widget-content {
+    border-top:0px;
+    border-right:0px;
+    border-bottom: 1px solid #eeeeee;
+    color: #222222;
+}
+
+.ui-resizable-s
+{
+    cursor: row-resize;
+    left:50%;
+    width:38px;
+    height:21px;
+    background-color: white;
+    border: 1px #eeeeee solid;
+    padding-left: 9px;
+    padding-right: 9px;
+
+}
+
+
+.first-line, .second-line
+{
+    width: 18px;
+    border: 1px #d0d0d0 solid;
+    border-radius: 1px;
+}
+
+.first-line
+{
+    margin-top: 7px;
+}
+
+.second-line
+{
+    margin-top: 2px;
+}
+
+.ui-icon, .ui-widget-content .ui-icon{
+    background-image: url("");
+}
+
+.map-container{
+    max-height:600px;
+}

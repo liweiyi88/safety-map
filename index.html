@@ -7,10 +7,12 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/custom-select.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link href="css/bootstrap-select.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/scrollyou.css" rel="stylesheet">
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+
 </head>
 <body>
 
@@ -47,7 +49,7 @@
     </div>
 </section>
 
-
+<div class="map-container ui-widget-content"  id="resizable" style="z-index: 1;">
 <div class="map">
     <div id="zoom-in" class="zoom-btn leaflet-control-zoom-in">+</div>
     <div id="zoom-out" class="zoom-btn leaflet-control-zoom-out">-</div>
@@ -121,9 +123,10 @@
     </div>
    <div id="map"></div>
 </div>
+</div>
 
 
-<div class="charts" style="margin-top:100px;">
+<div class="charts" style="position:absolute; width: 100%; padding-top:100px; z-index: 990; background-color: white;">
     <b><h1 class="result-zone text-center" style="font-weight: 700;">Melbourne</h1></b>
     <h3 class="text-center">General crash statistics in 2013</h3>
 
@@ -178,6 +181,7 @@
 </script>
 
 <script src="js/lib/jquery.mousewheel.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="js/lib/leaflet.js"></script>
 <script src="js/lib/modernizr.custom.79639.js"></script>
@@ -364,7 +368,14 @@
             // all dropdowns
             $('.wrapper-dropdown-3').removeClass('active');
         });
+    });
 
+    $(function() {
+        $( "#resizable" ).resizable({grid: [10000, 1],
+                                     minHeight: 350,
+        });
+
+        $('.ui-resizable-s').append('<div class="first-line"></div><div class="second-line">');
     });
 
 </script>

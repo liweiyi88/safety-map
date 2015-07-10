@@ -203,6 +203,14 @@ svg
     background-color:#eeeeee;
 }
 
+.home img
+{
+    position:absolute;
+    top:30px;
+    left:80px;
+    width:160px;
+}
+
 
 .view
 {
@@ -308,12 +316,13 @@ svg
 .prediction
 {
     display:none;
-    width: 220px;
+    width: 300px;
     position: absolute;
     background-color: #ffffff;
-    font-size: 10px;
+    font-size: 14px;
+    line-height: 1.4em;
     padding: 5px 15px 5px 15px;
-    top:30px;
+    top:100px;
     margin-left: 30px;
     border-radius: 4px;
     opacity: 0.9;
@@ -386,5 +395,5 @@ h1,h2,h3,h4,h5,h6
 }
 
 .map-container{
-    max-height:600px;
+    max-height:700px;
 }

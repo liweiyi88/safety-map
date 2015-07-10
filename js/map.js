@@ -74,17 +74,17 @@ d3.json("pop.json", function (error, pop) {
         .enter().append("svg:path")
         .attr("d", path)
         .attr("fill", function (d) {
-            var pop = d.properties.TotalC_203;
-            if (pop <= 55) {
+            var pop = d.properties.TotalC_204;
+            if (pop <= 19) {
                 return firstColor;
             }
-            else if (pop > 55 && pop <= 111) {
+            else if (pop > 19 && pop <= 30) {
                 return secondColor;
             }
-            else if (pop > 111 && pop <= 189) {
+            else if (pop > 30 && pop <= 46) {
                 return thirdColor;
             }
-            else if (pop > 189 && pop <= 356) {
+            else if (pop > 46 && pop <= 243) {
                 return fourthColor;
             }
             else
@@ -213,6 +213,7 @@ d3.json("pop.json", function (error, pop) {
                     data_2013 = d.properties.WeekE_2013;
                 }
 
+                getCrashOldData(data_2009)
                 getCrashData(data_2013);
                 getTotalCrashData(d);
                 makeDetailChart(data_2009,data_2010,data_2011,data_2012,data_2013);
@@ -555,6 +556,12 @@ function getCrashData(data_2013)
 {
     var number = data_2013;
     $('.crash-data').text(number);
+}
+
+function getCrashOldData(data_2009)
+{
+    var number = data_2009;
+    $('.crash-old-data').text(number);
 }
 
 function getTotalCrashData(d)

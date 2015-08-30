@@ -106,7 +106,7 @@
             <option value="vehicle-p">Vehicle Kilometers Travelled (million)</option>
             <option value="crash-4-p">Crashes in which a 4-16 year old involved</option>
             <option value="crash-60-p">Crashes in which a 60+ year old involved</option>
-            <option value="bike-p" data-subtext="scroll down to see more">Bicycle Crashes</option>
+            <option value="bike-p">Bicycle Crashes</option>
             <option value="pedestrian-p">Pedestrian Crashes</option>
             <option value="motor-p">Motorbike Crashes</option>
             <option value="truck-p">Truck Crashes</option>
@@ -148,13 +148,19 @@
             </table>
         </div>
 
-  <div class="">
+  <div>
         <h3 class="text-center" id="titleofchart" style="font-weight:700;">Total Crashes</h3>
         <h5 class="text-center">The number of <b><span id="crash-type">Total Crashes</span></b> in <span class="result-zone">Melbourne</span> in 2013 was <span class="crash-data">9,934</span> changed from <span class="crash-old-data">9,741</span> in 2009, based on data provided by VicRoads</h5><br>
         <div id="detail-chart" style="height:300px; width:50%; margin-right:auto; margin-left:auto;"></div>
   </div>
 
+    <div class="footer">
+        <p class="text-center">Developed at City Science research group at Monash University by Meead Saberi and Julian Li </p>
+    </div>
 </div>
+
+
+
 
 
 
@@ -216,6 +222,7 @@
     }
     $(document).ready(function()
     {
+        makeDetailChart('9741','9613','9835','9864','9934');
 
         $("#view").click(function() {
             $('html, body').animate({

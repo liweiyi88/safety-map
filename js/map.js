@@ -1,9 +1,6 @@
 var w = parseInt(d3.select('.map').style('width'), 10);
 var h = parseInt(d3.select('.map').style('height'), 10);
 
-
-console.log(w);
-
 var centerX = 144.75;
 var centerY = -37.70;
 
